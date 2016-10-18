@@ -1,0 +1,19 @@
+.Python
+.cache/
+__pycache__/
+bin/
+include/
+lib/
+pip-selfcheck.json
+share/
+testbank.egg-info
+play.py
+
+### OS Files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

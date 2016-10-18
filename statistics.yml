@@ -1,0 +1,17 @@
+-
+  question: |
+    Pretend you are interested in determinging which turtles, sea turtles, box turtles, or snapping turtles, are better snow skiers.  Briefly outline a design for this study, making sure to include all principles of experimental design.
+  answer: some words about 3 principles of experimental desgin
+  tags: [introduction, experimental design]
+-
+  question: |
+    Consider the new statistic $\kappa = \frac{\bar{x}}{median} - 1$, which can be used as a measure of skewness.  Assume all the data of interest are positive, e.g.\ $x_i > 0$ for all $i$.  Identify the skewness for the following values of $\kappa$ and explain your reasoning.
+  parts:
+    - $\kappa < 0$
+    - $\kappa > 0$
+    - $\kappa = 0$
+  answer:
+    - right skewed
+    - left skewed
+    - symmetric
+  tags: [introduction, skew]
