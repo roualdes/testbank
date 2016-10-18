@@ -1,21 +1,16 @@
 from PyQt5.QtWidgets import QApplication, QTableView, QWidget, QVBoxLayout, QMainWindow, QLineEdit, QComboBox, QLabel, QGridLayout, QMenu
 from PyQt5 import QtCore, QtGui
-
 import pandas as pd
 import numpy as np
-
 import yaml
 import sys
-# import sip
-
-# sip.setapi('QString', 1)
-# sip.setapi('QVariant', 1)
 
 class Table(QtCore.QAbstractTableModel):
     def __init__(self, parent, *args):
         super(Table, self).__init__(parent)
         self.data = None
-        self.header = ['question', 'parts', 'answer', 'tags']
+        # determines order of columns
+        self.header = ['question', 'parts', 'answer', 'tags', ]
 
     def update(self, data):
         self.data = data
@@ -73,46 +68,13 @@ class tbFrame(QMainWindow):
         self.proxy.setSourceModel(self.model)
 
         self.view.setModel(self.proxy)
-        self.comboBox.addItems(['question', 'parts', 'answer', 'tags'])
+        self.comboBox.addItems(self.model.header)
 
         self.lineEdit.textChanged.connect(self.on_lineEdit_textChanged)
         self.comboBox.currentIndexChanged.connect(self.on_comboBox_currentIndexChanged)
 
         self.horizontalHeader = self.view.horizontalHeader()
-        # self.horizontalHeader.sectionClicked.connect(self.on_view_horizontalHeader_sectionClicked)
 
-    # @QtCore.pyqtSlot(int)
-    # def on_view_horizontalHeader_sectionClicked(self, logicalIndex):
-    #     self.logicalIndex = logicalIndex
-    #     self.menuValues = QMenu(self)
-    #     self.signalMapper = QtCore.QSignalMapper(self)
-
-    #     self.comboBox.blockSignals(True)
-    #     self.comboBox.setCurrentIndex(self.logicalIndex)
-    #     self.comboBox.blockSignals(True)
-
-    #     valuesUnique = [self.model.item(row, self.logicalIndex).text()
-    #                     for row in range(self.model.rowCount())]
-
-    #     actionAll = QtGui.QAction("All", self)
-    #     actionAll.triggered.connect(self.on_actionAll_triggered)
-    #     self.menuValues.addAction(actionAll)
-    #     self.menuValues.addSeparator()
-
-    #     for actionNumber, actionName in enumerate(sorted(list(set(valuesUnique)))):
-    #         action = QtGui.QAction(actionName, self)
-    #         self.signalMapper.setMapping(action, actionNumber)
-    #         action.triggered.connect(self.signalMapper.map)
-    #         self.menuValues.addAction(action)
-
-    #     self.signalMapper.mapped.connect(self.on_signalMapper_mapped)
-
-    #     headerPos = self.view.mapToGlobal(self.horizontalHeader.pos())
-
-    #     posY = headerPos.y() + self.horizontalHeader.height()
-    #     posX = headerPos.x() + self.horizontalHeader.sectionPosition(self.logicalIndex)
-
-    #     self.menuValues.exec_(QtCore.QPoint(posX, posY))
 
     @QtCore.pyqtSlot()
     def on_actionAll_triggered(self):
@@ -151,8 +113,7 @@ class tbFrame(QMainWindow):
         y = yaml.load(open(self.f, 'r'))
         df = pd.io.json.json_normalize(y)
         df = df.replace(np.nan, ' ', regex=True)
-        # must match column order
-        return df[['question', 'parts', 'answer', 'tags']]
+        return df[self.model.header]
 
 def main():
     app = QApplication(sys.argv)
