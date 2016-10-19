@@ -1,0 +1,303 @@
+% Experimental Design
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defproblem}{Avandia_setup}[fragile]
+Rosiglitazone is the active ingredient in the controversial type~2 diabetes medicine Avandia and hasbeen linked to an increased risk of serious cardiovascular problems such as stroke, heart failure, and death. A common alternative treatment is pioglitazone, the active ingredient in a diabetes medicine called Actos. Data collected as part of a nationwide retrospective observational study of 227,571 Medicare beneficiaries aged 65 years or older are summarized in the contingency table below.
+\begin{center}
+\begin{tabular}{ll  cc c} 
+                                &   & \multicolumn{2}{c}{\textit{Cardiovascular problems}} \\
+\cline{3-4} 
+                                    &               & Yes   & No        & Total \\
+\cline{2-5}
+\multirow{2}{*}{\textit{Treatment}} & Rosiglitazone & 2,593 & 65,000    & 67,593 \\
+                                    & Pioglitazone  & 5,386 & 154,592   & 159,978 \\
+\cline{2-5}
+                                    & Total         & 7,979 & 219,592   & 227,571
+\end{tabular}
+\end{center}
+Use the information in this table to answer the following questions. %When answering True/False questions, If false, explain why. \textit{Be careful:} The reasoning may be wrong even if the statement's conclusion is correct. In such cases, the statement should be considered false.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{Avandia_counts}[fragile]
+How many patients on Pioglitazone had cardiovascular problems? How many patients on Rosiglitazone had problems? Can we conclude from these numbers that the rate of cardiovascular problems for those on a Pioglitazone treatment is higher.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+5,386 patients on pioglitazone had cardiovascular problems compared to 2,593 on Rosiglitazone. We cannot make this claim from these counts. Instead of comparing counts, we should compare percentages of people in each group who suffered cardiovascular problems.
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{Avandia_rowprop}[fragile]
+Do the data suggest that diabetic patients who are taking rosiglitazone are more likely to have cardiovascular problems than those on pioglitazone? Justify your answer. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+Yes it does since the rate of incidence was (2,593 / 67,593 = 0.038) 3.8\% for patients on rosiglitazone, while it was only (5,386 / 159,978 = 0.034) 3.4\% for patients on pioglitazone.
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{Avandia_causation}[fragile]
+True or False: The fact that the rate of incidence is higher for the rosiglitazone group proves that rosiglitazone causes serious cardiovascular problems. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+False. Association does not imply causation. We cannot infer a causal relationship based on an observational study. The difference between the two rates is subtle.
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{Avandia_marginalprop}[fragile]
+What proportion of all patients had cardiovascular problems?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The proportion of all patients who had cardiovascular problems is $\frac{7,979}{227,571} \approx 0.035$
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+
+%%%% READING COMPREHENSION %%%%%%
+
+\begin{defproblem}{JIE_RQ}[fragile]
+What are the researchers evaluating? In other words, what is their primary research question? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The researchers ``sought to evaluate the effect of hospital intervention on mortality after penetrating trauma using a method that allowed for interval censoring of the precise times of death".
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_POP}[fragile]
+Who is the population being studied? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The population is persons with penetrating trauma. 
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_SAMPLE}[fragile]
+Where did they collect the sample data from?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+They collected data from the National Trauma Data Bank and the National Violent Death Reporting Systems.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_STUDY_TYPE}[fragile]
+Is this a controlled experiment or an observational study? Explain your reasoning.
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Observational.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_OUTCOME}[fragile]
+What is the primary outcome?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Patient Mortality.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_PREDICTORS}[fragile]
+What are some of the associated risk factors? I.e. What are the predictors they investigated? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Older age, female sex, firearm mechanism, injuries involving the head, neck or trunk.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_CONCLUSIONS}[fragile]
+What did they find about the association between hospital intervention and patient mortality?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Admission to a verified level I trauma center (compared to other hospitals in the NTDB) was associated with a further reduction in mortality.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{JIE_CAUSATION}[fragile]
+Does this article imply that being admitted to a verified level I trauma center will reduce the chance of dying after experiencing penetrating trauma? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%----------AIDERP----------------%
+
+\begin{defproblem}{AIDERP_RQ}[fragile]
+What are the researchers evaluating? In other words, what is their primary research question? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Behavior change of recently HIV-infected men who have sex with men (MSM).
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f4b}[fragile]
+Where did they collect the data from?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+A survey was conducted as part of the Southern California Acute Infection and Early Disease Research Program.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f4c}[fragile]
+Is this a controlled experiment or an observational study? Explain your reasoning?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Observational. The survey is collecting information on behavior done in the past. It is not ethical for researchers to control any of the explanatory variables in this study.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f4d}[fragile]
+What is the primary outcome?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The primary outcome of the research article is the percent of participants who have had recent unprotected anal intercourse (UAI) with varying HIV-status partners.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f4e}[fragile]
+What are some of the associated risk factors? I.e. What other factors are associated with the outcome?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Baseline drug use, use of antiretroviral therapy, detectable viral load, partnership dynamics.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f4f}[fragile]
+What did they find about the relationship between viral load and rate of unprotected anal intercourse?
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+``HIV viral load did not influence the rate of UAI" among participants.
+\vspace{-1cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+%----------chocolate----------------%
+
+\begin{defproblem}{chocolate_rq}[fragile]
+What are the researchers evaluating? In other words, what is their primary research question? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Does cocoa improve weight loss? 
+\vspace{-2.5cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%-%
+
+\begin{defproblem}{chocolate_oc}[fragile]
+Identify two response variables. 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Responses include: weight, BMI, waist-to-hip ratio, cholesterol, mental well-being.
+    \vspace{-2.5cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%-%
+
+\begin{defproblem}{chocolate_tx}[fragile]
+What is the treatment factor? What are the treatment levels? 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The treatment factor is type of diet. The levels are: 
+\begin{itemize}
+  \item Chocolate group: low carb diet with 42g of 81\% cocoa
+  \item Low-carb group: low carb diet only
+  \item Control: Unrestricted choice of diet. 
+\end{itemize}
+\vspace{-2.5cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%-%
+
+\begin{defproblem}{chocolate_blind}[fragile]
+Was this study blinded? Justify your answer. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+No. The participants knew what diet group they were in. 
+\vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%-%
+
+\begin{defproblem}{chocolate_study_type}[fragile]
+Is this a controlled experiment or an observational study? Explain your reasoning?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+This was a controlled experiment. 
+\vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%-%
+
+\begin{defproblem}{chocolate_conclusion}[fragile]
+So should I start eating a ton of chocolate and expect to loose weight and feel great? Justify your answer. 
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+No. The results of this study are very unclear. Even if there is evidence presented in the rest of the paper of a strong association between eating chocolate and weight loss, correlation or association does not imply causation. Furthermore, this evidence seems to contradict the general body of current scientific knowledge about chocolate and general health. 
+\vspace{-2.5cm}
+    \end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defproblem}{}[fragile]
+
+\begin{onlysolution}[fragile]%
+\begin{solution}
+
+\end{solution}
+\end{onlysolution}
+\end{defproblem}

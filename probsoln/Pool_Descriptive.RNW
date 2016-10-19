@@ -1,0 +1,866 @@
+% Data types and descriptive exam questions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<echo=FALSE, warning=FALSE, message=FALSE>>=
+library(lattice); library(xtable)
+library(ggplot2); library(dplyr)
+library(MASS);library(openintro)
+
+ncbirths <- read.csv("NCbirths.csv",header=TRUE)
+fuelly <- read.table("fuelups.csv", sep=",", header=TRUE)
+fuelly$date <- as.Date(as.character(fuelly$fuelup_date), format="%m/%d/%Y")
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+@
+
+
+<<motivation, echo=FALSE, eval=FALSE>>=
+@
+
+%%%% MOTIVATIONAL %%%%%%
+\begin{defproblem}{whyr}[fragile]
+Other than ``To pass this class", what is one good reason you should learn how to program in \R{R}?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+A few examples of appropriate answers.
+\begin{itemize}
+  \item It's free, so I can use it outside of school.
+  \item It is becoming more popular in my field as an statistical analytic tool.
+  \item It's open source, so I could contribute my own packages for others to use.
+  \item Because I plan on going to graduate school and doing research, and want to be able to conduct my own statistical analyses that are more complex than what Excel can handle.
+  \item Because I want to make better graphics than what can be made in Excel.
+\end{itemize}
+
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{whyrr}[fragile]
+Read the attached summary of an article from the Economist and give one example of current research in your field where reproducibility would be essential.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{pipeline}[fragile]
+On the page titled ``Research Pipeline", which portions can you do in a single Markdown document?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+  Everything after Measured data is collected.
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+%%%% DATA TYPES AND STRUCTURE %%%%%%
+
+<<data types and structure, echo=FALSE, eval=FALSE>>=
+Fuelly <- function(x){}
+@
+% Your instructor owns both a truck (Nissan Frontier) and a car (Ford Focus). At each fuel up she records which car she is filling up, the date, the odometer reading, the gallons put into the tank, and the price of fuel at that time.
+
+
+\begin{defproblem}{fuelly_catcont}[fragile]
+Identify each variable as categorical or numerical.
+  \begin{onlysolution}[fragile]%
+\begin{solution}
+  \begin{itemize}
+    \item \R{model}: Categorical or Factor
+    \item \R{fuellup\_date}: Categorical or Factor
+    \item \R{odometer}: Numerical- Continuous but reported as discrete
+    \item \R{gallons}: Numerical - Continuous
+    \item \R{price}: Numerical - Continuous
+  \end{itemize}
+\vspace{-3cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{fuelly_matrix}[fragile]
+Draw an example \R{data.frame} complete with labels that contains 1 sample case for each vehicle. In other words, create a table that contain 1 rows of made-up raw data for the car and 1 row of made-up date for the truck. Be sure to label your variables.
+  \begin{onlysolution}[fragile]%
+\begin{solution}
+
+<<results='asis', echo=FALSE>>=
+b <- xtable(fuelly[205:206,c("model", "fuelup_date", "odometer", "gallons", "price")])
+print(b, include.rownames=FALSE)
+@
+\textcolor{red}{Points adjusted to 3} This seemed to come down to recognizing what a \textbf{case} is, or what \textbf{raw data} looks like.
+\vspace{-3cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+<<echo=FALSE, eval=FALSE>>=
+R code <- function(x){}
+@
+%%%% STRAIGHT UP R CODE %%%%%%
+\begin{defproblem}{missingdata}[fragile]
+Given the following information, what would the code \R{mean(survey\$Height)} produce?
+<<echo=2>>=
+table(is.na(survey$Height))
+@
+  \begin{onlysolution}[fragile]%
+\begin{solution}
+<<>>=
+mean(survey$Height)
+@
+This is because there was missing data in the data set. The sum of data + missing = missing. When missing data is present, most the time you need to explicitly tell \R{R} to exclude it.
+<<>>=
+mean(survey$Height, na.rm=TRUE)
+@
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+<<Descriptive statistics, echo=FALSE, eval=FALSE>>=
+Dog_Ages <- function(x){}
+@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                 Dog Ages                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<echo=FALSE>>=
+dog_age <- c(98,90,92,70,83,45,92,90,76,72,74,63,88,75,84,80,80,68,77,92)
+mean.age <- round(mean(dog_age),1); var.age <- round(var(dog_age),1)
+sd.age <- round(sqrt(var.age),1); q1.age <- quantile(dog_age, .25)
+q3.age <- quantile(dog_age, .75)
+@
+
+\begin{defproblem}{dogage_sumstats}[fragile]
+Report the values of the sample mean, variance, standard deviation, range and mode. Clearly label your answers.
+Full sentence answers are not required here. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The relevant R code needed to answer part a) and b) is \R{summary(dog\_age)} and \R{var(dog\_age)}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l p{1cm} l p{1cm} l}
+  Mean = \Sexpr{mean.age} & & Variance = \Sexpr{var.age} & & SD = \Sexpr{sd.age} \\
+  Range = \Sexpr{min(dog_age)} to \Sexpr{max(dog_age)} & & Mode = \Sexpr{Mode(dog_age)} & & 
+\end{tabular}
+\end{table}
+\vspace{-2.7cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{dogage_5num}[fragile]
+Report the median, lower and upper quartiles and the interquartile range. State the five number summary.
+Full sentence answers are not required here. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
+\vspace{1mm}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lp{1cm}lp{1cm}l}
+Min = \Sexpr{min(dog_age)} & &
+  $Q_{1}$ = \Sexpr{q1.age} & &
+  Median =  \Sexpr{median(dog_age)}\\
+  $Q_{3}$ =  \Sexpr{q3.age} & &
+  Max = \Sexpr{max(dog_age)} & &
+  IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(dog_age)}\\
+\end{tabular}
+\end{table}
+\vspace{-2.7cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{dogage_outlier}[fragile]
+Are there any outliers in this data set? Use the fences to decide. State the fences and if there are any outliers, identify them.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The max data point \Sexpr{max(dog_age)} is below the upper fence of $Q_{3}+1.5*IQR = \Sexpr{q3.age+1.5*IQR(dog_age)}$, so there are no upper end outliers. The data point 45 is considered an outlier because it is below the lower fence of $Q_{1}-1.5*IQR = \Sexpr{q1.age-1.5*IQR(dog_age)}$.
+\vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{dogage_boxplot}[fragile]
+Construct a boxplot (modified if appropriate) for this data set. Label everything and include an axis.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+<<echo=FALSE, fig.align='center', fig.width=8, fig.height=4>>=
+par(oma=c(0,0,0,0), mar=c(4,1,1,1))
+plot(c(40, 100), c(.7, 2), type="n", axes=FALSE, xlab="Dog ages", ylab="")
+bp <- boxplot(dog_age, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1)
+numlabels <- c(bp$out, bp$stats[2]-1.5*IQR(dog_age), bp$stats)
+arrows(bp$stats[2]-1.5*IQR(dog_age), .7, bp$stats[2]-1.5*IQR(dog_age), 1.2, lty=2, code=0)
+text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
+charlabels <- c("outlier", "fence", "min data point \n  inside fence", "Q1","Med", "Q3", "Max")
+text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
+@
+  \vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{dogage_skew}[fragile]
+Comment on the skewness of the data set.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The mean is about equal to the median. With the exception of the low end outlier, the data is not skewed but relatively symmetric.
+\vspace{-1cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defproblem}{fuelly_center}[fragile]
+For each of the two variables plotted below, answer the following 3 questions: Which measure of center is greater?  What is the most appropriate measure of center for this data? Is the data relatively symmetric or skewed?
+\ifthenelse{\boolean{showanswers}}{}
+{
+<<echo=FALSE, fig.height=2.5, fig.width=5, fig.align='center', out.width='.8\\textwidth', fig.show='hold', fig.pos='!h'>>=
+par(oma=c(0,0,0,0), mar=c(4,2,2,1), mfrow=c(1,2))
+trimmed <- subset(fuelly, fuelly$gallons > 6)
+hist(trimmed$gallons, main="Gallons put in tank", xlab="Gallons")
+hist(trimmed$price, main="Price per gallon", xlab="Dollars")
+@
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c | p{2cm} | p{2cm} }
+   & Gallons & Price \\
+  \hline
+  Greater & & \\
+    (Mean / Median / Can't tell) & & \\
+  \hline
+  Appropriate & & \\
+    (Mean / Median / Either) &  & \\
+  \hline
+  Shape &  &  \\
+    (Symmetric / Skewed left / Skewed right) & & \\
+  \hline
+\end{tabular}
+\end{table}
+}
+
+\begin{onlysolution}[fragile]%
+\begin{solution}
+\begin{table}[h!]
+\centering
+\begin{tabular}{c | c c}
+  Q & Gallons & Price \\
+  \hline
+  Greater & Can't tell & Mean \\
+  Appropriate & Either & Median\\
+  Shape & Symmetric &  Left skewed\\
+\end{tabular}
+\end{table}
+\vspace{-1cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+%%%% HISTOGRAMS AND BOXPLOTS %%%%%%
+\begin{defproblem}{exhist_setup}[fragile]
+The following histograms display the heights of males and females from the student survey data.
+The Appendix contains summary statistics that you will need to use to answer the following questions. 
+
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
+s2 <- survey[!is.na(survey$Sex),]
+ggplot(s2, aes(x=Height)) + geom_histogram() + facet_wrap(~Sex, ncol=1) + theme_bw()
+@
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{exhist_height}[fragile]
+What does the height of the bars represent? Be specific.
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The height of the bars represents the frequency of individuals on the data set (rows) with heights within that bar. For example there looks to be approximately 35 females with heights between 165-170cm.
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{exhist_compare}[fragile]
+On average which gender is taller? Which gender is more variable in their reported heights? Provide numerical justification for your answers.
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+On average males are taller than females, the bulk of the data and the mean are greater than that of females. Males also have more variability in their reported heights. The range for males spans 150-200cm where the range for females is between 150-185.
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{fuelly_comparehist}[fragile]
+It is common knowledge that cars get better gas mileage than trucks, but she wants to quantify this information. Tell me three things about the relationship between MPG and type of car. Be sure to justify each statement by referencing a specific feature of the graphic that gave you this information, and where applicable use numeric summaries provided in the Appendix. 
+\ifthenelse{\boolean{showanswers}}{}{
+\hspace{-2cm}
+<<echo=FALSE, message=FALSE, fig.height=6, fig.width=5, fig.align='left', out.width='.4\\textwidth', fig.show='hold', fig.pos='!h'>>=
+ggplot(fuelly, aes(x=mpg, group=model)) + geom_histogram(aes(y=..density..), fill=NA, col="black") + 
+  geom_density() + 
+  facet_wrap(~model, ncol=1) + theme_bw()
+@
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Possible answers include but are not limited to
+\begin{itemize}
+  \item They both have about the same size range of MPG (33-13=20, 43-23=20)
+  \item Most of the car data is between 30 and 40 MPG, most frequently around 32 or 33 MPG.
+  \item The truck has a lower overall mpg, the bulk of the data between 20 and 30MPG, most frequently between 23-25.
+  \item Both vehicles have potential low end outliers.
+  \item The car gets much better gas mileage than the truck, all, or almost all data on the car is greater than the eyeballed average value for the truck.
+\end{itemize}
+\vspace{-2cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{fuelly_morefrequent}[fragile]
+Which vehicle gets driven more? Justify your answer using two pieces of data.
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+The car is driven much more often than the truck. Here are the two most clear ways this could be determined.
+\begin{itemize}
+  \item The frequency table generated by \R{table(fuelly\$model)} shows that the car has almost 3 times the total number of fuel-ups. This combined with the high average MPG on the car (as seen by \R{tapply(fuelly\$mpg, fuelly\$model, FUN=summary)}) indicate the car is driven more.
+  \item The summary of the odometer value indicates that since the start of data tracking, the car has been driven around 50k miles whereas the truck only has had 17k miles put on it.
+\end{itemize}
+\vspace{-3cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{fuelly_mpg_price_desc}[fragile]
+Describe the relationship between MPG and the price of gas. Does it appear that price of gas affects the MPG? In other words, can you tell if the MPG positively or negatively associated with the price of gas? Why or why not?
+\ifthenelse{\boolean{showanswers}}{}
+{
+<<echo=FALSE, fig.height=4, fig.width=5, out.width='.4\\textwidth',  fig.align='left', fig.show='hold', fig.pos='!h'>>=
+ggplot(fuelly, aes(x=mpg, y=price)) + geom_point() + geom_smooth(se=FALSE) + theme_bw()
+@
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+They are not associated. If you were to draw a line down the middle of the data points for either of the two groups it is relatively horizontal. Furthermore doing a ``common sense" check indicates that the economic-driven price of gas at the pump cannot affect the inner workings of a vehicle to change the MPG the vehicle gets. \textcolor{red}{Points adjusted to 1, with +1EC for a common sense check.}
+\vspace{-4cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+\begin{defproblem}{f3a}[fragile]
+Using the following histograms that display the heights of males and females, what can you say about the average height of males compared to females? Explain your reasoning. What does the height of the bars represent? Be specific.
+<<echo=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
+histogram(~Height|Sex, data=survey, layout=c(1,2), type="count", breaks=7)
+@
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+Most of the data for males is around 180cm, most frequently between 175 and 180cm. The bulk of the heights for females is around 165-170. I can make a reasonable guess that the average height for males is greater than the average height for females. The height of the histogram bars represent the frequency count of people measured in that range. For example, almost 30 males measured between 175 and 180 cm, and around 35 females measured around 165-170cm.
+\vspace{-1cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+
+
+\begin{defproblem}{insectspray_tellme}[fragile]
+Data on the counts of insects in agricultural experimental units treated with different insecticides was analyzed in the article Beall, G., (1942) \emph{The Transformation of data from entomological field experiments}, Biometrika, 29, 243-262.
+<<echo=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
+  boxplot(count~spray, data=InsectSprays, xlab="Type of Spray",
+          ylab="Count of insects sprayed")
+@
+  Tell me two interesting things about this data.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+Some examples include
+   \begin{itemize}
+    \item Spray has the lowest value overall, F the greatest.
+    \item Spray A, B and possibly F, have similar ranges, so does C, D and E.
+    \item The lowest value of F is greater than the highest value of C and E.
+    \item The highest median is from Spray B, Spray C the lowest.
+    \item There are two high end values, possibly outliers in Spray B and C. 
+    \end{itemize}
+\vspace{-5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                     Length of stay in a hospital                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<echo=FALSE>>=
+los <- c(4, 4, 12, 18, 9, 6, 12, 3, 7, 15, 7, 3, 55, 1, 10, 13, 5, 7, 1, 26, 9)
+mean.los <- round(mean(los),1); var.los <- round(var(los),1)
+sd.los <- round(sqrt(var.los),1); q1.los <- quantile(los, .25)
+q3.los <- quantile(los, .75)
+@
+
+%%---%%
+
+\begin{defproblem}{los_sumstats}[fragile]
+Report the values of the sample mean, variance, standard deviation, range and mode. Clearly label your answers. 
+Full sentences are not required for this answer. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and \texttt{var(los)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lp{1cm}lp{1cm}l}
+Mean = \Sexpr{mean.los} & &
+  Variance = \Sexpr{var.los} & &
+  SD = \Sexpr{sd.los} \\
+Range = \Sexpr{min(los)} to \Sexpr{max(los)} & &
+  Mode = \Sexpr{Mode(los)} & & \\
+\end{tabular}
+\end{table}
+\vspace{-3cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_5num}[fragile]
+Report the median, lower and upper quartiles and the interquartile range. State the five number summary.
+Full sentences are not required for this answer. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lp{1cm}lp{1cm}l}
+Min = \Sexpr{min(los)} & &
+  $Q_{1}$ = \Sexpr{q1.los} & &
+  Median =  \Sexpr{median(los)}\\
+$Q_{3}$ =  \Sexpr{q3.los} & &
+  Max = \Sexpr{max(los)} & &
+  IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(los)}\\
+\end{tabular}
+\end{table}
+\vspace{-3cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_boxplot}[fragile]
+Construct a boxplot (modified if appropriate) for this data set. Draw the fences using a dotted line and include a symbol for the mean. Label everything (using numbers and words) and include an axis with title.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+<<echo=FALSE, fig.height=3, fig.width=6, fig.align='center', fig.show='hold', fig.pos='!h'>>=
+par(oma=c(0,0,0,0), mar=c(4,1,1,1))
+plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Length of Stay (days)", ylab="")
+bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1)
+numlabels <- c(bp$stats, 1.5*IQR(los)+bp$stats[4], bp$out)
+arrows(1.5*IQR(los)+bp$stats[4], .7, 1.5*IQR(los)+bp$stats[4], 1.2, lty=2, code=0)
+text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
+charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
+text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
+points(mean(los), 1, pch=17)
+text(mean(los),1.55,  round(mean(los),1))
+text(mean(los),1.6,  "Mean", srt=90, adj=0)
+@
+  \vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_boxplot_annotate}[fragile]
+Below is a boxplot for this data. Label \textbf{everything} using numbers and words, including a title and axis label.
+By \textbf{everything} I mean: max,min, mean, median, Q1, Q3, IQR, fences, and outliers. 
+\ifthenelse{\boolean{showanswers}}{}
+{\vspace{-1cm}
+<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.6\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
+par(oma=c(0,0,0,0), mar=c(1,1,1,1))
+plot(c(0, 60), c(.7, 1.5), type="n", axes=FALSE, xlab="", ylab="")
+bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1, at=seq(0,60, by=10), labels = rep(NA,7))
+points(mean(los), 1, pch=17)
+@
+}
+\begin{onlysolution}[fragile]%
+\begin{solution}
+<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.8\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
+par(oma=c(0,0,0,0), mar=c(4,1,1,1))
+plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Length of Stay (days)", ylab="")
+bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1)
+numlabels <- c(bp$stats, 1.5*IQR(los)+bp$stats[4], bp$out)
+arrows(1.5*IQR(los)+bp$stats[4], .7, 1.5*IQR(los)+bp$stats[4], 1.2, lty=2, code=0)
+text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
+charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
+text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
+points(mean(los), 1, pch=17)
+text(mean(los),1.55,  round(mean(los),1))
+text(mean(los),1.6,  "Mean", srt=90, adj=0)
+@
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_describe}[fragile]
+Describe the distribution of the length of stay. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and \texttt{var(los)} \\
+
+The mean length of stay is \Sexpr{mean.los} days with a standard deviation of \Sexpr{sd.los} days. Responses range from \Sexpr{min(los)} to \Sexpr{max(los)}, with a median stay of \Sexpr{median(los)} days. The most common number of days a person has stayed in the hospital is \Sexpr{Mode(los)} days. The data is right skewed, with two outliers at 26 and 55 days. 
+\vspace{-3cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_typo}[fragile]
+A concerned analyst double checked the records for the patient who stayed 55 days and saw that it was a typo. The real value should have been 5. After the mistake is corrected, would the sample variance increase or decrease? Why?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+Graded on: Correct answer (1), justification (1), grammer (1). 
+The variance would decrease because a 5 is closer to the mean than a 55. The squared distance from the mean (the $\sum(x_{i}-\bar{x})^{2}$ portion of the variance calculation) for a data point of 55 is $(55-7)^{2}=2304$, compared to $(5-7)^2=4$.
+\vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+% outliers - if they have to make the boxplot on their own
+\begin{defproblem}{los_outlier_noplot}[fragile]
+Are there any outliers in this data set? Use the fences to decide. State the fences and if there are any outliers, identify them.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The lower fence is $Q_{1}-1.5*IQR = \Sexpr{q1.los-1.5*IQR(los)}$ which is less than 0. There are no low end outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.los+1.5*IQR(los)}$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+% outliers - if the boxplot is drawn for them. 
+\begin{defproblem}{los_outliers}[fragile]
+What do the open dots on the boxplot represent? What makes these two points different from the rest of the data? 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+Graded on: Correct answer (1), justification (1), grammer (1). 
+The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.los+1.5*IQR(los)}$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.
+\vspace{-2.5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{los_skew}[fragile]
+Comment on the skewness of the data set.
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The mean is greater than the median, and there are two high end outliers. The data is skewed to the right. The skew can also be detected by noting that the distance between $Q_{3}$ and the upper fence (18-12=6) is longer than the distance between the min and $Q_{1}$ (4-1=3).
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                          North Carolina Births                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% In 2004, the state of North Carolina released a large data set containing information on births recorded in this state. The codebook is available as a handout. Answer the following questions about this data. 
+<<echo=FALSE, warning=FALSE, message=FALSE>>=
+gh <- ncbirths %>% filter(!is.na(gained) & !is.na(habit))
+fage <- na.omit(ncbirths$fage)
+q3.fage <- quantile(fage,.75)
+@
+
+
+\begin{defproblem}{ncbirths_boxplot_annotate}[fragile]
+Below is a boxplot for the fathers age. Label \textbf{everything} using numbers and words.
+\ifthenelse{\boolean{showanswers}}{}
+{
+<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.6\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
+par(oma=c(0,0,0,0), mar=c(1,1,1,1))
+plot(c(0, 60), c(.7, 1.5), type="n", axes=FALSE, xlab="", ylab="")
+bp <- boxplot(fage, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1, at=seq(0,60, by=10), labels = rep(NA,7))
+points(mean(fage), 1, pch=17)
+@
+}
+\begin{onlysolution}[fragile]%
+\begin{solution}
+\textbf{Graded on:} Axis label (1), tick mark labels (1), 5num summary with mean (1) in numbers, 5num summary with mean in words (1), outliers (1)
+<<echo=FALSE, fig.height=5, out.width='.6\\textwidth', fig.align='center'>>=
+par(oma=c(0,0,0,0), mar=c(4,1,1,1))
+plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Fathers age (years)", ylab="")
+bp <- boxplot(fage, horizontal=TRUE, axes=FALSE, add=TRUE)
+axis(1)
+numlabels <- c(bp$stats, 1.5*IQR(fage)+bp$stats[4], bp$out)
+arrows(1.5*IQR(fage)+bp$stats[4], .7, 1.5*IQR(fage)+bp$stats[4], 1.2, lty=2, code=0)
+text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
+charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
+text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
+points(mean(fage), 1, pch=17)
+text(mean(fage),1.55,  round(mean(fage),1))
+text(mean(fage),1.6,  "Mean", srt=90, adj=0)
+@
+  \vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{ncbirths_describe}[fragile]
+Describe the distribution of the fathers age. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+\textbf{Graded on:} Discussed location using mean or median (1), discussed spread using range, iqr, variance or sd (1), discussed shape (1), grammer(1). \\
+The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation of \Sexpr{round(sqrt(var(fage)),1)} days. Responses range from \Sexpr{min(fage)} to \Sexpr{max(fage)}, with a median age of \Sexpr{median(fage)}. The ages are symmetric, with two potential high end outliers.  
+
+\vspace{-5cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+
+\begin{defproblem}{ncbirths_outliers}[fragile]
+What do the open dots on the boxplot represent? What makes these two points different from the rest of the data? 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+\textbf{Graded on:} Correct answer (1), justification (1), grammar (1). 
+The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.fage+1.5*IQR(fage)}$. Two data points are considered outliers because they are above the upper fence.
+\vspace{-2 cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{ncbirths_scatter}[fragile]
+
+\ifthenelse{\boolean{showanswers}}{}
+{
+<<echo=FALSE>>=
+  qplot(x=weeks, y=weight, data=ncbirths, geom=c("point", "jitter"))
+@
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+
+\vspace{-2cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{ncbirths_cor}[fragile]
+Describe the relationship between the mothers age (\R{mage}) and fathers age (\R{fage}). Discuss the form, direction and strength. Provide an estimate of $r$.
+\ifthenelse{\boolean{showanswers}}{}{
+\begin{figure}[h!]
+<<echo=FALSE, out.width='.3\\textwidth'>>=
+  qplot(x=mage, y=fage, data=ncbirths, geom=c("point", "jitter"))
+@
+\end{figure}
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+There is a moderate to strong positive linear relationship between the age of the mother and father. The correlation is likely between 0.5 and 0.9.
+
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{ncbirths_gained_gender}[fragile]
+Some people believe that you can tell the gender of the child by how much weight the mother has gained. Does this data set seem to support that notion? Explain your answer by specifically referring to a feature in the graphic and/or summary statistics. 
+\ifthenelse{\boolean{showanswers}}{}{
+\begin{figure}[h!]
+<<echo=FALSE, out.width='.3\\textwidth'>>=
+qplot(x=gained, data=ncbirths, geom="density", facets=gender~.)
+@
+\end{figure}
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+It does not. There is a large overlap of the distributions of gained for each gender, the means are only 1 lb different, both genders have a standard deviation of 14.2. 
+
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+
+\begin{defproblem}{ncbirths_gh_compare}[fragile]
+Describe the distribution of \R{gained} across levels of \R{habit}. Use summary statistics, measures of center, shape and spread. 
+\ifthenelse{\boolean{showanswers}}{}{
+\begin{figure}[h!]
+<<echo=FALSE, out.width='.3\\textwidth'>>=
+ qplot(x=gained, data=gh, geom="histogram", facets=habit~.)
+@
+\end{figure}
+}
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+
+The distribution of average weight gained during pregnancy is very similar between non-smoking and smoking mothers. Smoking mothers gain an average of 31.9lb and non-smoking mothers gain an average of 30.1 lbs. Smoking mothers have a higher standard deviation, 15.7 compared to 14.0 for non-smoking mothers, but non-smoking mothers have a higher max weight gained of 85 lbs compared to the max of 75 for smokers. The shape of the distribution of weight gained are approximtely normal for both groups, with a possible slight right skew. There are many more non smoking mothers compared to smoking mothers, this is demonstrated by the heights of the histogram bars. 
+
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<BIVAR: CAT v CAT, echo=FALSE, eval=FALSE>>=
+@
+
+<<echo=FALSE, eval=FALSE>>=
+mosaicplot <- function(x){}
+@
+
+
+\begin{defproblem}{mosaic_sample_setup}[fragile]
+The student survey data was used to create the following mosiaic plot. 
+The associated two-way tables can be found in the Appendix. 
+<<echo=FALSE, fig.align='center', fig.width=4, fig.height=4>>=
+mosaicplot(survey$Clap~survey$W.Hnd, shade=TRUE, main="",
+           ylab = "Dominant writing hand", 
+           xlab="Clap your hands! Which hand is on top?")
+@
+\begin{onlysolution}[fragile]%
+\begin{solution}
+
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{mosaic_sample_id}[fragile]
+What relationship is being examined here? 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+Which hand the student has on top when they clap, and which hand is their dominant writing hand. 
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{mosaic_sample_prop}[fragile]
+What does the area of the rectangles represent? Show an example. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+The area of the rectangles is the cell proportions. For example 12\% of the students are right hand writing dominant but their left hand is on top when they clap their hands. 
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+%%---%%
+
+\begin{defproblem}{mosaic_sample_assoc}[fragile]
+Does it seem that these variables are independent? Justify your answer by using the marginal proportions and the standardized residual shadings. 
+\begin{onlysolution}[fragile]%
+\begin{solution}
+There is likely a moderate relationship between the dominant writing and clapping hand. Almost all (97\%) of those who have a right hand dominant clap, also are right handed with writing. This combination is shaded light red, which corresponds to a moderately negative standardized residual score. This means the 3\% who are contrary is lower than expected if these variables were independent. Interestingly, there are more than expected lefties in the group who are left hand dominant for both activities. This is another indication that these variables are probably associated. 
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+
+%%---%%
+
+\begin{defproblem}{survey_crosstab}[fragile]
+Two way tables for the cross-combination of gender and exercise frequency are available in the Appendix. This data comes from the student survey data pre-built into R. Use these tables to answer the following questions. Show your work as needed. Single number answers will suffice. 
+\ifthenelse{\boolean{showanswers}}{}
+{
+\begin{enumerate}
+  \item What percent of the sample are female? \vspace{1cm}
+  \item What percent of the sample exercise at least some of the time? \vspace{1cm}
+  \item What percent of female students exercise frequently? \vspace{1cm}
+  \item What percent of male students don't exercise at all? \vspace{1cm}
+  \item What percent of students who don't exercise at all are female? \vspace{1cm}
+\end{enumerate}
+}
+\begin{onlysolution}[fragile]%
+\begin{solution}
+\begin{enumerate}
+  \item What percent of the sample are female? \textbf{50\%}
+  \item What percent of the sample exercise at least some of the time? \textbf{89.5\%}
+  \item What percent of female students exercise frequently? \textbf{41.5\%}
+  \item What percent of male students don't exercise at all? \textbf{11.0\%}
+  \item What percent of students who don't exercise at all are female? \textbf{45.8\%}
+\end{enumerate}
+
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<BIVAR: CON v CON, echo=FALSE, eval=FALSE>>=
+@
+
+\begin{defproblem}{survey_scatter_setup}[fragile]
+Using the \R{survey} data set the following plot comparing the hand spans for each student
+was created. Use this plot and additional code in the Appendix to answer the following questions. 
+<<echo=FALSE, warning=FALSE, message=FALSE, fig.height=4, fig.width=5, out.width='.5\\textwidth',  fig.align='center', fig.show='hold', fig.pos='!h'>>=
+ggplot(survey, aes(x=Wr.Hnd, y=NW.Hnd)) + 
+  geom_point() + theme_bw()
+@
+\begin{onlysolution}[fragile]%
+    \begin{solution}
+\vspace{0cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+\begin{defproblem}{survey_scatter_describe}[fragile]
+Describe the relationship observed here. Be sure to talk about the
+direction, strength, and form of the relationship. Additional results 
+found in the Appendix may be useful here. 
+\begin{onlysolution}[fragile]%
+  \begin{solution}
+  There is a strong, positive, linear correlation between the span size of
+  of the dominant writing hand, and the non-dominant writing hand. The correlation
+  is 0.94. 
+  \vspace{0cm}
+  \end{solution}
+  \end{onlysolution}
+\end{defproblem}
+
+
+
+
+
