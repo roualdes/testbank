@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QTableView, QWidget, QVBoxLayout, QMainWindow, QLineEdit, QComboBox, QLabel, QGridLayout, QMenu
+from PyQt5.QtWidgets import QApplication, QTableView, QWidget, QVBoxLayout, QMainWindow, QLineEdit, QComboBox, QLabel, QGridLayout, QMenu, QAbstractItemView, QToolTip, QTableWidget
 from PyQt5 import QtCore, QtGui
 import pandas as pd
 import numpy as np
@@ -62,17 +62,25 @@ class tbFrame(QMainWindow):
         self.label.setText("Regex Filter")
 
         self.model = Table(self)
-        self.model.update(self.get_df())
+        self.model.update(self.get_df()) # retreive data
 
         self.proxy = QtCore.QSortFilterProxyModel(self)
-        self.proxy.setSourceModel(self.model)
-
+        self.proxy.setSourceModel(self.model) # fill data
         self.view.setModel(self.proxy)
-        self.comboBox.addItems(self.model.header)
 
+        # select rows?
+        self.view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.view.SelectionMode(QAbstractItemView.ExtendedSelection)
+
+        self.view.setSortingEnabled(True) # sortable cols
+        self.view.horizontalHeader().setSectionsMovable(True) # moveable cols
+
+        # fill window
+        self.view.horizontalHeader().setStretchLastSection(True)
+
+        self.comboBox.addItems(self.model.header)
         self.lineEdit.textChanged.connect(self.on_lineEdit_textChanged)
         self.comboBox.currentIndexChanged.connect(self.on_comboBox_currentIndexChanged)
-
         self.horizontalHeader = self.view.horizontalHeader()
 
 
@@ -115,9 +123,11 @@ class tbFrame(QMainWindow):
         df = df.replace(np.nan, ' ', regex=True)
         return df[self.model.header]
 
+
 def main():
     app = QApplication(sys.argv)
     w = tbFrame(str(app.arguments()[1]))
+    w.resize(500, 300)
     w.show()
     w.raise_()
     sys.exit(app.exec_())
