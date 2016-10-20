@@ -1,0 +1,228 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Robin Jeffries
+% Class: Math 315- Applied Statistics I
+% Purpose: Sample Exam
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+\usepackage{probsoln}
+\usepackage[top=0.5in, bottom=1in, left=.75in, right=.75in]{geometry}
+\usepackage{setspace}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{colortbl}
+\usepackage{mathtools}
+\usepackage{mdwlist}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\R}[1]{\texttt{#1}}
+
+% Uncomment the following line to generate solution sheet.
+%\showanswers
+
+% Load problems from external files, grouped type of problem
+<<desc,child="Pool_Descriptive.Rnw">>=
+@
+<<expdesign,child="Pool_ExpDesign.Rnw">>=
+@
+
+
+\begin{document}
+
+% \ifthenelse{\boolean{showanswers}}
+%   {\title{Sample Exam with Solutions}}
+%   {\title{Sample Exam}}
+% \maketitle
+
+\ifthenelse{\boolean{showanswers}}
+  {\title{Sample Exam - Solutions} 
+  \maketitle}
+  {\title{Sample Exam}
+\maketitle
+
+\begin{itemize}
+  \item You have XX minutes to complete this exam.
+  \item The exam packet is \textbf{9} pages: \textbf{1} cover sheet, \textbf{9} questions, \textbf{1} page of R code, and \textbf{1} diagram. Make sure you have everything.
+  \item The exam is out of \textbf{0} points.
+  \item A single 8x11 page of formulas and definitions (one sided) is allowed along with a calculator. No worked out problems. This page will be turned in with your exam.
+  \item Show all your work. Partial credit can be awarded.
+  \item All phones must be put away during the entire exam. If your phone is out you will be asked to turn in your exam and leave immediately.
+  \item Use the back pages as scratch paper, more can be made available. All scratch paper is to be submitted with your exam. If you want me to review notes on your scratch paper specifically, tell me so and make sure it's findable.
+  \item Be sure to write your answers as full sentences.
+  \item There is R code handed out along with the exam. Not all code is used in this exam, but all code necessary to perform the calculations on the exam is included. This will not completely substitute for a calculator.
+      \item Indicate what the appropriate \R{R} code was to answer every question when you use it. This is not optional.
+  \item The exam will not start until all materials are put away.
+  \item Bathroom breaks are allowed, but you must leave all materials at your desk, and your exam with me.
+\end{itemize}
+
+\vspace{2cm}
+
+
+\hspace{1cm} {\Huge Name:} \underline{\hspace{10cm}}
+
+
+
+\vspace{3cm}
+\hspace{2cm} {\Large Do not turn this page until instructed to do so.}
+
+\newpage
+}
+
+%%%% DESCRIPTIVE STATISTICS & BOXPLOT %%%%%%
+
+\begin{enumerate}
+\item Ages from a random sample of 20 dogs was stored in the R vector \R{dog\_age}, and shown 
+      on the first page of the Appendix for this exam. Use this information to answer
+      the following questions. 
+  \begin{enumerate}
+    \item \useproblem{dogage_sumstats} \vspace{3cm}
+    \item \useproblem{dogage_5num} \vspace{3cm}
+    \item \useproblem{dogage_outlier} \vspace{3cm}
+    \item \useproblem{dogage_boxplot} \vspace{3cm}
+  \end{enumerate}
+
+\newpage
+
+%%%%  DATA TYPES  %%%%%%
+%' \item The \R{VADeaths} data set in R contains death rates are measured per 1000 population per year. They are cross-classified by age group and population group.
+%' <<>>=
+%' VADeaths
+%' @
+%' Mark TRUE or FALSE on each of the following questions.
+%' \begin{enumerate}
+%'   \item Each column contains information on a single variable. \ifthenelse{\boolean{showanswers}}{False - each column contains the death rates for a certain combination of characteristics. Each column should contain only the information on what the variable is measuring. E.g. Gender should only have M/F options. The data contained in the rows is not a measure of age, nor gender, nor rural or urban location. It is a third variable - death rate.}{\qquad T / F}
+%'   \item This data is structured in a way that it is easy to plot data on all males.
+%'    \ifthenelse{\boolean{showanswers}}{False: Information on males is contained in two columns. Furthermore, we could not tell the number of males in the data set from this data, nor easily compare the overall death rate for males only.}{\qquad T / F}
+%' \end{enumerate}
+
+\item The \R{survey} data set in \R{R} contains contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions. The codebook for select variables in this data can be found in the Appendix. 
+
+  \begin{enumerate}
+  \item Define the data type for all variables listed in the codebook. \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{
+  \vspace{-2.8cm}
+  \begin{itemize}
+    \item Sex - Categorical
+    \item Wr.Hnd - Numerical
+    \item W.Hnd - Categorical
+    \item Exer - Categorical
+    \item Smoke - Categorical
+    \item Height - Numerical
+    \item Age - Numerical
+  \end{itemize}}{}
+
+  \item What variable(s) would it be appropriate to create a scatterplot of? \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{\vspace{-2.8cm} \newline Any two numerical variables}{}
+
+  \item What variable(s) would it be appropriate to create a bar chart of? \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{\vspace{-2.8cm} \newline Any categorical variable}{}
+
+  \item Describe one interesting relationship in this data and what type of graphic you would create to examine this relationship. You can sketch a picture if you think it would help.
+  \ifthenelse{\boolean{showanswers}}{\newline E.g. Are smokers older? Grouped histogram of age for each smoking category.}{}
+  \end{enumerate}
+
+%%%%  Bivariate: categorical against categorical  %%%%%%
+% \item \useproblem{mosaic_sample_setup}
+%   \begin{enumerate}
+%     \item \useproblem{mosaic_sample_id} \vspace{3cm}
+%     \item \useproblem{mosaic_sample_prop} \vspace{3cm}
+%     \item \useproblem{mosaic_sample_assoc}\vspace{3cm}
+%   \end{enumerate}
+
+\newpage
+
+\item \useproblem{Avandia_setup} \vspace{.5cm}
+  \begin{enumerate}
+    \item \useproblem{Avandia_counts} \vspace{4cm}
+    \item \useproblem{Avandia_rowprop}\vspace{4cm}
+%    \item \useproblem{Avandia_causation}\vspace{3cm}
+    \item \useproblem{Avandia_marginalprop}\vspace{3cm}
+  \end{enumerate}
+
+
+
+%%%%  Bivariate: continuous against categorical  %%%%%%
+\newpage
+
+\item \useproblem{insectspray_tellme} \vspace{5cm}
+
+\newpage
+
+\item \useproblem{exhist_setup}
+ \begin{enumerate}
+   \item \useproblem{exhist_height} \vspace{3cm}
+   \item \useproblem{exhist_compare} \vspace{3cm}
+ \end{enumerate}
+
+%%%%  Bivariate: continuous against continuous  %%%%%%
+\newpage
+
+\item \useproblem{survey_scatter_setup}
+ \begin{enumerate}
+   \item \useproblem{survey_scatter_describe} \vspace{4cm}
+ \end{enumerate}
+
+
+
+
+%%%% REPRODUCIBLE RESEARCH %%%%%%
+
+\item \useproblem{whyr} \vspace{3cm}
+%\item \useproblem{whyrr} \vspace{3cm}
+%\item \useproblem{pipeline} \vspace{3cm}
+%\item \useproblem{missingdata} \vspace{3cm}
+
+\end{enumerate}
+
+\newpage
+\singlespace
+\Huge APPENDIX: \normalsize Not all code output presented will be used.
+<<echo=-c(1:2), warning=FALSE, message=FALSE>>=
+library(MASS)
+library(dplyr)
+@
+
+\noindent\rule{7in}{0.4pt} 
+
+\large Dog ages \normalsize
+<<>>=
+dog_age
+summary(dog_age)
+var(dog_age)
+@
+
+\noindent\rule{7in}{0.4pt} 
+
+\large Student survey data \normalsize
+\begin{itemize}
+  \item \R{Sex} The sex of the student. (Factor with levels "Male" and "Female".)
+  \item \R{Wr.Hnd} span (distance from tip of thumb to tip of little finger of spread hand) of writing hand, in centimetres.
+  \item \R{W.Hnd} writing hand of student. (Factor, with levels "Left" and "Right".)
+  \item \R{Exer} how often the student exercises. (Factor, with levels "Freq" (frequently), "Some", "None".)
+  \item \R{Smoke} how much the student smokes. (Factor, levels "Heavy", "Regul" (regularly), "Occas" (occasionally), "Never".)
+  \item \R{Height} height of the student in centimetres.
+  \item \R{Age} age of the student in years.
+\end{itemize}
+
+<<>>=
+tapply(survey$Height, survey$Sex, FUN=summary)
+tapply(survey$Height, survey$Sex, FUN=var, na.rm=TRUE)
+table(survey$Sex)
+cor(survey$Wr.Hnd, survey$NW.Hnd, use="pairwise.complete.obs")
+@
+
+<<>>=
+round(prop.table(table(survey$W.Hnd,survey$Clap)),2)
+round(prop.table(table(survey$W.Hnd,survey$Clap), margin=1),2)
+round(prop.table(table(survey$W.Hnd,survey$Clap), margin=2),2)
+@
+
+
+\end{document}
