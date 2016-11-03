@@ -42,7 +42,7 @@
 % \maketitle
 
 \ifthenelse{\boolean{showanswers}}
-  {\title{Sample Exam - Solutions} 
+  {\title{Sample Exam - Solutions}
   \maketitle}
   {\title{Sample Exam}
 \maketitle
@@ -78,9 +78,9 @@
 %%%% DESCRIPTIVE STATISTICS & BOXPLOT %%%%%%
 
 \begin{enumerate}
-\item Ages from a random sample of 20 dogs was stored in the R vector \R{dog\_age}, and shown 
-      on the first page of the Appendix for this exam. Use this information to answer
-      the following questions. 
+\item Ages from a random sample of 20 dogs was stored in the R vector
+  \R{dog\_age}, and shown on the first page of the Appendix for this
+  exam. Use this information to answer the following questions.
   \begin{enumerate}
     \item \useproblem{dogage_sumstats} \vspace{3cm}
     \item \useproblem{dogage_5num} \vspace{3cm}
@@ -102,7 +102,7 @@
 %'    \ifthenelse{\boolean{showanswers}}{False: Information on males is contained in two columns. Furthermore, we could not tell the number of males in the data set from this data, nor easily compare the overall death rate for males only.}{\qquad T / F}
 %' \end{enumerate}
 
-\item The \R{survey} data set in \R{R} contains contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions. The codebook for select variables in this data can be found in the Appendix. 
+\item The \R{survey} data set in \R{R} contains contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions. The codebook for select variables in this data can be found in the Appendix.
 
   \begin{enumerate}
   \item Define the data type for all variables listed in the codebook. \vspace{3cm}
@@ -189,7 +189,7 @@ library(MASS)
 library(dplyr)
 @
 
-\noindent\rule{7in}{0.4pt} 
+\noindent\rule{7in}{0.4pt}
 
 \large Dog ages \normalsize
 <<>>=
@@ -198,7 +198,7 @@ summary(dog_age)
 var(dog_age)
 @
 
-\noindent\rule{7in}{0.4pt} 
+\noindent\rule{7in}{0.4pt}
 
 \large Student survey data \normalsize
 \begin{itemize}

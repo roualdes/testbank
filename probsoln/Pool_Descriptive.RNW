@@ -137,7 +137,7 @@ q3.age <- quantile(dog_age, .75)
 
 \begin{defproblem}{dogage_sumstats}[fragile]
 Report the values of the sample mean, variance, standard deviation, range and mode. Clearly label your answers.
-Full sentence answers are not required here. 
+Full sentence answers are not required here.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 The relevant R code needed to answer part a) and b) is \R{summary(dog\_age)} and \R{var(dog\_age)}
@@ -145,7 +145,7 @@ The relevant R code needed to answer part a) and b) is \R{summary(dog\_age)} and
 \centering
 \begin{tabular}{l p{1cm} l p{1cm} l}
   Mean = \Sexpr{mean.age} & & Variance = \Sexpr{var.age} & & SD = \Sexpr{sd.age} \\
-  Range = \Sexpr{min(dog_age)} to \Sexpr{max(dog_age)} & & Mode = \Sexpr{Mode(dog_age)} & & 
+  Range = \Sexpr{min(dog_age)} to \Sexpr{max(dog_age)} & & Mode = \Sexpr{Mode(dog_age)} & &
 \end{tabular}
 \end{table}
 \vspace{-2.7cm}
@@ -155,7 +155,7 @@ The relevant R code needed to answer part a) and b) is \R{summary(dog\_age)} and
 
 \begin{defproblem}{dogage_5num}[fragile]
 Report the median, lower and upper quartiles and the interquartile range. State the five number summary.
-Full sentence answers are not required here. 
+Full sentence answers are not required here.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
@@ -270,7 +270,7 @@ hist(trimmed$price, main="Price per gallon", xlab="Dollars")
 %%%% HISTOGRAMS AND BOXPLOTS %%%%%%
 \begin{defproblem}{exhist_setup}[fragile]
 The following histograms display the heights of males and females from the student survey data.
-The Appendix contains summary statistics that you will need to use to answer the following questions. 
+The Appendix contains summary statistics that you will need to use to answer the following questions.
 
 <<echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
 s2 <- survey[!is.na(survey$Sex),]
@@ -302,12 +302,12 @@ On average males are taller than females, the bulk of the data and the mean are 
 
 
 \begin{defproblem}{fuelly_comparehist}[fragile]
-It is common knowledge that cars get better gas mileage than trucks, but she wants to quantify this information. Tell me three things about the relationship between MPG and type of car. Be sure to justify each statement by referencing a specific feature of the graphic that gave you this information, and where applicable use numeric summaries provided in the Appendix. 
+It is common knowledge that cars get better gas mileage than trucks, but she wants to quantify this information. Tell me three things about the relationship between MPG and type of car. Be sure to justify each statement by referencing a specific feature of the graphic that gave you this information, and where applicable use numeric summaries provided in the Appendix.
 \ifthenelse{\boolean{showanswers}}{}{
 \hspace{-2cm}
 <<echo=FALSE, message=FALSE, fig.height=6, fig.width=5, fig.align='left', out.width='.4\\textwidth', fig.show='hold', fig.pos='!h'>>=
-ggplot(fuelly, aes(x=mpg, group=model)) + geom_histogram(aes(y=..density..), fill=NA, col="black") + 
-  geom_density() + 
+ggplot(fuelly, aes(x=mpg, group=model)) + geom_histogram(aes(y=..density..), fill=NA, col="black") +
+  geom_density() +
   facet_wrap(~model, ncol=1) + theme_bw()
 @
 }
@@ -388,7 +388,7 @@ Some examples include
     \item Spray A, B and possibly F, have similar ranges, so does C, D and E.
     \item The lowest value of F is greater than the highest value of C and E.
     \item The highest median is from Spray B, Spray C the lowest.
-    \item There are two high end values, possibly outliers in Spray B and C. 
+    \item There are two high end values, possibly outliers in Spray B and C.
     \end{itemize}
 \vspace{-5cm}
 \end{solution}
@@ -408,8 +408,8 @@ q3.los <- quantile(los, .75)
 %%---%%
 
 \begin{defproblem}{los_sumstats}[fragile]
-Report the values of the sample mean, variance, standard deviation, range and mode. Clearly label your answers. 
-Full sentences are not required for this answer. 
+Report the values of the sample mean, variance, standard deviation, range and mode. Clearly label your answers.
+Full sentences are not required for this answer.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and \texttt{var(los)}
@@ -433,7 +433,7 @@ Range = \Sexpr{min(los)} to \Sexpr{max(los)} & &
 
 \begin{defproblem}{los_5num}[fragile]
 Report the median, lower and upper quartiles and the interquartile range. State the five number summary.
-Full sentences are not required for this answer. 
+Full sentences are not required for this answer.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
@@ -482,7 +482,7 @@ text(mean(los),1.6,  "Mean", srt=90, adj=0)
 
 \begin{defproblem}{los_boxplot_annotate}[fragile]
 Below is a boxplot for this data. Label \textbf{everything} using numbers and words, including a title and axis label.
-By \textbf{everything} I mean: max,min, mean, median, Q1, Q3, IQR, fences, and outliers. 
+By \textbf{everything} I mean: max,min, mean, median, Q1, Q3, IQR, fences, and outliers.
 \ifthenelse{\boolean{showanswers}}{}
 {\vspace{-1cm}
 <<echo=FALSE, fig.height=4, fig.width=6, out.width='0.6\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
@@ -516,12 +516,12 @@ text(mean(los),1.6,  "Mean", srt=90, adj=0)
 %%---%%
 
 \begin{defproblem}{los_describe}[fragile]
-Describe the distribution of the length of stay. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report. 
+Describe the distribution of the length of stay. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and \texttt{var(los)} \\
 
-The mean length of stay is \Sexpr{mean.los} days with a standard deviation of \Sexpr{sd.los} days. Responses range from \Sexpr{min(los)} to \Sexpr{max(los)}, with a median stay of \Sexpr{median(los)} days. The most common number of days a person has stayed in the hospital is \Sexpr{Mode(los)} days. The data is right skewed, with two outliers at 26 and 55 days. 
+The mean length of stay is \Sexpr{mean.los} days with a standard deviation of \Sexpr{sd.los} days. Responses range from \Sexpr{min(los)} to \Sexpr{max(los)}, with a median stay of \Sexpr{median(los)} days. The most common number of days a person has stayed in the hospital is \Sexpr{Mode(los)} days. The data is right skewed, with two outliers at 26 and 55 days.
 \vspace{-3cm}
 \end{solution}
 \end{onlysolution}
@@ -533,7 +533,7 @@ The mean length of stay is \Sexpr{mean.los} days with a standard deviation of \S
 A concerned analyst double checked the records for the patient who stayed 55 days and saw that it was a typo. The real value should have been 5. After the mistake is corrected, would the sample variance increase or decrease? Why?
 \begin{onlysolution}[fragile]%
 \begin{solution}
-Graded on: Correct answer (1), justification (1), grammer (1). 
+Graded on: Correct answer (1), justification (1), grammer (1).
 The variance would decrease because a 5 is closer to the mean than a 55. The squared distance from the mean (the $\sum(x_{i}-\bar{x})^{2}$ portion of the variance calculation) for a data point of 55 is $(55-7)^{2}=2304$, compared to $(5-7)^2=4$.
 \vspace{-2.5cm}
 \end{solution}
@@ -555,12 +555,12 @@ The lower fence is $Q_{1}-1.5*IQR = \Sexpr{q1.los-1.5*IQR(los)}$ which is less t
 
 %%---%%
 
-% outliers - if the boxplot is drawn for them. 
+% outliers - if the boxplot is drawn for them.
 \begin{defproblem}{los_outliers}[fragile]
-What do the open dots on the boxplot represent? What makes these two points different from the rest of the data? 
+What do the open dots on the boxplot represent? What makes these two points different from the rest of the data?
 \begin{onlysolution}[fragile]%
 \begin{solution}
-Graded on: Correct answer (1), justification (1), grammer (1). 
+Graded on: Correct answer (1), justification (1), grammer (1).
 The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.los+1.5*IQR(los)}$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.
 \vspace{-2.5cm}
 \end{solution}
@@ -585,7 +585,7 @@ The mean is greater than the median, and there are two high end outliers. The da
 %%                          North Carolina Births                           %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% In 2004, the state of North Carolina released a large data set containing information on births recorded in this state. The codebook is available as a handout. Answer the following questions about this data. 
+% In 2004, the state of North Carolina released a large data set containing information on births recorded in this state. The codebook is available as a handout. Answer the following questions about this data.
 <<echo=FALSE, warning=FALSE, message=FALSE>>=
 gh <- ncbirths %>% filter(!is.na(gained) & !is.na(habit))
 fage <- na.omit(ncbirths$fage)
@@ -630,11 +630,11 @@ text(mean(fage),1.6,  "Mean", srt=90, adj=0)
 %%---%%
 
 \begin{defproblem}{ncbirths_describe}[fragile]
-Describe the distribution of the fathers age. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report. 
+Describe the distribution of the fathers age. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 \textbf{Graded on:} Discussed location using mean or median (1), discussed spread using range, iqr, variance or sd (1), discussed shape (1), grammer(1). \\
-The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation of \Sexpr{round(sqrt(var(fage)),1)} days. Responses range from \Sexpr{min(fage)} to \Sexpr{max(fage)}, with a median age of \Sexpr{median(fage)}. The ages are symmetric, with two potential high end outliers.  
+The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation of \Sexpr{round(sqrt(var(fage)),1)} days. Responses range from \Sexpr{min(fage)} to \Sexpr{max(fage)}, with a median age of \Sexpr{median(fage)}. The ages are symmetric, with two potential high end outliers.
 
 \vspace{-5cm}
 \end{solution}
@@ -645,10 +645,10 @@ The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation
 
 
 \begin{defproblem}{ncbirths_outliers}[fragile]
-What do the open dots on the boxplot represent? What makes these two points different from the rest of the data? 
+What do the open dots on the boxplot represent? What makes these two points different from the rest of the data?
 \begin{onlysolution}[fragile]%
 \begin{solution}
-\textbf{Graded on:} Correct answer (1), justification (1), grammar (1). 
+\textbf{Graded on:} Correct answer (1), justification (1), grammar (1).
 The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.fage+1.5*IQR(fage)}$. Two data points are considered outliers because they are above the upper fence.
 \vspace{-2 cm}
 \end{solution}
@@ -695,7 +695,7 @@ There is a moderate to strong positive linear relationship between the age of th
 %%---%%
 
 \begin{defproblem}{ncbirths_gained_gender}[fragile]
-Some people believe that you can tell the gender of the child by how much weight the mother has gained. Does this data set seem to support that notion? Explain your answer by specifically referring to a feature in the graphic and/or summary statistics. 
+Some people believe that you can tell the gender of the child by how much weight the mother has gained. Does this data set seem to support that notion? Explain your answer by specifically referring to a feature in the graphic and/or summary statistics.
 \ifthenelse{\boolean{showanswers}}{}{
 \begin{figure}[h!]
 <<echo=FALSE, out.width='.3\\textwidth'>>=
@@ -705,7 +705,7 @@ qplot(x=gained, data=ncbirths, geom="density", facets=gender~.)
 }
 \begin{onlysolution}[fragile]%
     \begin{solution}
-It does not. There is a large overlap of the distributions of gained for each gender, the means are only 1 lb different, both genders have a standard deviation of 14.2. 
+It does not. There is a large overlap of the distributions of gained for each gender, the means are only 1 lb different, both genders have a standard deviation of 14.2.
 
   \end{solution}
   \end{onlysolution}
@@ -715,7 +715,7 @@ It does not. There is a large overlap of the distributions of gained for each ge
 
 
 \begin{defproblem}{ncbirths_gh_compare}[fragile]
-Describe the distribution of \R{gained} across levels of \R{habit}. Use summary statistics, measures of center, shape and spread. 
+Describe the distribution of \R{gained} across levels of \R{habit}. Use summary statistics, measures of center, shape and spread.
 \ifthenelse{\boolean{showanswers}}{}{
 \begin{figure}[h!]
 <<echo=FALSE, out.width='.3\\textwidth'>>=
@@ -726,7 +726,7 @@ Describe the distribution of \R{gained} across levels of \R{habit}. Use summary 
 \begin{onlysolution}[fragile]%
     \begin{solution}
 
-The distribution of average weight gained during pregnancy is very similar between non-smoking and smoking mothers. Smoking mothers gain an average of 31.9lb and non-smoking mothers gain an average of 30.1 lbs. Smoking mothers have a higher standard deviation, 15.7 compared to 14.0 for non-smoking mothers, but non-smoking mothers have a higher max weight gained of 85 lbs compared to the max of 75 for smokers. The shape of the distribution of weight gained are approximtely normal for both groups, with a possible slight right skew. There are many more non smoking mothers compared to smoking mothers, this is demonstrated by the heights of the histogram bars. 
+The distribution of average weight gained during pregnancy is very similar between non-smoking and smoking mothers. Smoking mothers gain an average of 31.9lb and non-smoking mothers gain an average of 30.1 lbs. Smoking mothers have a higher standard deviation, 15.7 compared to 14.0 for non-smoking mothers, but non-smoking mothers have a higher max weight gained of 85 lbs compared to the max of 75 for smokers. The shape of the distribution of weight gained are approximtely normal for both groups, with a possible slight right skew. There are many more non smoking mothers compared to smoking mothers, this is demonstrated by the heights of the histogram bars.
 
   \end{solution}
   \end{onlysolution}
@@ -745,11 +745,11 @@ mosaicplot <- function(x){}
 
 
 \begin{defproblem}{mosaic_sample_setup}[fragile]
-The student survey data was used to create the following mosiaic plot. 
-The associated two-way tables can be found in the Appendix. 
+The student survey data was used to create the following mosiaic plot.
+The associated two-way tables can be found in the Appendix.
 <<echo=FALSE, fig.align='center', fig.width=4, fig.height=4>>=
 mosaicplot(survey$Clap~survey$W.Hnd, shade=TRUE, main="",
-           ylab = "Dominant writing hand", 
+           ylab = "Dominant writing hand",
            xlab="Clap your hands! Which hand is on top?")
 @
 \begin{onlysolution}[fragile]%
@@ -762,10 +762,10 @@ mosaicplot(survey$Clap~survey$W.Hnd, shade=TRUE, main="",
 %%---%%
 
 \begin{defproblem}{mosaic_sample_id}[fragile]
-What relationship is being examined here? 
+What relationship is being examined here?
 \begin{onlysolution}[fragile]%
 \begin{solution}
-Which hand the student has on top when they clap, and which hand is their dominant writing hand. 
+Which hand the student has on top when they clap, and which hand is their dominant writing hand.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -774,10 +774,10 @@ Which hand the student has on top when they clap, and which hand is their domina
 %%---%%
 
 \begin{defproblem}{mosaic_sample_prop}[fragile]
-What does the area of the rectangles represent? Show an example. 
+What does the area of the rectangles represent? Show an example.
 \begin{onlysolution}[fragile]%
 \begin{solution}
-The area of the rectangles is the cell proportions. For example 12\% of the students are right hand writing dominant but their left hand is on top when they clap their hands. 
+The area of the rectangles is the cell proportions. For example 12\% of the students are right hand writing dominant but their left hand is on top when they clap their hands.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -786,10 +786,10 @@ The area of the rectangles is the cell proportions. For example 12\% of the stud
 %%---%%
 
 \begin{defproblem}{mosaic_sample_assoc}[fragile]
-Does it seem that these variables are independent? Justify your answer by using the marginal proportions and the standardized residual shadings. 
+Does it seem that these variables are independent? Justify your answer by using the marginal proportions and the standardized residual shadings.
 \begin{onlysolution}[fragile]%
 \begin{solution}
-There is likely a moderate relationship between the dominant writing and clapping hand. Almost all (97\%) of those who have a right hand dominant clap, also are right handed with writing. This combination is shaded light red, which corresponds to a moderately negative standardized residual score. This means the 3\% who are contrary is lower than expected if these variables were independent. Interestingly, there are more than expected lefties in the group who are left hand dominant for both activities. This is another indication that these variables are probably associated. 
+There is likely a moderate relationship between the dominant writing and clapping hand. Almost all (97\%) of those who have a right hand dominant clap, also are right handed with writing. This combination is shaded light red, which corresponds to a moderately negative standardized residual score. This means the 3\% who are contrary is lower than expected if these variables were independent. Interestingly, there are more than expected lefties in the group who are left hand dominant for both activities. This is another indication that these variables are probably associated.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -800,7 +800,7 @@ There is likely a moderate relationship between the dominant writing and clappin
 %%---%%
 
 \begin{defproblem}{survey_crosstab}[fragile]
-Two way tables for the cross-combination of gender and exercise frequency are available in the Appendix. This data comes from the student survey data pre-built into R. Use these tables to answer the following questions. Show your work as needed. Single number answers will suffice. 
+Two way tables for the cross-combination of gender and exercise frequency are available in the Appendix. This data comes from the student survey data pre-built into R. Use these tables to answer the following questions. Show your work as needed. Single number answers will suffice.
 \ifthenelse{\boolean{showanswers}}{}
 {
 \begin{enumerate}
@@ -833,9 +833,9 @@ Two way tables for the cross-combination of gender and exercise frequency are av
 
 \begin{defproblem}{survey_scatter_setup}[fragile]
 Using the \R{survey} data set the following plot comparing the hand spans for each student
-was created. Use this plot and additional code in the Appendix to answer the following questions. 
+was created. Use this plot and additional code in the Appendix to answer the following questions.
 <<echo=FALSE, warning=FALSE, message=FALSE, fig.height=4, fig.width=5, out.width='.5\\textwidth',  fig.align='center', fig.show='hold', fig.pos='!h'>>=
-ggplot(survey, aes(x=Wr.Hnd, y=NW.Hnd)) + 
+ggplot(survey, aes(x=Wr.Hnd, y=NW.Hnd)) +
   geom_point() + theme_bw()
 @
 \begin{onlysolution}[fragile]%
@@ -848,19 +848,14 @@ ggplot(survey, aes(x=Wr.Hnd, y=NW.Hnd)) +
 
 \begin{defproblem}{survey_scatter_describe}[fragile]
 Describe the relationship observed here. Be sure to talk about the
-direction, strength, and form of the relationship. Additional results 
-found in the Appendix may be useful here. 
+direction, strength, and form of the relationship. Additional results
+found in the Appendix may be useful here.
 \begin{onlysolution}[fragile]%
   \begin{solution}
   There is a strong, positive, linear correlation between the span size of
   of the dominant writing hand, and the non-dominant writing hand. The correlation
-  is 0.94. 
+  is 0.94.
   \vspace{0cm}
   \end{solution}
   \end{onlysolution}
 \end{defproblem}
-
-
-
-
-

@@ -1,12 +1,9 @@
-% Experimental Design
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{defproblem}{Avandia_setup}[fragile]
 Rosiglitazone is the active ingredient in the controversial type~2 diabetes medicine Avandia and hasbeen linked to an increased risk of serious cardiovascular problems such as stroke, heart failure, and death. A common alternative treatment is pioglitazone, the active ingredient in a diabetes medicine called Actos. Data collected as part of a nationwide retrospective observational study of 227,571 Medicare beneficiaries aged 65 years or older are summarized in the contingency table below.
 \begin{center}
-\begin{tabular}{ll  cc c} 
+\begin{tabular}{ll  cc c}
                                 &   & \multicolumn{2}{c}{\textit{Cardiovascular problems}} \\
-\cline{3-4} 
+\cline{3-4}
                                     &               & Yes   & No        & Total \\
 \cline{2-5}
 \multirow{2}{*}{\textit{Treatment}} & Rosiglitazone & 2,593 & 65,000    & 67,593 \\
@@ -36,7 +33,7 @@ How many patients on Pioglitazone had cardiovascular problems? How many patients
 
 
 \begin{defproblem}{Avandia_rowprop}[fragile]
-Do the data suggest that diabetic patients who are taking rosiglitazone are more likely to have cardiovascular problems than those on pioglitazone? Justify your answer. 
+Do the data suggest that diabetic patients who are taking rosiglitazone are more likely to have cardiovascular problems than those on pioglitazone? Justify your answer.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 Yes it does since the rate of incidence was (2,593 / 67,593 = 0.038) 3.8\% for patients on rosiglitazone, while it was only (5,386 / 159,978 = 0.034) 3.4\% for patients on pioglitazone.
@@ -47,7 +44,7 @@ Yes it does since the rate of incidence was (2,593 / 67,593 = 0.038) 3.8\% for p
 
 
 \begin{defproblem}{Avandia_causation}[fragile]
-True or False: The fact that the rate of incidence is higher for the rosiglitazone group proves that rosiglitazone causes serious cardiovascular problems. 
+True or False: The fact that the rate of incidence is higher for the rosiglitazone group proves that rosiglitazone causes serious cardiovascular problems.
 \begin{onlysolution}[fragile]%
 \begin{solution}
 False. Association does not imply causation. We cannot infer a causal relationship based on an observational study. The difference between the two rates is subtle.
@@ -72,7 +69,7 @@ The proportion of all patients who had cardiovascular problems is $\frac{7,979}{
 %%%% READING COMPREHENSION %%%%%%
 
 \begin{defproblem}{JIE_RQ}[fragile]
-What are the researchers evaluating? In other words, what is their primary research question? 
+What are the researchers evaluating? In other words, what is their primary research question?
 \begin{onlysolution}[fragile]%
     \begin{solution}
 The researchers ``sought to evaluate the effect of hospital intervention on mortality after penetrating trauma using a method that allowed for interval censoring of the precise times of death".
@@ -82,10 +79,10 @@ The researchers ``sought to evaluate the effect of hospital intervention on mort
 \end{defproblem}
 
 \begin{defproblem}{JIE_POP}[fragile]
-Who is the population being studied? 
+Who is the population being studied?
 \begin{onlysolution}[fragile]%
     \begin{solution}
-The population is persons with penetrating trauma. 
+The population is persons with penetrating trauma.
 \vspace{-1cm}
     \end{solution}
 \end{onlysolution}
@@ -122,7 +119,7 @@ Patient Mortality.
 \end{defproblem}
 
 \begin{defproblem}{JIE_PREDICTORS}[fragile]
-What are some of the associated risk factors? I.e. What are the predictors they investigated? 
+What are some of the associated risk factors? I.e. What are the predictors they investigated?
 \begin{onlysolution}[fragile]%
     \begin{solution}
 Older age, female sex, firearm mechanism, injuries involving the head, neck or trunk.
@@ -142,7 +139,7 @@ Admission to a verified level I trauma center (compared to other hospitals in th
 \end{defproblem}
 
 \begin{defproblem}{JIE_CAUSATION}[fragile]
-Does this article imply that being admitted to a verified level I trauma center will reduce the chance of dying after experiencing penetrating trauma? 
+Does this article imply that being admitted to a verified level I trauma center will reduce the chance of dying after experiencing penetrating trauma?
 \begin{onlysolution}[fragile]%
     \begin{solution}
 
@@ -154,7 +151,7 @@ Does this article imply that being admitted to a verified level I trauma center 
 %----------AIDERP----------------%
 
 \begin{defproblem}{AIDERP_RQ}[fragile]
-What are the researchers evaluating? In other words, what is their primary research question? 
+What are the researchers evaluating? In other words, what is their primary research question?
 \begin{onlysolution}[fragile]%
     \begin{solution}
 Behavior change of recently HIV-infected men who have sex with men (MSM).
@@ -217,10 +214,10 @@ What did they find about the relationship between viral load and rate of unprote
 %----------chocolate----------------%
 
 \begin{defproblem}{chocolate_rq}[fragile]
-What are the researchers evaluating? In other words, what is their primary research question? 
+What are the researchers evaluating? In other words, what is their primary research question?
 \begin{onlysolution}[fragile]%
     \begin{solution}
-Does cocoa improve weight loss? 
+Does cocoa improve weight loss?
 \vspace{-2.5cm}
     \end{solution}
 \end{onlysolution}
@@ -229,7 +226,7 @@ Does cocoa improve weight loss?
 %-%
 
 \begin{defproblem}{chocolate_oc}[fragile]
-Identify two response variables. 
+Identify two response variables.
 \begin{onlysolution}[fragile]%
     \begin{solution}
 Responses include: weight, BMI, waist-to-hip ratio, cholesterol, mental well-being.
@@ -241,14 +238,14 @@ Responses include: weight, BMI, waist-to-hip ratio, cholesterol, mental well-bei
 %-%
 
 \begin{defproblem}{chocolate_tx}[fragile]
-What is the treatment factor? What are the treatment levels? 
+What is the treatment factor? What are the treatment levels?
 \begin{onlysolution}[fragile]%
     \begin{solution}
-The treatment factor is type of diet. The levels are: 
+The treatment factor is type of diet. The levels are:
 \begin{itemize}
   \item Chocolate group: low carb diet with 42g of 81\% cocoa
   \item Low-carb group: low carb diet only
-  \item Control: Unrestricted choice of diet. 
+  \item Control: Unrestricted choice of diet.
 \end{itemize}
 \vspace{-2.5cm}
     \end{solution}
@@ -258,10 +255,10 @@ The treatment factor is type of diet. The levels are:
 %-%
 
 \begin{defproblem}{chocolate_blind}[fragile]
-Was this study blinded? Justify your answer. 
+Was this study blinded? Justify your answer.
 \begin{onlysolution}[fragile]%
 \begin{solution}
-No. The participants knew what diet group they were in. 
+No. The participants knew what diet group they were in.
 \vspace{-2.5cm}
 \end{solution}
 \end{onlysolution}
@@ -273,7 +270,7 @@ No. The participants knew what diet group they were in.
 Is this a controlled experiment or an observational study? Explain your reasoning?
 \begin{onlysolution}[fragile]%
 \begin{solution}
-This was a controlled experiment. 
+This was a controlled experiment.
 \vspace{-2.5cm}
 \end{solution}
 \end{onlysolution}
@@ -282,10 +279,10 @@ This was a controlled experiment.
 %-%
 
 \begin{defproblem}{chocolate_conclusion}[fragile]
-So should I start eating a ton of chocolate and expect to loose weight and feel great? Justify your answer. 
+So should I start eating a ton of chocolate and expect to loose weight and feel great? Justify your answer.
 \begin{onlysolution}[fragile]%
     \begin{solution}
-No. The results of this study are very unclear. Even if there is evidence presented in the rest of the paper of a strong association between eating chocolate and weight loss, correlation or association does not imply causation. Furthermore, this evidence seems to contradict the general body of current scientific knowledge about chocolate and general health. 
+No. The results of this study are very unclear. Even if there is evidence presented in the rest of the paper of a strong association between eating chocolate and weight loss, correlation or association does not imply causation. Furthermore, this evidence seems to contradict the general body of current scientific knowledge about chocolate and general health.
 \vspace{-2.5cm}
     \end{solution}
 \end{onlysolution}
