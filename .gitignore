@@ -9,6 +9,7 @@ share/
 testbank.egg-info
 play.py
 notes.org
+figures/
 .#*
 *.o
 *.out
