@@ -28,10 +28,9 @@
 %\showanswers
 
 % Load problems from external files, grouped type of problem
-<<desc,child="Pool_Descriptive.Rnw">>=
+<<desc,child="problems.Rnw">>=
 @
-<<expdesign,child="Pool_ExpDesign.Rnw">>=
-@
+
 
 
 \begin{document}

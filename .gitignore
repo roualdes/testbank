@@ -8,6 +8,21 @@ pip-selfcheck.json
 share/
 testbank.egg-info
 play.py
+notes.org
+.#*
+*.o
+*.out
+*.gz
+*.log
+*.aux
+*.bbl
+*.blg
+*.fff
+*.ttt
+*.aaa
+*.txt
+.Rhistory
+*-Ex.R
 
 ### OS Files ###
 .DS_Store

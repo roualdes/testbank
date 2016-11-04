@@ -1,39 +1,89 @@
-% Data types and descriptive exam questions
-<<echo=FALSE, warning=FALSE, message=FALSE>>=
-library(lattice)
-library(xtable)
-library(ggplot2)
-library(dplyr)
-library(MASS)
-library(openintro)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Robin Jeffries
+% Class: Math 315- Applied Statistics I
+% Purpose: Sample Exam
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-ncbirths <- read.csv("NCbirths.csv",header=TRUE)
-fuelly <- read.table("fuelups.csv", sep=",", header=TRUE)
-fuelly$date <- as.Date(as.character(fuelly$fuelup_date), format="%m/%d/%Y")
-Mode <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
 }
-@
-<<echo=FALSE>>=
-## dog
-dog_age <- c(98,90,92,70,83,45,92,90,76,72,74,63,88,75,84,80,80,68,77,92)
-mean.age <- round(mean(dog_age),1); var.age <- round(var(dog_age),1)
-sd.age <- round(sqrt(var.age),1); q1.age <- quantile(dog_age, .25)
-q3.age <- quantile(dog_age, .75)
-## length of stay in hospital
-los <- c(4, 4, 12, 18, 9, 6, 12, 3, 7, 15, 7, 3, 55, 1, 10, 13, 5, 7, 1, 26, 9)
-mean.los <- round(mean(los),1); var.los <- round(var(los),1)
-sd.los <- round(sqrt(var.los),1); q1.los <- quantile(los, .25)
-q3.los <- quantile(los, .75)
-@
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage{probsoln}
+\usepackage[top=0.5in, bottom=1in, left=.75in, right=.75in]{geometry}
+\usepackage{setspace}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{colortbl}
+\usepackage{mathtools}
+\usepackage{mdwlist}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\R}[1]{\texttt{#1}}
+
+% Uncomment the following line to generate solution sheet.
+%\showanswers
+
+% Load problems from external files, grouped type of problem
+
+% Data types and descriptive exam questions
+
+
 
 % In 2004, the state of North Carolina released a large data set containing information on births recorded in this state. The codebook is available as a handout. Answer the following questions about this data.
-<<echo=FALSE, warning=FALSE, message=FALSE>>=
-gh <- ncbirths %>% filter(!is.na(gained) & !is.na(habit))
-fage <- na.omit(ncbirths$fage)
-q3.fage <- quantile(fage,.75)
-@
+
 
 % MOTIVATIONAL
 \begin{defproblem}{whyr}[fragile]
@@ -69,12 +119,12 @@ The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
 \begin{table}[h!]
 \centering
 \begin{tabular}{lp{1cm}lp{1cm}l}
-Min = \Sexpr{min(dog_age)} & &
-$Q_{1}$ = \Sexpr{q1.age} & &
-Median =  \Sexpr{median(dog_age)}\\
-$Q_{3}$ =  \Sexpr{q3.age} & &
-Max = \Sexpr{max(dog_age)} & &
-IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(dog_age)}\\
+Min = 45 & &
+$Q_{1}$ = 73.5 & &
+Median =  80\\
+$Q_{3}$ =  90 & &
+Max = 98 & &
+IQR = $Q_{3} - Q_{1}$ = 16.5\\
 \end{tabular}
 \end{table}
 \vspace{-2cm}
@@ -85,7 +135,7 @@ IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(dog_age)}\\
 Are there any outliers in this data set? Use the fences to decide. State the fences and if there are any outliers, identify them.
 \begin{onlysolution}[fragile]%
 \begin{solution}
-The max data point \Sexpr{max(dog_age)} is below the upper fence of $Q_{3}+1.5*IQR = \Sexpr{q3.age+1.5*IQR(dog_age)}$, so there are no upper end outliers. The data point 45 is considered an outlier because it is below the lower fence of $Q_{1}-1.5*IQR = \Sexpr{q1.age-1.5*IQR(dog_age)}$.
+The max data point 98 is below the upper fence of $Q_{3}+1.5*IQR = 114.75$, so there are no upper end outliers. The data point 45 is considered an outlier because it is below the lower fence of $Q_{1}-1.5*IQR = 48.75$.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -93,17 +143,16 @@ The max data point \Sexpr{max(dog_age)} is below the upper fence of $Q_{3}+1.5*I
 \begin{defproblem}{dogage_boxplot}[fragile]
 Construct a boxplot (modified if appropriate) for this data set. Label everything and include an axis.\begin{onlysolution}[fragile]%
 \begin{solution}
-<<echo=FALSE, fig.align='center', fig.width=8, fig.height=4>>=
-par(oma=c(0,0,0,0), mar=c(4,1,1,1))
-plot(c(40, 100), c(.7, 2), type="n", axes=FALSE, xlab="Dog ages", ylab="")
-bp <- boxplot(dog_age, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1)
-numlabels <- c(bp$out, bp$stats[2]-1.5*IQR(dog_age), bp$stats)
-arrows(bp$stats[2]-1.5*IQR(dog_age), .7, bp$stats[2]-1.5*IQR(dog_age), 1.2, lty=2, code=0)
-text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
-charlabels <- c("outlier", "fence", "min data point \n  inside fence", "Q1","Med", "Q3", "Max")
-text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figures/main-unnamed-chunk-8-1} 
+
+}
+
+
+
+\end{knitrout}
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -173,10 +222,20 @@ Identify each variable as categorical or numerical.\begin{onlysolution}[fragile]
 Draw an example \R{data.frame} complete with labels that contains 1 sample case for each vehicle. In other words, create a table that contain 1 rows of made-up raw data for the car and 1 row of made-up date for the truck. Be sure to label your variables.
 \begin{onlysolution}[fragile]%
 \begin{solution}
-<<results='asis', echo=FALSE>>=
-b <- xtable(fuelly[205:206,c("model", "fuelup_date", "odometer", "gallons", "price")])
-print(b, include.rownames=FALSE)
-@
+% latex table generated in R 3.3.1 by xtable 1.8-2 package
+% Fri Nov  4 09:31:34 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrr}
+  \hline
+model & fuelup\_date & odometer & gallons & price \\ 
+  \hline
+Nissan Frontier & 12/19/2014 & 175977 & 5.04 & 2.74 \\ 
+  Ford Focus & 12/20/2014 & 85278 & 7.52 & 2.66 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 \textcolor{red}{Points adjusted to 3} This seemed to come down to recognizing what a \textbf{case} is, or what \textbf{raw data} looks like.
 \vspace{-2cm}
 \end{solution}
@@ -184,18 +243,38 @@ print(b, include.rownames=FALSE)
 \end{defproblem}
 \begin{defproblem}{missingdata}[fragile]
 Given the following information, what would the code \R{mean(survey\$Height)} produce?
-<<echo=2>>=
-table(is.na(survey$Height))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+## 
+## FALSE  TRUE 
+##   209    28
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 \begin{onlysolution}[fragile]%
 \begin{solution}
-<<>>=
-mean(survey$Height)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{mean}\hlstd{(survey}\hlopt{$}\hlstd{Height)}
+\end{alltt}
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 This is because there was missing data in the data set. The sum of data + missing = missing. When missing data is present, most the time you need to explicitly tell \R{R} to exclude it.
-<<>>=
-mean(survey$Height, na.rm=TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{mean}\hlstd{(survey}\hlopt{$}\hlstd{Height,} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 172.3809
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -207,8 +286,8 @@ The relevant R code needed to answer part a) and b) is \R{summary(dog\_age)} and
 \begin{table}[h!]
 \centering
 \begin{tabular}{l p{1cm} l p{1cm} l}
-Mean = \Sexpr{mean.age} & & Variance = \Sexpr{var.age} & & SD = \Sexpr{sd.age} \\
-Range = \Sexpr{min(dog_age)} to \Sexpr{max(dog_age)} & & Mode = \Sexpr{Mode(dog_age)} & &
+Mean = 79.5 & & Variance = 155.1 & & SD = 12.5 \\
+Range = 45 to 98 & & Mode = 92 & &
 \end{tabular}
 \end{table}
 \vspace{-2cm}
@@ -226,12 +305,16 @@ The mean is about equal to the median. With the exception of the low end outlier
 For each of the two variables plotted below, answer the following 3 questions: Which measure of center is greater?  What is the most appropriate measure of center for this data? Is the data relatively symmetric or skewed?
 \ifthenelse{\boolean{showanswers}}{}
 {
-<<echo=FALSE, fig.height=2.5, fig.width=5, fig.align='center', out.width='.8\\textwidth', fig.show='hold', fig.pos='!h'>>=
-par(oma=c(0,0,0,0), mar=c(4,2,2,1), mfrow=c(1,2))
-trimmed <- subset(fuelly, fuelly$gallons > 6)
-hist(trimmed$gallons, main="Gallons put in tank", xlab="Gallons")
-hist(trimmed$price, main="Price per gallon", xlab="Dollars")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.8\textwidth]{figures/main-unnamed-chunk-13-1} 
+
+}
+
+
+
+\end{knitrout}
 \begin{table}[h!]
 \centering
 \begin{tabular}{c | p{2cm} | p{2cm} }
@@ -268,10 +351,16 @@ Shape & Symmetric &  Left skewed\\
 \begin{defproblem}{exhist_setup}[fragile]
 The following histograms display the heights of males and females from the student survey data.
 The Appendix contains summary statistics that you will need to use to answer the following questions.
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
-s2 <- survey[!is.na(survey$Sex),]
-ggplot(s2, aes(x=Height)) + geom_histogram() + facet_wrap(~Sex, ncol=1) + theme_bw()
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.8\textwidth]{figures/main-unnamed-chunk-14-1} 
+
+}
+
+
+
+\end{knitrout}
 \begin{onlysolution}[fragile]%
 \begin{solution}
 \vspace{-2cm}
@@ -296,11 +385,14 @@ On average males are taller than females, the bulk of the data and the mean are 
 It is common knowledge that cars get better gas mileage than trucks, but she wants to quantify this information. Tell me three things about the relationship between MPG and type of car. Be sure to justify each statement by referencing a specific feature of the graphic that gave you this information, and where applicable use numeric summaries provided in the Appendix.
 \ifthenelse{\boolean{showanswers}}{}{
 \hspace{-2cm}
-<<echo=FALSE, message=FALSE, fig.height=6, fig.width=5, fig.align='left', out.width='.4\\textwidth', fig.show='hold', fig.pos='!h'>>=
-ggplot(fuelly, aes(x=mpg, group=model)) + geom_histogram(aes(y=..density..), fill=NA, col="black") +
-geom_density() +
-facet_wrap(~model, ncol=1) + theme_bw()
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+\includegraphics[width=.4\textwidth]{figures/main-unnamed-chunk-15-1} \hfill{}
+
+
+
+\end{knitrout}
 }
 \begin{onlysolution}[fragile]%
 \begin{solution}
@@ -332,9 +424,14 @@ The car is driven much more often than the truck. Here are the two most clear wa
 Describe the relationship between MPG and the price of gas. Does it appear that price of gas affects the MPG? In other words, can you tell if the MPG positively or negatively associated with the price of gas? Why or why not?
 \ifthenelse{\boolean{showanswers}}{}
 {
-<<echo=FALSE, fig.height=4, fig.width=5, out.width='.4\\textwidth',  fig.align='left', fig.show='hold', fig.pos='!h'>>=
-ggplot(fuelly, aes(x=mpg, y=price)) + geom_point() + geom_smooth(se=FALSE) + theme_bw()
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+\includegraphics[width=.4\textwidth]{figures/main-unnamed-chunk-16-1} \hfill{}
+
+
+
+\end{knitrout}
 }
 \begin{onlysolution}[fragile]%
 \begin{solution}
@@ -345,9 +442,16 @@ They are not associated. If you were to draw a line down the middle of the data 
 \end{defproblem}
 \begin{defproblem}{f3a}[fragile]
 Using the following histograms that display the heights of males and females, what can you say about the average height of males compared to females? Explain your reasoning. What does the height of the bars represent? Be specific.
-<<echo=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
-histogram(~Height|Sex, data=survey, layout=c(1,2), type="count", breaks=7)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.8\textwidth]{figures/main-unnamed-chunk-17-1} 
+
+}
+
+
+
+\end{knitrout}
 \begin{onlysolution}[fragile]%
 \begin{solution}
 Most of the data for males is around 180cm, most frequently between 175 and 180cm. The bulk of the heights for females is around 165-170. I can make a reasonable guess that the average height for males is greater than the average height for females. The height of the histogram bars represent the frequency count of people measured in that range. For example, almost 30 males measured between 175 and 180 cm, and around 35 females measured around 165-170cm.\vspace{-2cm}
@@ -356,10 +460,16 @@ Most of the data for males is around 180cm, most frequently between 175 and 180c
 \end{defproblem}
 \begin{defproblem}{insectspray_tellme}[fragile]
 Data on the counts of insects in agricultural experimental units treated with different insecticides was analyzed in the article Beall, G., (1942) \emph{The Transformation of data from entomological field experiments}, Biometrika, 29, 243-262.
-<<echo=FALSE, fig.height=4, fig.width=6, fig.align='center', fig.show='hold', out.width='.8\\textwidth', fig.pos='!h'>>=
-boxplot(count~spray, data=InsectSprays, xlab="Type of Spray",
-ylab="Count of insects sprayed")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.8\textwidth]{figures/main-unnamed-chunk-18-1} 
+
+}
+
+
+
+\end{knitrout}
 Tell me two interesting things about this data.
 \begin{onlysolution}[fragile]%
 \begin{solution}
@@ -382,11 +492,11 @@ The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and
 \begin{table}[h!]
 \centering
 \begin{tabular}{lp{1cm}lp{1cm}l}
-Mean = \Sexpr{mean.los} & &
-Variance = \Sexpr{var.los} & &
-SD = \Sexpr{sd.los} \\
-Range = \Sexpr{min(los)} to \Sexpr{max(los)} & &
-Mode = \Sexpr{Mode(los)} & & \\
+Mean = 10.8 & &
+Variance = 138.8 & &
+SD = 11.8 \\
+Range = 1 to 55 & &
+Mode = 7 & & \\
 \end{tabular}
 \end{table}
 \vspace{-2cm}
@@ -400,12 +510,12 @@ The 5 number summary consists of the Min, $Q_{1}$, Median, $Q_{3}$ and Max.
 \begin{table}[h!]
 \centering
 \begin{tabular}{lp{1cm}lp{1cm}l}
-Min = \Sexpr{min(los)} & &
-$Q_{1}$ = \Sexpr{q1.los} & &
-Median =  \Sexpr{median(los)}\\
-$Q_{3}$ =  \Sexpr{q3.los} & &
-Max = \Sexpr{max(los)} & &
-IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(los)}\\
+Min = 1 & &
+$Q_{1}$ = 4 & &
+Median =  7\\
+$Q_{3}$ =  12 & &
+Max = 55 & &
+IQR = $Q_{3} - Q_{1}$ = 8\\
 \end{tabular}
 \end{table}
 \vspace{-2cm}
@@ -415,20 +525,16 @@ IQR = $Q_{3} - Q_{1}$ = \Sexpr{IQR(los)}\\
 \begin{defproblem}{los_boxplot}[fragile]
 Construct a boxplot (modified if appropriate) for this data set. Draw the fences using a dotted line and include a symbol for the mean. Label everything (using numbers and words) and include an axis with title.\begin{onlysolution}[fragile]%
 \begin{solution}
-<<echo=FALSE, fig.height=3, fig.width=6, fig.align='center', fig.show='hold', fig.pos='!h'>>=
-par(oma=c(0,0,0,0), mar=c(4,1,1,1))
-plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Length of Stay (days)", ylab="")
-bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1)
-numlabels <- c(bp$stats, 1.5*IQR(los)+bp$stats[4], bp$out)
-arrows(1.5*IQR(los)+bp$stats[4], .7, 1.5*IQR(los)+bp$stats[4], 1.2, lty=2, code=0)
-text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
-charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
-text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
-points(mean(los), 1, pch=17)
-text(mean(los),1.55,  round(mean(los),1))
-text(mean(los),1.6,  "Mean", srt=90, adj=0)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figures/main-unnamed-chunk-19-1} 
+
+}
+
+
+
+\end{knitrout}
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -438,30 +544,29 @@ Below is a boxplot for this data. Label \textbf{everything} using numbers and wo
 By \textbf{everything} I mean: max,min, mean, median, Q1, Q3, IQR, fences, and outliers.
 \ifthenelse{\boolean{showanswers}}{}
 {\vspace{-1cm}
-<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.6\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
-par(oma=c(0,0,0,0), mar=c(1,1,1,1))
-plot(c(0, 60), c(.7, 1.5), type="n", axes=FALSE, xlab="", ylab="")
-bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1, at=seq(0,60, by=10), labels = rep(NA,7))
-points(mean(los), 1, pch=17)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.6\textwidth]{figures/main-unnamed-chunk-20-1} 
+
+}
+
+
+
+\end{knitrout}
 }
 \begin{onlysolution}[fragile]%
 \begin{solution}
-<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.8\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
-par(oma=c(0,0,0,0), mar=c(4,1,1,1))
-plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Length of Stay (days)", ylab="")
-bp <- boxplot(los, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1)
-numlabels <- c(bp$stats, 1.5*IQR(los)+bp$stats[4], bp$out)
-arrows(1.5*IQR(los)+bp$stats[4], .7, 1.5*IQR(los)+bp$stats[4], 1.2, lty=2, code=0)
-text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
-charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
-text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
-points(mean(los), 1, pch=17)
-text(mean(los),1.55,  round(mean(los),1))
-text(mean(los),1.6,  "Mean", srt=90, adj=0)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.8\textwidth]{figures/main-unnamed-chunk-21-1} 
+
+}
+
+
+
+\end{knitrout}
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -470,7 +575,7 @@ text(mean(los),1.6,  "Mean", srt=90, adj=0)
 Describe the distribution of the length of stay. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report.\begin{onlysolution}[fragile]%
 \begin{solution}
 The relevant R code needed to answer part a) and b) is \texttt{summary(los)} and \texttt{var(los)} \\
-The mean length of stay is \Sexpr{mean.los} days with a standard deviation of \Sexpr{sd.los} days. Responses range from \Sexpr{min(los)} to \Sexpr{max(los)}, with a median stay of \Sexpr{median(los)} days. The most common number of days a person has stayed in the hospital is \Sexpr{Mode(los)} days. The data is right skewed, with two outliers at 26 and 55 days.
+The mean length of stay is 10.8 days with a standard deviation of 11.8 days. Responses range from 1 to 55, with a median stay of 7 days. The most common number of days a person has stayed in the hospital is 7 days. The data is right skewed, with two outliers at 26 and 55 days.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -486,14 +591,14 @@ Graded on: Correct answer (1), justification (1), grammer (1). The variance woul
 \begin{defproblem}{los_outlier_noplot}[fragile]
 Are there any outliers in this data set? Use the fences to decide. State the fences and if there are any outliers, identify them.\begin{onlysolution}[fragile]%
 \begin{solution}
-The lower fence is $Q_{1}-1.5*IQR = \Sexpr{q1.los-1.5*IQR(los)}$ which is less than 0. There are no low end outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.los+1.5*IQR(los)}$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.\vspace{-2cm}
+The lower fence is $Q_{1}-1.5*IQR = \ensuremath{-8}$ which is less than 0. There are no low end outliers. The upper fence is $Q_{3}+1.5*IQR = 24$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.\vspace{-2cm}
 \end{solution}
 \end{onlysolution}
 \end{defproblem}
 \begin{defproblem}{los_outliers}[fragile]
 What do the open dots on the boxplot represent? What makes these two points different from the rest of the data?\begin{onlysolution}[fragile]%
 \begin{solution}
-Graded on: Correct answer (1), justification (1), grammer (1). The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.los+1.5*IQR(los)}$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.
+Graded on: Correct answer (1), justification (1), grammer (1). The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = 24$. Two data points, 26 and 55 are considered outliers because they are above the upper fence.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -509,31 +614,30 @@ The mean is greater than the median, and there are two high end outliers. The da
 Below is a boxplot for the fathers age. Label \textbf{everything} using numbers and words.
 \ifthenelse{\boolean{showanswers}}{}
 {
-<<echo=FALSE, fig.height=4, fig.width=6, out.width='0.6\\textwidth', fig.align='center', fig.show='hold', fig.pos='!h'>>=
-par(oma=c(0,0,0,0), mar=c(1,1,1,1))
-plot(c(0, 60), c(.7, 1.5), type="n", axes=FALSE, xlab="", ylab="")
-bp <- boxplot(fage, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1, at=seq(0,60, by=10), labels = rep(NA,7))
-points(mean(fage), 1, pch=17)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.6\textwidth]{figures/main-unnamed-chunk-22-1} 
+
+}
+
+
+
+\end{knitrout}
 }
 \begin{onlysolution}[fragile]%
 \begin{solution}
 \textbf{Graded on:} Axis label (1), tick mark labels (1), 5num summary with mean (1) in numbers, 5num summary with mean in words (1), outliers (1)
-<<echo=FALSE, fig.height=5, out.width='.6\\textwidth', fig.align='center'>>=
-par(oma=c(0,0,0,0), mar=c(4,1,1,1))
-plot(c(0, 60), c(.7, 2), type="n", axes=FALSE, xlab="Fathers age (years)", ylab="")
-bp <- boxplot(fage, horizontal=TRUE, axes=FALSE, add=TRUE)
-axis(1)
-numlabels <- c(bp$stats, 1.5*IQR(fage)+bp$stats[4], bp$out)
-arrows(1.5*IQR(fage)+bp$stats[4], .7, 1.5*IQR(fage)+bp$stats[4], 1.2, lty=2, code=0)
-text(numlabels, rep(1.3, length(numlabels)), label=numlabels)
-charlabels <- c("min", "Q1", "Median", "Q3", "max data point \n inside fence", "fence", "outlier", "outlier")
-text(numlabels, rep(1.35, length(charlabels)), label=charlabels, srt=90, adj=0)
-points(mean(fage), 1, pch=17)
-text(mean(fage),1.55,  round(mean(fage),1))
-text(mean(fage),1.6,  "Mean", srt=90, adj=0)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.6\textwidth]{figures/main-unnamed-chunk-23-1} 
+
+}
+
+
+
+\end{knitrout}
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -542,7 +646,7 @@ text(mean(fage),1.6,  "Mean", srt=90, adj=0)
 Describe the distribution of the fathers age. Use summary statistics, measures of center (location), shape and spread. Write your answer in narrative (paragraph) form as if you were writing a report.\begin{onlysolution}[fragile]%
 \begin{solution}
 \textbf{Graded on:} Discussed location using mean or median (1), discussed spread using range, iqr, variance or sd (1), discussed shape (1), grammer(1). \\
-The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation of \Sexpr{round(sqrt(var(fage)),1)} days. Responses range from \Sexpr{min(fage)} to \Sexpr{max(fage)}, with a median age of \Sexpr{median(fage)}. The ages are symmetric, with two potential high end outliers.
+The average fathers age is 30.3 with a standard deviation of 6.8 days. Responses range from 14 to 55, with a median age of 30. The ages are symmetric, with two potential high end outliers.
 \vspace{-2cm}
 \end{solution}
 \end{onlysolution}
@@ -550,16 +654,23 @@ The average fathers age is \Sexpr{round(mean(fage),1)} with a standard deviation
 \begin{defproblem}{ncbirths_outliers}[fragile]
 What do the open dots on the boxplot represent? What makes these two points different from the rest of the data?\begin{onlysolution}[fragile]%
 \begin{solution}
-\textbf{Graded on:} Correct answer (1), justification (1), grammar (1).  The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = \Sexpr{q3.fage+1.5*IQR(fage)}$. Two data points are considered outliers because they are above the upper fence.\vspace{-2cm}
+\textbf{Graded on:} Correct answer (1), justification (1), grammar (1).  The open dots on the boxplot are considered outliers. The upper fence is $Q_{3}+1.5*IQR = 50$. Two data points are considered outliers because they are above the upper fence.\vspace{-2cm}
 \end{solution}
 \end{onlysolution}
 \end{defproblem}
 \begin{defproblem}{ncbirths_scatter}[fragile]
 \ifthenelse{\boolean{showanswers}}{}
 {
-<<echo=FALSE>>=
-qplot(x=weeks, y=weight, data=ncbirths, geom=c("point", "jitter"))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 2 rows containing missing values (geom\_point).}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 2 rows containing missing values (geom\_point).}}\end{kframe}
+\includegraphics[width=\maxwidth]{figures/main-unnamed-chunk-24-1} 
+
+\end{knitrout}
 }
 \begin{onlysolution}[fragile]%
 \begin{solution}
@@ -571,9 +682,16 @@ qplot(x=weeks, y=weight, data=ncbirths, geom=c("point", "jitter"))
 Describe the relationship between the mothers age (\R{mage}) and fathers age (\R{fage}). Discuss the form, direction and strength. Provide an estimate of $r$.
 \ifthenelse{\boolean{showanswers}}{}{
 \begin{figure}[h!]
-<<echo=FALSE, out.width='.3\\textwidth'>>=
-qplot(x=mage, y=fage, data=ncbirths, geom=c("point", "jitter"))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 171 rows containing missing values (geom\_point).}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 171 rows containing missing values (geom\_point).}}\end{kframe}
+\includegraphics[width=.3\textwidth]{figures/main-unnamed-chunk-25-1} 
+
+\end{knitrout}
 \end{figure}
 }
 \begin{onlysolution}[fragile]%
@@ -586,9 +704,14 @@ There is a moderate to strong positive linear relationship between the age of th
 Some people believe that you can tell the gender of the child by how much weight the mother has gained. Does this data set seem to support that notion? Explain your answer by specifically referring to a feature in the graphic and/or summary statistics.
 \ifthenelse{\boolean{showanswers}}{}{
 \begin{figure}[h!]
-<<echo=FALSE, out.width='.3\\textwidth'>>=
-qplot(x=gained, data=ncbirths, geom="density", facets=gender~.)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 27 rows containing non-finite values (stat\_density).}}\end{kframe}
+\includegraphics[width=.3\textwidth]{figures/main-unnamed-chunk-26-1} 
+
+\end{knitrout}
 \end{figure}
 }
 \begin{onlysolution}[fragile]%
@@ -601,9 +724,14 @@ It does not. There is a large overlap of the distributions of gained for each ge
 Describe the distribution of \R{gained} across levels of \R{habit}. Use summary statistics, measures of center, shape and spread.
 \ifthenelse{\boolean{showanswers}}{}{
 \begin{figure}[h!]
-<<echo=FALSE, out.width='.3\\textwidth'>>=
-qplot(x=gained, data=gh, geom="histogram", facets=habit~.)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# `stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.}}\end{kframe}
+\includegraphics[width=.3\textwidth]{figures/main-unnamed-chunk-27-1} 
+
+\end{knitrout}
 \end{figure}
 }
 \begin{onlysolution}[fragile]%
@@ -615,11 +743,16 @@ The distribution of average weight gained during pregnancy is very similar betwe
 \begin{defproblem}{mosaic_sample_setup}[fragile]
 The student survey data was used to create the following mosiaic plot.
 The associated two-way tables can be found in the Appendix.
-<<echo=FALSE, fig.align='center', fig.width=4, fig.height=4>>=
-mosaicplot(survey$Clap~survey$W.Hnd, shade=TRUE, main="",
-ylab = "Dominant writing hand",
-xlab="Clap your hands! Which hand is on top?")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figures/main-unnamed-chunk-28-1} 
+
+}
+
+
+
+\end{knitrout}
 \begin{onlysolution}[fragile]%
 \begin{solution}
 \vspace{-2cm}
@@ -675,10 +808,16 @@ Two way tables for the cross-combination of gender and exercise frequency are av
 \begin{defproblem}{survey_scatter_setup}[fragile]
 Using the \R{survey} data set the following plot comparing the hand spans for each student
 was created. Use this plot and additional code in the Appendix to answer the following questions.
-<<echo=FALSE, warning=FALSE, message=FALSE, fig.height=4, fig.width=5, out.width='.5\\textwidth',  fig.align='center', fig.show='hold', fig.pos='!h'>>=
-ggplot(survey, aes(x=Wr.Hnd, y=NW.Hnd)) +
-geom_point() + theme_bw()
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=.5\textwidth]{figures/main-unnamed-chunk-29-1} 
+
+}
+
+
+
+\end{knitrout}
 \begin{onlysolution}[fragile]%
 \begin{solution}
 \vspace{-2cm}
@@ -891,3 +1030,269 @@ No. The results of this study are very unclear. Even if there is evidence presen
 \end{solution}
 \end{onlysolution}
 \end{defproblem}
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+% \ifthenelse{\boolean{showanswers}}
+%   {\title{Sample Exam with Solutions}}
+%   {\title{Sample Exam}}
+% \maketitle
+
+\ifthenelse{\boolean{showanswers}}
+  {\title{Sample Exam - Solutions}
+  \maketitle}
+  {\title{Sample Exam}
+\maketitle
+
+\begin{itemize}
+  \item You have XX minutes to complete this exam.
+  \item The exam packet is \textbf{9} pages: \textbf{1} cover sheet, \textbf{9} questions, \textbf{1} page of R code, and \textbf{1} diagram. Make sure you have everything.
+  \item The exam is out of \textbf{0} points.
+  \item A single 8x11 page of formulas and definitions (one sided) is allowed along with a calculator. No worked out problems. This page will be turned in with your exam.
+  \item Show all your work. Partial credit can be awarded.
+  \item All phones must be put away during the entire exam. If your phone is out you will be asked to turn in your exam and leave immediately.
+  \item Use the back pages as scratch paper, more can be made available. All scratch paper is to be submitted with your exam. If you want me to review notes on your scratch paper specifically, tell me so and make sure it's findable.
+  \item Be sure to write your answers as full sentences.
+  \item There is R code handed out along with the exam. Not all code is used in this exam, but all code necessary to perform the calculations on the exam is included. This will not completely substitute for a calculator.
+      \item Indicate what the appropriate \R{R} code was to answer every question when you use it. This is not optional.
+  \item The exam will not start until all materials are put away.
+  \item Bathroom breaks are allowed, but you must leave all materials at your desk, and your exam with me.
+\end{itemize}
+
+\vspace{2cm}
+
+
+\hspace{1cm} {\Huge Name:} \underline{\hspace{10cm}}
+
+
+
+\vspace{3cm}
+\hspace{2cm} {\Large Do not turn this page until instructed to do so.}
+
+\newpage
+}
+
+%%%% DESCRIPTIVE STATISTICS & BOXPLOT %%%%%%
+
+\begin{enumerate}
+\item Ages from a random sample of 20 dogs was stored in the R vector
+  \R{dog\_age}, and shown on the first page of the Appendix for this
+  exam. Use this information to answer the following questions.
+  \begin{enumerate}
+    \item \useproblem{dogage_sumstats} \vspace{3cm}
+    \item \useproblem{dogage_5num} \vspace{3cm}
+    \item \useproblem{dogage_outlier} \vspace{3cm}
+    \item \useproblem{dogage_boxplot} \vspace{3cm}
+  \end{enumerate}
+
+\newpage
+
+%%%%  DATA TYPES  %%%%%%
+%' \item The \R{VADeaths} data set in R contains death rates are measured per 1000 population per year. They are cross-classified by age group and population group.
+%' <<>>=
+%' VADeaths
+%' @
+%' Mark TRUE or FALSE on each of the following questions.
+%' \begin{enumerate}
+%'   \item Each column contains information on a single variable. \ifthenelse{\boolean{showanswers}}{False - each column contains the death rates for a certain combination of characteristics. Each column should contain only the information on what the variable is measuring. E.g. Gender should only have M/F options. The data contained in the rows is not a measure of age, nor gender, nor rural or urban location. It is a third variable - death rate.}{\qquad T / F}
+%'   \item This data is structured in a way that it is easy to plot data on all males.
+%'    \ifthenelse{\boolean{showanswers}}{False: Information on males is contained in two columns. Furthermore, we could not tell the number of males in the data set from this data, nor easily compare the overall death rate for males only.}{\qquad T / F}
+%' \end{enumerate}
+
+\item The \R{survey} data set in \R{R} contains contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions. The codebook for select variables in this data can be found in the Appendix.
+
+  \begin{enumerate}
+  \item Define the data type for all variables listed in the codebook. \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{
+  \vspace{-2.8cm}
+  \begin{itemize}
+    \item Sex - Categorical
+    \item Wr.Hnd - Numerical
+    \item W.Hnd - Categorical
+    \item Exer - Categorical
+    \item Smoke - Categorical
+    \item Height - Numerical
+    \item Age - Numerical
+  \end{itemize}}{}
+
+  \item What variable(s) would it be appropriate to create a scatterplot of? \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{\vspace{-2.8cm} \newline Any two numerical variables}{}
+
+  \item What variable(s) would it be appropriate to create a bar chart of? \vspace{3cm}
+  \ifthenelse{\boolean{showanswers}}{\vspace{-2.8cm} \newline Any categorical variable}{}
+
+  \item Describe one interesting relationship in this data and what type of graphic you would create to examine this relationship. You can sketch a picture if you think it would help.
+  \ifthenelse{\boolean{showanswers}}{\newline E.g. Are smokers older? Grouped histogram of age for each smoking category.}{}
+  \end{enumerate}
+
+%%%%  Bivariate: categorical against categorical  %%%%%%
+% \item \useproblem{mosaic_sample_setup}
+%   \begin{enumerate}
+%     \item \useproblem{mosaic_sample_id} \vspace{3cm}
+%     \item \useproblem{mosaic_sample_prop} \vspace{3cm}
+%     \item \useproblem{mosaic_sample_assoc}\vspace{3cm}
+%   \end{enumerate}
+
+\newpage
+
+\item \useproblem{Avandia_setup} \vspace{.5cm}
+  \begin{enumerate}
+    \item \useproblem{Avandia_counts} \vspace{4cm}
+    \item \useproblem{Avandia_rowprop}\vspace{4cm}
+%    \item \useproblem{Avandia_causation}\vspace{3cm}
+    \item \useproblem{Avandia_marginalprop}\vspace{3cm}
+  \end{enumerate}
+
+
+
+%%%%  Bivariate: continuous against categorical  %%%%%%
+\newpage
+
+\item \useproblem{insectspray_tellme} \vspace{5cm}
+
+\newpage
+
+\item \useproblem{exhist_setup}
+ \begin{enumerate}
+   \item \useproblem{exhist_height} \vspace{3cm}
+   \item \useproblem{exhist_compare} \vspace{3cm}
+ \end{enumerate}
+
+%%%%  Bivariate: continuous against continuous  %%%%%%
+\newpage
+
+\item \useproblem{survey_scatter_setup}
+ \begin{enumerate}
+   \item \useproblem{survey_scatter_describe} \vspace{4cm}
+ \end{enumerate}
+
+
+
+
+%%%% REPRODUCIBLE RESEARCH %%%%%%
+
+\item \useproblem{whyr} \vspace{3cm}
+%\item \useproblem{whyrr} \vspace{3cm}
+%\item \useproblem{pipeline} \vspace{3cm}
+%\item \useproblem{missingdata} \vspace{3cm}
+
+\end{enumerate}
+
+\newpage
+\singlespace
+\Huge APPENDIX: \normalsize Not all code output presented will be used.
+
+
+\noindent\rule{7in}{0.4pt}
+
+\large Dog ages \normalsize
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dog_age}
+\end{alltt}
+\begin{verbatim}
+##  [1] 98 90 92 70 83 45 92 90 76 72 74 63 88 75 84 80 80 68 77 92
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(dog_age)}
+\end{alltt}
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   45.00   73.50   80.00   79.45   90.00   98.00
+\end{verbatim}
+\begin{alltt}
+\hlkwd{var}\hlstd{(dog_age)}
+\end{alltt}
+\begin{verbatim}
+## [1] 155.1026
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\noindent\rule{7in}{0.4pt}
+
+\large Student survey data \normalsize
+\begin{itemize}
+  \item \R{Sex} The sex of the student. (Factor with levels "Male" and "Female".)
+  \item \R{Wr.Hnd} span (distance from tip of thumb to tip of little finger of spread hand) of writing hand, in centimetres.
+  \item \R{W.Hnd} writing hand of student. (Factor, with levels "Left" and "Right".)
+  \item \R{Exer} how often the student exercises. (Factor, with levels "Freq" (frequently), "Some", "None".)
+  \item \R{Smoke} how much the student smokes. (Factor, levels "Heavy", "Regul" (regularly), "Occas" (occasionally), "Never".)
+  \item \R{Height} height of the student in centimetres.
+  \item \R{Age} age of the student in years.
+\end{itemize}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{tapply}\hlstd{(survey}\hlopt{$}\hlstd{Height, survey}\hlopt{$}\hlstd{Sex,} \hlkwc{FUN}\hlstd{=summary)}
+\end{alltt}
+\begin{verbatim}
+## $Female
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   150.0   162.6   166.8   165.7   170.0   180.3      16 
+## 
+## $Male
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   154.9   172.8   180.0   178.8   185.0   200.0      12
+\end{verbatim}
+\begin{alltt}
+\hlkwd{tapply}\hlstd{(survey}\hlopt{$}\hlstd{Height, survey}\hlopt{$}\hlstd{Sex,} \hlkwc{FUN}\hlstd{=var,} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##   Female     Male 
+## 37.84436 70.22862
+\end{verbatim}
+\begin{alltt}
+\hlkwd{table}\hlstd{(survey}\hlopt{$}\hlstd{Sex)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Female   Male 
+##    118    118
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cor}\hlstd{(survey}\hlopt{$}\hlstd{Wr.Hnd, survey}\hlopt{$}\hlstd{NW.Hnd,} \hlkwc{use}\hlstd{=}\hlstr{"pairwise.complete.obs"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.9483103
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{round}\hlstd{(}\hlkwd{prop.table}\hlstd{(}\hlkwd{table}\hlstd{(survey}\hlopt{$}\hlstd{W.Hnd,survey}\hlopt{$}\hlstd{Clap)),}\hlnum{2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##        
+##         Left Neither Right
+##   Left  0.04    0.02  0.02
+##   Right 0.12    0.19  0.61
+\end{verbatim}
+\begin{alltt}
+\hlkwd{round}\hlstd{(}\hlkwd{prop.table}\hlstd{(}\hlkwd{table}\hlstd{(survey}\hlopt{$}\hlstd{W.Hnd,survey}\hlopt{$}\hlstd{Clap),} \hlkwc{margin}\hlstd{=}\hlnum{1}\hlstd{),}\hlnum{2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##        
+##         Left Neither Right
+##   Left  0.50    0.28  0.22
+##   Right 0.13    0.21  0.66
+\end{verbatim}
+\begin{alltt}
+\hlkwd{round}\hlstd{(}\hlkwd{prop.table}\hlstd{(}\hlkwd{table}\hlstd{(survey}\hlopt{$}\hlstd{W.Hnd,survey}\hlopt{$}\hlstd{Clap),} \hlkwc{margin}\hlstd{=}\hlnum{2}\hlstd{),}\hlnum{2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##        
+##         Left Neither Right
+##   Left  0.24    0.10  0.03
+##   Right 0.76    0.90  0.97
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\end{document}
