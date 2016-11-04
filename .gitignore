@@ -22,8 +22,12 @@ figures/
 *.ttt
 *.aaa
 *.txt
+*.vrb
+*.fls
+*.fdb_latexmk
 .Rhistory
 *-Ex.R
+*.pdf
 
 ### OS Files ###
 .DS_Store
