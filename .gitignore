@@ -1,33 +1,7 @@
-.Python
-.cache/
 __pycache__/
-bin/
-include/
-lib/
-pip-selfcheck.json
-share/
 testbank.egg-info
 play.py
 notes.org
-figures/
-.#*
-*.o
-*.out
-*.gz
-*.log
-*.aux
-*.bbl
-*.blg
-*.fff
-*.ttt
-*.aaa
-*.txt
-*.vrb
-*.fls
-*.fdb_latexmk
-.Rhistory
-*-Ex.R
-*.pdf
 
 ### OS Files ###
 .DS_Store

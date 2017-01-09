@@ -1,0 +1,16 @@
+
+Other than ``To pass this class", what is one good reason you should learn how to program in \R {R}?
+\begin{onlysolution}[fragile]%
+\begin{solution}
+A few examples of appropriate answers.
+\begin{itemize}
+\item  It's free, so I can use it outside of school.
+\item  It is becoming more popular in my field as an statistical analytic tool.
+\item  It's open source, so I could contribute my own packages for others to use.
+\item  Because I plan on going to graduate school and doing research, and want to be able to conduct my own statistical analyses that are more complex than what Excel can handle.
+\item  Because I want to make better graphics than what can be made in Excel.
+\end{itemize}
+\vspace {-2cm}
+\end{solution}
+\end{onlysolution}
+

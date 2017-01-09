@@ -3,13 +3,12 @@ from setuptools import setup
 setup(
     name='testbank',
     version='0.1',
-    py_modules=['tb'],
+    py_modules=['testbank'],
     install_requires=[
-        'pyqt5',
         'pyyaml',
-        'pandas',
+        'jinja2',
     ],
     entry_points={
-        'console_scripts': ['testbank=tb:main'],
+        'console_scripts': ['tb=testbank:main'],
     },
 )
