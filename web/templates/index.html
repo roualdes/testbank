@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="panel-group" id="testbank" role="tablist" aria-multiselectable="true">
+  {% for datum in data %}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading_{{loop.index}}">
+      <h6 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_{{loop.index}}" aria-expanded="false" aria-controls="collapse_{{loop.index}}">
+          <span id="searchQuestion">{{ datum.question|e }}</span>
+        </a>
+      </h6>
+      {% if datum.parts %}
+      <ol type="a">
+        {% for part in datum.parts %}
+        <li>{{ part }}</li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </div>
+    <div id="collapse_{{loop.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{loop.index}}" aria-expanded="false">
+      <div class="panel-body">
+        <dl>
+          <dt>Answer</dt>
+          <dd>
+            <span id="searchAnswer">
+              {% if datum.answer is iterable and datum.answer is not string %}
+              <ol type="a">
+                {% for ans in datum.answer %}
+                <li>{{ ans }}</li>
+                {% endfor %}
+              </ol>
+              {% else %}
+              {{ datum.answer|e }}
+              {% endif %}
+            </span>
+          </dd>
+
+          {% if datum.author %}
+          <dt>Author</dt>
+          <dd><span id="searchAuthor">{{ datum.author }}</span></dd>
+          {% endif %}
+
+          {% if datum.tags %}
+          <dt>Tags</dt>
+          <dd><span id="searchTags">{{ datum.tags|join(', ') }}</span></dd>
+          {% endif %}
+        </dl>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+{% endblock %}

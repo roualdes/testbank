@@ -19,6 +19,7 @@ import argparse
 import jinja2
 import yaml
 from pathlib import Path
+from web import app
 
 # globals/decorators
 actions = {}
@@ -159,6 +160,21 @@ def help_message(args):
 
 
 parser_help.set_defaults(func=help_message)
+
+# cli run flaskr
+parser_run = subparser.add_parser(
+    'run',
+    aliases='r',
+    description='Provide help message for the specified action.',
+    help='provide helpful information about specified action',
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+
+def run_app(debug=None):
+    app.run(debug=True)
+    return 0
+
+parser_run.set_defaults(func=run_app)
 
 # main program
 def main():
