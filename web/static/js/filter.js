@@ -7,8 +7,10 @@ $('#search').keyup(function() {
         $(this).show();
     })
 
-    // build official search
-    var searchString = "";
+    // // build official search
+    // var searchString = "";
+
+
 
     // if special searching
 
@@ -16,36 +18,39 @@ $('#search').keyup(function() {
     // necessitates full matches.  Try to drop the <span
     // id="searchTags"> business and just search the text.
 
-    var idxcolon = filterValue.indexOf(':');
-    if (idxcolon > -1) {
-        var keyword = filterValue.slice(0, idxcolon);
-        var wordz = filterValue.slice(idxcolon+1, filterValue.length).trim();
+    // var idxcolon = filterValue.indexOf(':');
+    // if (idxcolon > -1) {
+    //     var keyword = filterValue.slice(0, idxcolon);
+    //     var wordz = filterValue.slice(idxcolon+1, filterValue.length).trim().split(',');
 
-        switch (keyword) {
-        case "Author":
-            searchString += "<span id=\"searchAuthor\">";
-            break;
-        case "Answer":
-            searchString += "<span id=\"searchAnswer\">";
-            break;
-        case "Question":
-            searchString += "<span id=\"searchQuestion\">";
-            break;
-        case "Tags":
-            searchString += "<span id=\"searchTags\">";
-            break;
-        default:
-            searchString += "";
-        }
+        // switch (keyword) {
+        // case "Author":
+        //     searchString += "<span id=\"searchAuthor\">";
+        //     break;
+        // case "Answer":
+        //     searchString += "<span id=\"searchAnswer\">";
+        //     break;
+        // case "Question":
+        //     searchString += "<span id=\"searchQuestion\">";
+        //     break;
+        // case "Tags":
+        //     searchString += "<span id=\"searchTags\">";
+        //     break;
+        // default:
+        //     searchString += "";
+        // }
 
-        searchString += wordz;
-    } else {
-        searchString = filterValue;
-    }
+        // searchString += wordz;
+    // } else {
+    //     searchString = filterValue;
 
-    itemsToHide = $('#testbank').find('.panel.panel-default').not(function(index) {
-        var currentCode = $(this).html();
-            return currentCode.match(new RegExp(searchString, "g"));
+    // }
+
+    var itemsToHide = $('#testbank')
+        .find('.panel.panel-default')
+        .not(function(index) {
+            var currentCode = $(this).text();
+            return currentCode.match(new RegExp(filterValue, "g"));
         })
 
     itemsToHide.each(function(index) {
@@ -53,3 +58,15 @@ $('#search').keyup(function() {
     })
 
 })
+
+// wishes, as examples of potential searches
+// median AND mode
+// median OR mode
+// Author:Edward AND skew
+// Author:Edward AND Tag:normal
+// (Author:Edward OR Author:Robin) AND Tag:ANOVA -> {"and": [{"or": ["Author:Edward", "Author:Robin"]}, "Tag:ANOVA"}
+
+// ((Author:Edward OR Tag:noraml) AND Tag:regression ->
+// {or:
+//      [{and: ["Tag:regression", "Author:Edward"]},
+//       {and: ["Tag:regression", "Tag:normal"]}]})

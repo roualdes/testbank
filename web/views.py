@@ -8,10 +8,12 @@ import yaml
 @app.route('/index')
 def index():
     user = {'nickname': 'Edward'}
+
     p = Path()
-    testbank_data = p.absolute() / 'tb.yml'
+    testbank_data = p.absolute() / 'statistics.yml'
     with testbank_data.open('r') as yfile:
         data = yaml.load(yfile)
+
     return render_template('index.html',
                            title='Home',
                            user=user,
