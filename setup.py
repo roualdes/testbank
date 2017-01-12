@@ -12,6 +12,6 @@ setup(
         'flask',
     ],
     entry_points={
-        'console_scripts': ['tb=testbank:main'],
+        'console_scripts': ['testbank=testbank:main'],
     },
 )

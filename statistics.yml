@@ -1,7 +1,7 @@
 -
   question: Pretend you are interested in determinging which turtles, sea turtles, box turtles, or snapping turtles, are better snow skiers.  Briefly outline a design for this study, making sure to include all principles of experimental design.
   answer: |
-    \textbf{Replication}: we need to select multiple turtles from each category box, sea, and snapping; \textbf{Randomization}: randomly select multiple turtles as specified above; \textbf{Control}: we should ensure no individual turtle has an inherent advantage over the other turtles -- equal practice, same skis, same slopes, same day.
+    \textbf{Replication}: we need to select multiple turtles from each type of turtle box, sea, and snapping; \textbf{Randomization}: randomly select multiple turtles as specified above; \textbf{Control}: we should ensure no individual turtle has an inherent advantage over the other turtles -- equal practice, same skis, same slopes, same day.
   tags: [introduction, experimental design]
   author: edward
 -
