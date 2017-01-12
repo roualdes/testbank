@@ -23,7 +23,10 @@ $ testbank run
 To add questions to testbank simply amend the statistics.yml file, following proper YAML file format -- no checks are performed.
 
 ## Roadmap
-* Allow editing of questions outside of .yml file
+* option for other (than statistics.yml) yml file names
+* output options
+  - be flexible in terms of users test making tools
+* adding/editing of questions
 * better search bar
 
 
