@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>/TestBank</title>
+    <title>TestBank/{{ title }}</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
@@ -13,10 +13,7 @@
       });
     </script>
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script>
-      $('#helpFilter').on('shown.bs.modal', function () {
-      $('#helpFilterText').focus()})
-      </script>
+      {% block modal %}{% endblock %}
   </head>
   <body>
 
@@ -29,17 +26,33 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">/TestBank</a>
+          <a class="navbar-brand" href="/">TestBank/</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class=title=="database"?"active":undefined><a href="/database">database</a></li>
+            <li class=title=="upload"?"active":undefined><a href="/upload">upload</a></li>
+            <li class=title=="add"?"active":undefined><a href="/add">add</a></li>
+            <li class=title=="edit"?"active":undefined><a href="/edit">edit</a></li>
+          </ul>
+          {% if data %}
           <form class="navbar-form navbar-right">
             <div class="form-group navbar-right">
               <button type="button" class="btn btn-link" data-toggle="modal" data-target="#helpFilter">
                 <span class="glyphicon glyphicon-info-sign"></span>
               </button>
-                  <input type="text" placeholder="Filter: regex" class="form-control" id="search"/>
+              <input type="text" placeholder="Filter: regex" class="form-control" id="search"/>
             </div>
           </form>
+          {% endif %}
+          <!-- TODO better placement -->
+          <div class="navbar-right">
+              <a href="/shutdown">
+                <button type="submit" name="shutdown" class="btn btn-link">
+                  <span class="glyphicon glyphicon-off"></span>
+                </button>
+              </a>
+          </div>
         </div>
       </div>
     </nav>
@@ -63,10 +76,8 @@
       </div>
     </div>
 
-
-
     <div class="container">
-      <h1>Welcome to TestBank!</h1>
+      <br>
       {% block content %}{% endblock %}
     </div>
 

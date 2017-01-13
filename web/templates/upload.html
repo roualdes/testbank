@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block modal %}
+<script>
+  $('#helpUpload).on('shown.bs.modal', function () {
+  $('#helpUploadText').focus()})
+</script>
+{% endblock %}
+{% block content %}
+
+<h3>Upload a database file<button type="button" class="btn btn-link" data-toggle="modal" data-target="#helpUpload">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+</h3>
+
+    <!-- Modal -->
+    <div class="modal fade" id="helpUpload" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="helpFilterLabel">Upload Help</h4>
+          </div>
+          <div class="modal-body">
+            <p id="helpUploadText">TODO fill in upload tips.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>File input</label>
+        <input type="file" name="file">
+        <p class="help-block">Only properly formatted YAML files.</p>
+        </div>
+      <button type="submit" class="btn btn-default">upload</button>
+    </form>
+{% endblock %}

@@ -21,15 +21,6 @@ import yaml
 from pathlib import Path
 from web import app
 
-# globals/decorators
-actions = {}
-
-def action(fn):
-    global actions
-    assert fn.__doc__, "Document the subcommand {!r}.".format(fn.__name__)
-    actions[fn.__name__] = fn
-    return fn
-
 # utilities
 def qprint(*pargs, **pkwargs):
     """Quiet printing."""
@@ -170,7 +161,7 @@ parser_run = subparser.add_parser(
     formatter_class=argparse.RawDescriptionHelpFormatter
 )
 
-def run_app(debug=None):
+def run_app(args):
     app.run(debug=True)
     return 0
 

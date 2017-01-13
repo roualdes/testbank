@@ -2,6 +2,8 @@ __pycache__/
 testbank.egg-info
 play.py
 notes.org
+flask_session
+data/statistics.yml
 
 ### OS Files ###
 .DS_Store

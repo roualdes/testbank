@@ -8,8 +8,8 @@ setup(
     include_package_data=True,
     install_requires=[
         'pyyaml',
-        'jinja2',
         'flask',
+        'Flask-Session',
     ],
     entry_points={
         'console_scripts': ['testbank=testbank:main'],
