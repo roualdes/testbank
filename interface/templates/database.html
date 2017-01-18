@@ -6,13 +6,13 @@
 </script>
 {% endblock %}
 {% block content %}
-<div class="panel-group" id="testbank" role="tablist" aria-multiselectable="true">
+<div id="testbank" role="tablist" aria-multiselectable="true">
   {% for datum in data %}
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading_{{loop.index}}">
-      <h6 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_{{loop.index}}" aria-expanded="false" aria-controls="collapse_{{loop.index}}">
-          <span id="searchQuestion">{{ datum.question|e }}</span>
+  <div class="card">
+    <div class="card-header" role="tab" id="heading_{{loop.index}}">
+      <h6 class="mb-0">
+        <a data-toggle="collapse" href="#collapse_{{loop.index}}" aria-expanded="false" aria-controls="collapse_{{loop.index}}">
+          <span style="color:black;" id="searchQuestion">{{ datum.question|e }}</span>
         </a>
       </h6>
       {% if datum.parts %}
@@ -23,8 +23,8 @@
       </ol>
       {% endif %}
     </div>
-    <div id="collapse_{{loop.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{loop.index}}" aria-expanded="false">
-      <div class="panel-body">
+    <div id="collapse_{{loop.index}}" class="collapse hide" role="tabpanel" aria-labelledby="heading_{{loop.index}}" aria-expanded="false">
+      <div class="card-block">
         <dl>
           <dt>Answer</dt>
           <dd>

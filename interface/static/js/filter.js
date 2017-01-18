@@ -1,9 +1,26 @@
-// copied from http://www.codingepiphany.com/2013/05/19/js-snippets-filter-a-list-with-jquery-and-javascript-regular-expression/ on 2017-01-09
+// testbank is a database manager for test questions.
+// Copyright (C) 2017 Edward A. Roualdes
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+// adapted from http://www.codingepiphany.com/2013/05/19/js-snippets-filter-a-list-with-jquery-and-javascript-regular-expression/ on 2017-01-09
+
 $('#search').keyup(function() {
     var filterValue = $(this).val();
 
     // start by showing all the things
-    $('#testbank > .panel.panel-default').each(function(index, item) {
+    $('#testbank > .card').each(function(index, item) {
         $(this).show();
     })
 
@@ -47,9 +64,9 @@ $('#search').keyup(function() {
     // }
 
     var itemsToHide = $('#testbank')
-        .find('.panel.panel-default')
+        .find('.card')
         .not(function(index) {
-            var currentCode = $(this).text();
+            var currentCode = $(this).html();
             return currentCode.match(new RegExp(filterValue, "g"));
         })
 

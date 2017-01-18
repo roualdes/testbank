@@ -28,11 +28,13 @@
     </div>
 
     <form method="post" enctype="multipart/form-data">
+      {{ form.csrf_token }}
       <div class="form-group">
-        <label>File input</label>
-        <input type="file" name="file">
-        <p class="help-block">Only properly formatted YAML files.</p>
-        </div>
-      <button type="submit" class="btn btn-default">upload</button>
+        <label class="custom-file">
+          <input type="file" id="file" class="custom-file-input">
+          <p class="help-block">Properly format YAML files only.</p>
+          <span class="custom-file-control"></span>
+          <button type="submit" class="btn btn-default">upload</button>
+        </label>
     </form>
 {% endblock %}

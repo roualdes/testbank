@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="TestBank" content>
+    <meta name="Edward A. Roualdes" content>
+    <title>TestBank/{{ title }}</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+    <style type="text/css">
+      .fa.fa-power-off { color: white; }
+      .fa.fa-info-circle { color: white; }
+      :root #content > #right > .dose > .dosesingle,
+      :root #content > #center > .dose > .dosesingle
+      { display: none !important; }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      {% block modal %}{% endblock %}
+  </head>
+  <body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <a class="navbar-brand" href="/">TestBank/</a>
+      <!-- Menu bar -->
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="navbar-nav mr-auto">
+          {% if title == "database" %}
+          <li class="nav-item active">
+          {% else %}
+          <li class="nav-item">
+          {% endif %}
+          <a class="nav-link" href="/database">database</a>
+          </li>
+          {% if title == "upload" %}
+          <li class="nav-item active">
+          {% else %}
+          <li class="nav-item">
+          {% endif %}
+          <a class="nav-link" href="/upload">upload</a>
+          </li>
+          {% if title == "add" %}
+          <li class="nav-item active">
+          {% else %}
+          <li class="nav-item">
+          {% endif %}
+          <a class="nav-link" href="/add">add</a>
+          </li>
+          {% if title == "edit" %}
+          <li class="nav-item active">
+          {% else %}
+          <li class="nav-item">
+          {% endif %}
+          <a class="nav-link" href="/edit">edit</a>
+          </li>
+          </ul>
+
+          <!-- Search bar -->
+          {% if data %}
+          <form class="form-inline mt-2 mt-md-0">
+            <div class="form-group navbar-right">
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#helpFilter">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </button>
+              <input type="text" placeholder="search" class="form-control mr-sm-2" id="search"/>
+            </div>
+          </form>
+          {% endif %}
+          <!-- Quit button -->
+          <div class="form-inline navbar-right mt-2 mt-md-0">
+              <a href="/shutdown">
+                <button type="submit" name="shutdown" class="btn btn-link">
+                  <i class="fa fa-power-off" style=aria-hidden="true"></i>
+                </button>
+              </a>
+          </div>
+      </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="helpFilter">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="helpFilterLabel">Filter Help</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="helpFilterText">TODO fill in search tips.</p>
+          </div>
+          <div class="modal-footer">
+            See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions"> link </a> for more help.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <br>
+      {% block content %}{% endblock %}
+    </div>
+
+    <div class="container">
+      <hr>
+      <footer>
+        <p>© 2017 Edward A. Roualdes</p>
+      </footer>
+    </div>
+    <!-- <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+<!-- bootstrap 4 -->
