@@ -1,36 +1,31 @@
-# /TestBank
+# TestBank/
 
-A test-question database manager.  `/TestBank` is a self-hosting, web application, written in Python3 and Javascript, that allows users to store and filter questions for assignments.
+  A database manager for test questions.
 
-## Install
+# Question file format
 
-Clone the repository, cd into it, and run
+  Questions are stored in YAML files, with keys such as `question`, `answer`, `author`, `id`, and `tags`.  The key `tags` is an array of keywords describing the question of interest.  An example file is `src/data/missingdata.yml`.
 
-```
-$ pip3 install .
-```
+# Build TestBank/
 
-## Run
+  Run the following commands to build TestBank/ for your platform.
 
-To open the application, run
+  `yarn install`
+  `yarn build`
+  `yarn package`
 
-```
-$ testbank run
-```
+# Develop TestBank/
 
-## Details
+  Clone the repository.  Then run
 
-To add questions to testbank simply amend the statistics.yml file, following proper YAML file format -- no checks are performed.
+  `yarn install`
+  `yarn dev`
 
-## Roadmap
-* option for other (than statistics.yml) yml file names
-* output options
-  - be flexible in terms of users test making tools
-* adding/editing of questions
-* better search bar
+  and in a separate terminal run
+  `yarn testDev`
 
-
-## License
-Copyright © 2016 Edward A. Roualdes
-
-Distributed under the GPLv3.
+# Roadmap
+  - MathJax
+  - Complex queries
+  - Export questions in different formats: LaTeX, YAML, ...
+  - Custom templates for exporting questions

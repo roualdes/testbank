@@ -1,10 +1,10 @@
-__pycache__/
-testbank.egg-info
-play.py
+builds/
+node_modules/
+questions/
+dist/bundle.js
+dist/bundle.js.map
 notes.org
-flask_session
-data/statistics.yml
-TODO.org
+yarn.lock
 
 ### OS Files ###
 .DS_Store
