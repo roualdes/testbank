@@ -11,7 +11,9 @@
   Run the following commands to build TestBank/ for your platform.
 
   `yarn install`
+
   `yarn build`
+
   `yarn package`
 
 # Develop TestBank/
@@ -19,9 +21,11 @@
   Clone the repository.  Then run
 
   `yarn install`
+
   `yarn dev`
 
   and in a separate terminal run
+
   `yarn testDev`
 
 # Roadmap
