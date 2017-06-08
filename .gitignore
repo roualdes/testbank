@@ -5,6 +5,7 @@ dist/bundle.js
 dist/bundle.js.map
 notes.org
 yarn.lock
+play.js
 
 ### OS Files ###
 .DS_Store

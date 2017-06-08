@@ -10,26 +10,29 @@
 
   Run the following commands to build TestBank/ for your platform.
 
-  `yarn install`
-
-  `yarn build`
-
-  `yarn package`
+  ```
+  yarn install
+  yarn build
+  yarn package
+  ```
 
 # Develop TestBank/
 
   Clone the repository.  Then run
 
-  `yarn install`
+  ``
+  `yarn install
+  yarn dev
+  ```
 
-  `yarn dev`
+  and then in a separate terminal tab/window run
 
-  and in a separate terminal run
-
-  `yarn testDev`
+  ```
+  yarn testDev
+  ```
 
 # Roadmap
-  - MathJax
-  - Complex queries
-  - Export questions in different formats: LaTeX, YAML, ...
-  - Custom templates for exporting questions
+  - [] MathJax
+  - [] Complex queries
+  - [] Export questions in different formats: LaTeX, YAML, ...
+  - [] Custom templates for exporting questions

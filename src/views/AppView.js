@@ -26,6 +26,8 @@ import Section from 'grommet/components/Section';
 import Paragraph from 'grommet/components/Paragraph';
 import Title from 'grommet/components/Title';
 import Search from 'grommet/components/Search';
+import Query from 'grommet-addons/utils/Query';
+import debounce from 'javascript-debounce';
 import Dropzone from 'react-dropzone';
 import YML from 'js-yaml';
 import FS from 'fs';
@@ -41,20 +43,23 @@ const AppView = (props) => {
             </Article>
         </App>
     );
-}
+};
+
 
 const Head = (props) => {
-    const onChange = (event) => props.onFilterProblems(event.target.value);
+    const onChange = (event) => debounce(props.onFilterProblems(event.target.value), 300);
     return (
       <Header direction='row' justify='between'
             pad={ {horizontal: 'medium'} } colorIndex='grey-1'>
           <Title>TestBank/</Title>
+          {/* TODO Search on enter, not on every key */}
           <Search fill inline size='medium'
                   placeHolder='search' value={ props.fText }
           onDOMChange={ onChange }/>
       </Header>
     );
-}
+};
+
 
 const Body = (props) => {
     return (
@@ -63,46 +68,91 @@ const Body = (props) => {
             <ProblemList {...props} />
         </Section>
     );
-}
+};
+
+
+const filterQuery = (problem, qtree) => {
+
+    if (Object.keys(qtree).length === 0) {
+        return true;
+    }
+
+    let match = true, 
+        match_left = true,
+        match_right;;
+
+    if ( "op" in qtree["left"] ) {
+        match_left = filterQuery(problem, qtree["left"]);
+    } else {
+        const lText = qtree["left"]["text"];
+        match_left = problem["question"].indexOf(lText) > -1;
+    }        
+
+    if ("right" in qtree) {
+        if ( "op" in qtree["right"] ) {
+            match_right = filterQuery(problem, qtree["right"]);
+        } else {
+            const rText = qtree["right"]["text"];
+            match_right = problem["question"].indexOf(rText) > -1;
+        }        
+    }
+
+    if ("op" in qtree) {
+        switch (qtree["op"]) {
+            case "OR":
+                match = match_left || match_right;
+                break;
+            case "AND":
+                match = match_left && match_right;
+                break;
+        }        
+    } else {
+        match = match_left;
+    }
+
+    return match;
+
+};
 
 
 const ProblemList = (props) => {
     const problems = props.problemList.get('problems');
-    const fText = props.fText;
+    /* TODO allow searching specific keys -- waiting on grommet-addons */
+    /* TODO allow case insensitive searching */
+    const query = new Query(props.fText);
+    console.log(query.tree())
     let listItems = [];
-
-    problems.forEach((problem) => {
-        if (problem.question.indexOf(fText) > -1 || problem.answer.indexOf(fText) > -1 || problem.author.indexOf(fText) > -1) {
-            listItems.push(
-                <AccordionPanel key={ problem.id }
-                                heading={ problem.question.substring(0,60) }
-                                pad='small'>
-                    {/* TODO MathJax */}
-                    <Label size='small'> Question </Label>
-                    { problem.question }
-
-                    <Label size='small'> Answer </Label>
-                    { problem.answer }
-
-                    <Label size='small'> Author </Label>
-                    { problem.author }
-
-                </AccordionPanel>);
-        }
-    });
+    problems.filter((p) => filterQuery(p, query.tree()))
+            .forEach((problem) => {
+                listItems.push(
+                    <AccordionPanel key={ problem.id }
+                                    heading={ problem.question.substring(0,60) }
+                                    pad='small'>
+                        {/* TODO MathJax */}
+                        <Label size='small'> Question </Label>
+                        { problem.question }
+                        
+                        <Label size='small'> Answer </Label>
+                        { problem.answer }
+                        
+                        <Label size='small'> Author </Label>
+                        { problem.author }
+                        
+                    </AccordionPanel>
+                );
+            });
     return (
         <Accordion openMulti>
-            { listItems }
+          { listItems }
         </Accordion>
-    )
-}
+    );
+};
 
 
 const Upload = (props) => {
 
     const onUpload = (acceptedFiles, rejectedFiles) => props.onUploadProblems(
-        YML.safeLoad(FS.readFileSync(acceptedFiles[0].path))
-    )
+        YML.safeLoad(FS.readFileSync(acceptedFiles[0].path)));
 
     return (
         <Section colorIndex='critical' margin='none' pad='none'>
@@ -113,7 +163,7 @@ const Upload = (props) => {
             </Dropzone>
         </Section>
     );
-}
+};
 
 
 
@@ -127,7 +177,7 @@ const Foot = (props) => {
             </Footer>
         </Section>
     );
-}
+};
 
 
 

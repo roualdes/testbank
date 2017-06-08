@@ -10,9 +10,7 @@
 
 import ActionType from './ActionTypes.js';
 import Dispatcher from './Dispatcher.js';
-import Filter from './Filter.js';
 import { ReduceStore } from 'flux/utils';
-import Immutable from 'immutable';
 
 class FilterStore extends ReduceStore {
     constructor() {
@@ -25,11 +23,12 @@ class FilterStore extends ReduceStore {
 
     reduce(state, action) {
         switch (action.type) {
-            case ActionType.FILTER_PROBLEMS:
-                return action.text;
-
-            default:
-                return state;
+        case ActionType.FILTER_PROBLEMS:
+            return action.text;
+         
+                
+        default:
+            return state;
         }
     }
 }
