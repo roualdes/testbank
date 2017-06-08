@@ -20,8 +20,8 @@
 
   Clone the repository.  Then run
 
-  ``
-  `yarn install
+  ```
+  yarn install
   yarn dev
   ```
 
