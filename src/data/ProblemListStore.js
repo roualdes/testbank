@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017-present, Edward A. Roualdes..
+ * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -16,26 +16,35 @@ import Immutable from 'immutable';
 
 
 class ProblemListStore extends ReduceStore {
-    constructor() {
-        super(Dispatcher);
-    }
+  constructor() {
+    super(Dispatcher);
+  }
 
-    getInitialState() {
-        return new ProblemList({});
-    }
+  getInitialState() {
+    return new ProblemList;
+  }
 
-    reduce(state, action) {
-        switch (action.type) {
-            case ActionType.UPLOAD_PROBLEMS:
-                return new ProblemList({
-                    problems: Immutable.List(action.problems),
-                    problems_uploaded: true,
-                });
+  reduce(state, action) {
+    switch (action.type) {
+      case ActionType.UPLOAD_PROBLEMS:
+        return new ProblemList({
+          problems: Immutable.List(action.problems),
+          problems_uploaded: true,
+          exportable: Immutable.List(Array(action.problems.length).fill(false)),
+        });
 
-            default:
-                return state;
-        }
+      default:
+        return state;
+
+
+      case ActionType.SELECT_PROBLEM:
+        return state.updateIn(
+          ['exportable', action.id],
+          val => !val
+        );
+
     }
+  }
 }
 
 export default new ProblemListStore();

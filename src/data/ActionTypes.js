@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017-present, Edward A. Roualdes..
+ * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -9,8 +9,9 @@
 'use strict';
 
 const ActionTypes = {
-    FILTER_PROBLEMS: 'FILTER_PROBLEMS',
-    UPLOAD_PROBLEMS: 'UPLOAD_PROBLEMS',
+  FILTER_PROBLEMS: 'FILTER_PROBLEMS',
+  UPLOAD_PROBLEMS: 'UPLOAD_PROBLEMS',
+  SELECT_PROBLEM: 'SELECT_PROBLEM',
 };
 
 export default ActionTypes;

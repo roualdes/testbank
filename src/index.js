@@ -12,12 +12,10 @@ import AppContainer from './containers/AppContainer.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import "./assets/scss/index.scss";
-
 ReactDOM.render(<AppContainer />, document.getElementById('root'));
 
 if (module.hot) {
-    module.hot.accept('./containers/AppContainer', () => {
-        ReactDOM.render(<AppContainer />, document.getElementById('root'));
-    });
+  module.hot.accept('./containers/AppContainer', () => {
+    ReactDOM.render(<AppContainer />, document.getElementById('root'));
+  });
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017-present, Edward A. Roualdes..
+ * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the

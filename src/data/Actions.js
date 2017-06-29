@@ -12,19 +12,27 @@ import ActionTypes from './ActionTypes';
 import Dispatcher from './Dispatcher';
 
 const Actions = {
-    filterProblems(text) {
-        Dispatcher.dispatch({
-            type: ActionTypes.FILTER_PROBLEMS,
-            text,
-        });
-    },
+  filterProblems(parseResults) {
+    Dispatcher.dispatch({
+      type: ActionTypes.FILTER_PROBLEMS,
+      parseResults,
+    });
+  },
 
-    uploadProblems(problems) {
-        Dispatcher.dispatch({
-            type: ActionTypes.UPLOAD_PROBLEMS,
-            problems,
-        });
-    },
+  uploadProblems(problems) {
+    Dispatcher.dispatch({
+      type: ActionTypes.UPLOAD_PROBLEMS,
+      problems,
+    });
+  },
+
+  selectProblem(id) {
+    Dispatcher.dispatch({
+      type: ActionTypes.SELECT_PROBLEM,
+      id,
+    });
+  },
+
 }
 
 export default Actions;
