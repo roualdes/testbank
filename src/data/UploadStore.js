@@ -13,27 +13,19 @@ import Dispatcher from './Dispatcher.js';
 import Immutable from 'immutable';
 import { ReduceStore } from 'flux/utils';
 
-class FilterStore extends ReduceStore {
+class UploadStore extends ReduceStore {
   constructor() {
     super(Dispatcher);
   }
 
   getInitialState() {
-    return Immutable.Map();
+    return false;
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case ActionType.FILTER_PROBLEMS:
-        let parsedTree;
-        if (action.parseResults.length > 0) {
-          parsedTree = action.parseResults[0];
-        } else {
-          parsedTree = state;
-        }
-
-        return state.set('tree', parsedTree);
-
+      case ActionType.UPLOAD_PROBLEMS:
+        return true;
 
       default:
         return state;
@@ -41,4 +33,4 @@ class FilterStore extends ReduceStore {
   }
 }
 
-export default new FilterStore();
+export default new UploadStore();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -9,12 +9,15 @@
 'use strict';
 
 import Immutable from 'immutable';
-import probs from 'json-loader!yaml-loader!./missingdata.yml';
 
-const ProblemList = Immutable.Record({
-  problems: Immutable.List(probs),
-  problems_uploaded: false,
-  exportable: Immutable.List(Array(probs.length).fill(false))
+const Problem = Immutable.Record({
+  uid: "",
+  question: "",
+  answer: "",
+  author: "",
+  keywords: [],
+  id: "",
+  exportable: false,
 });
 
-export default ProblemList;
+export default Problem;

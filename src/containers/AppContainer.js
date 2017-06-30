@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -11,22 +11,25 @@
 import AppView from '../views/AppView';
 import Actions from '../data/Actions.js';
 import FilterStore from '../data/FilterStore';
-import ProblemListStore from '../data/ProblemListStore';
+import ProblemStore from '../data/ProblemStore';
+import UploadStore from '../data/UploadStore';
 import { Container } from 'flux/utils';
 
 
 function getStores() {
   return [
     FilterStore,
-    ProblemListStore,
+    ProblemStore,
+    UploadStore,
   ];
 }
 
 
 function getState() {
   return {
-    problemList: ProblemListStore.getState(),
+    problemList: ProblemStore.getState(),
     parseTree: FilterStore.getState(),
+    uploaded: UploadStore.getState(),
 
     onFilterProblems: Actions.filterProblems,
     onUploadProblems: Actions.uploadProblems,

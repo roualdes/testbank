@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -13,6 +13,7 @@ import React from 'react';
 import { Checkbox,
          Container,
          Divider,
+         Dropdown,
          Input,
          Header,
          Menu,
@@ -28,6 +29,8 @@ import Dropzone from 'react-dropzone';
 import yml from 'js-yaml';
 import fs from 'fs';
 
+const {dialog} = require('electron').remote
+
 
 function AppView(props) {
   return (
@@ -38,7 +41,6 @@ function AppView(props) {
     </Container>
   );
 };
-
 
 
 function Head(props) {
@@ -54,10 +56,11 @@ function Head(props) {
         <Header inverted>
           TestBank/
         </Header>
-      </Menu.Item>
-      <Menu.Item position="right">
+      </Menu.Item >
+      <Actions {...props} />
+      <Menu.Item position="right" style={{"width": "70vw"}}>
         <Input inverted focus icon='search'
-            size="large" placeholder='search problems...'
+               size="large" placeholder='search problems...'
                onChange={FilterProblems} />
       </Menu.Item>
     </Menu>
@@ -65,9 +68,39 @@ function Head(props) {
 };
 
 
+function Actions(props) {
+  const ExportSelectedProblems = () => {
+    const problems = [...props.problemList
+                      .filter(problem => problem.exportable)
+                      .values()];
+
+    if (problems.length > 0) {
+      dialog.showSaveDialog(function (fileName) {
+        fs.writeFile(fileName, problems, function(err) {
+          if(err) {
+            return console.log(err);
+          }
+        });
+      });
+    }
+  };
+  return (
+    <Menu.Item>
+      <Dropdown icon="content">
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={ExportSelectedProblems}>
+            export
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Menu.Item>
+  );
+};
+
+
 function Body(props) {
 
-  const problems = props.problemList.get('problems');
+  const problems = [...props.problemList.values()];
 
   let queryTree;
   if (props.parseTree.get('tree') == null) {
@@ -75,41 +108,39 @@ function Body(props) {
   } else {
     queryTree = props.parseTree.get('tree');
   }
-  console.log(queryTree);
 
   return (
     <Container fluid>
 
-    {!props.problemList.get('problems_uploaded') && <Upload {...props} />}
+      {!props.uploaded && <Upload {...props} />}
 
-      <Table basic="very" definition compact fixed
-             singleLine sortable striped unstackable>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell width={2}>export</Table.HeaderCell>
-          <Table.HeaderCell width={10}>question</Table.HeaderCell>
-          <Table.HeaderCell width={8}>answer</Table.HeaderCell>
-          <Table.HeaderCell width={2}>author</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {problems
-          .filter(problem => filterQuery(problem, queryTree))
-          .map((problem, k) => (
-            <ProblemItem
-                key={k}
-                question={problem.question}
-                answer={problem.answer}
-                author={problem.author}
-                onSelectProblem={props.onSelectProblem}
-                {...props}
-            />
-          ))}
-      </Table.Body>
-    </Table>
+      {/* TODO would a sortable table be useful? */}
+      <Table basic="very" compact fixed definition
+             singleLine striped unstackable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell width={2}>export</Table.HeaderCell>
+            <Table.HeaderCell width={10}>question</Table.HeaderCell>
+            <Table.HeaderCell width={8}>answer</Table.HeaderCell>
+            <Table.HeaderCell width={2}>author</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {problems
+            .filter(problem => filterQuery(problem, queryTree))
+            .map(problem => (
+              <ProblemItem
+                  key={problem.uid}
+                  problem={problem}
+                  onSelectProblem={props.onSelectProblem}
+              />
+            ))}
+        </Table.Body>
+      </Table>
     </Container>
   );
 };
+
 
 function Upload(props) {
 
@@ -127,36 +158,44 @@ function Upload(props) {
 
 
 function ProblemItem(props) {
-  const answer = props.answer == null ? "" : props.answer;
-  const {author, problem, question} = props;
-  const onSelectProblem = () => props.onSelectProblem(key);
+
+  const {problem} = props;
+  const answer = problem.answer == null ? "" : problem.answer;
+  const onSelectProblem = () => props.onSelectProblem(problem.uid);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <Checkbox />
+        <Checkbox checked={problem.exportable}
+                  onChange={onSelectProblem}
+        />
       </Table.Cell>
       <Table.Cell>
-        <WidePopup txt={question}/>
+        <WidePopup txt={problem.question} />
       </Table.Cell>
       <Table.Cell>
-        <WidePopup txt={answer}/>
+        <WidePopup txt={problem.answer} />
       </Table.Cell>
       <Table.Cell>
-        {author}
+        {problem.author}
       </Table.Cell>
     </Table.Row>
   );
 };
 
+
 function WidePopup(props) {
+
   const txt = props.txt;
+
   return (
     <Popup hideOnScroll wide="very"
            trigger={<p>{txt}</p>}
-           content={txt} on="click"/>
+           content={txt} on="click"
+    />
   );
 };
+
 
 const Foot = (props) => {
   return (

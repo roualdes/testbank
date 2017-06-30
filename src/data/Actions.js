@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -26,10 +26,10 @@ const Actions = {
     });
   },
 
-  selectProblem(id) {
+  selectProblem(uid) {
     Dispatcher.dispatch({
       type: ActionTypes.SELECT_PROBLEM,
-      id,
+      uid,
     });
   },
 

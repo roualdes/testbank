@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -10,9 +10,10 @@
 
 import ActionType from './ActionTypes.js';
 import Dispatcher from './Dispatcher.js';
-import ProblemList from './ProblemList.js';
+import Problem from './Problem.js';
 import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
+import FAQs from 'json-loader!yaml-loader!./missingdata.yml';
 
 
 class ProblemListStore extends ReduceStore {
@@ -21,27 +22,35 @@ class ProblemListStore extends ReduceStore {
   }
 
   getInitialState() {
-    return new ProblemList;
+    let state = Immutable.Map();
+    return state.withMutations(map => {
+      FAQs.forEach((p, i) => {
+        let uid = "id-" + i;
+        p['uid'] = uid;
+        map.set(uid, new Problem(p))}
+      );
+    });
   }
 
   reduce(state, action) {
     switch (action.type) {
       case ActionType.UPLOAD_PROBLEMS:
-        return new ProblemList({
-          problems: Immutable.List(action.problems),
-          problems_uploaded: true,
-          exportable: Immutable.List(Array(action.problems.length).fill(false)),
+        return state.withMutations(map => {
+          action.problems.forEach((p, i) => {
+            let uid = "id-" + i;
+            p['uid'] = uid;
+            map.set(uid, new Problem(p))}
+          )
         });
+
+      case ActionType.SELECT_PROBLEM:
+        return state.update(
+          action.uid,
+          p => p.set('exportable', !p.exportable),
+        );
 
       default:
         return state;
-
-
-      case ActionType.SELECT_PROBLEM:
-        return state.updateIn(
-          ['exportable', action.id],
-          val => !val
-        );
 
     }
   }
