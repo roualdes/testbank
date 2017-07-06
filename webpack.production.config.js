@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     'app': [
       'react-hot-loader/patch',
-      './src/index.js'
+      './src/index.jsx'
     ]
   },
   output: {
@@ -17,7 +17,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/,
+      { test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },

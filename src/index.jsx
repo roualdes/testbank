@@ -8,14 +8,14 @@
 
 'use strict';
 
-import AppContainer from './containers/AppContainer.js'
+import AppContainer from './containers/AppContainer.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 ReactDOM.render(<AppContainer />, document.getElementById('root'));
 
 if (module.hot) {
-  module.hot.accept('./containers/AppContainer', () => {
+  module.hot.accept('./containers/AppContainer.jsx', () => {
     ReactDOM.render(<AppContainer />, document.getElementById('root'));
   });
 }

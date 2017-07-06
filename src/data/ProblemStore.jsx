@@ -8,9 +8,9 @@
 
 'use strict';
 
-import ActionType from './ActionTypes.js';
-import Dispatcher from './Dispatcher.js';
-import Problem from './Problem.js';
+import ActionType from './ActionTypes.jsx';
+import Dispatcher from './Dispatcher.jsx';
+import Problem from './Problem.jsx';
 import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
 import FAQs from 'json-loader!yaml-loader!./missingdata.yml';

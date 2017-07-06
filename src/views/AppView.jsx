@@ -22,7 +22,7 @@ import { Checkbox,
          Table
 } from 'semantic-ui-react';
 import filterQuery from './filterQuery';
-import {ParserRules, ParserStart} from './nearleyParser.js';
+import {ParserRules, ParserStart} from './nearleyParser';
 import nearley from 'nearley';
 import Immutable from 'immutable';
 import Dropzone from 'react-dropzone';

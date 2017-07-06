@@ -8,8 +8,8 @@
 
 'use strict';
 
-import ActionType from './ActionTypes.js';
-import Dispatcher from './Dispatcher.js';
+import ActionType from './ActionTypes.jsx';
+import Dispatcher from './Dispatcher.jsx';
 import Immutable from 'immutable';
 import { ReduceStore } from 'flux/utils';
 

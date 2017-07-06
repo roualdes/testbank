@@ -8,11 +8,11 @@
 
 'use strict';
 
-import AppView from '../views/AppView';
-import Actions from '../data/Actions.js';
-import FilterStore from '../data/FilterStore';
-import ProblemStore from '../data/ProblemStore';
-import UploadStore from '../data/UploadStore';
+import AppView from '../views/AppView.jsx';
+import Actions from '../data/Actions.jsx';
+import FilterStore from '../data/FilterStore.jsx';
+import ProblemStore from '../data/ProblemStore.jsx';
+import UploadStore from '../data/UploadStore.jsx';
 import { Container } from 'flux/utils';
 
 

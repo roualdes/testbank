@@ -8,8 +8,8 @@
 
 'use strict';
 
-import ActionTypes from './ActionTypes';
-import Dispatcher from './Dispatcher';
+import ActionTypes from './ActionTypes.jsx';
+import Dispatcher from './Dispatcher.jsx';
 
 const Actions = {
   filterProblems(parseResults) {

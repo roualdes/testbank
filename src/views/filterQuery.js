@@ -6,7 +6,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
+function searchCategory(text, data, category = 'all') {
+  let ctgry;
+  if (category === 'all') {
+    ctgry = ['question', 'answer', 'author', 'id', 'k'];
+  } else {
+    ctgry = [category];
+  }
+
+  const match = ctgry.some(ctg => (ctg in data ?
+                                   data[ctg].indexOf(text) > -1 :
+                                   false));
+
+  return match;
+}
 
 
 function filterQuery(problem, qtree) {
@@ -15,107 +28,63 @@ function filterQuery(problem, qtree) {
   let match = true;
 
   /* Determine type of search to make */
-  let match_left = true,
-      match_right = true;
+  let matchLeft = true;
+  let matchRight = true;
 
-  if ("left" in qtree) {
-    if ("op" in qtree["left"]) {
-
-      match_left = filterQuery(problem, qtree["left"]);
-
+  if ('left' in qtree) {
+    if ('op' in qtree.left) {
+      matchLeft = filterQuery(problem, qtree.left);
     } else {
+      const lText = qtree.left.text;
 
-      const lText = qtree["left"]["text"];
-
-      if ("category" in qtree["left"]) {
-
-          match_left = searchCategory(lText["text"], problem,
-                                      qtree["left"]["category"]["text"]);
-
+      if ('category' in qtree.left) {
+        matchLeft = searchCategory(lText.text, problem,
+                                   qtree.left.category.text);
       } else {
-
-        match_left = searchCategory(lText, problem);
-
+        matchLeft = searchCategory(lText, problem);
       }
     }
   }
 
 
-  if ("right" in qtree) {
-    if ("op" in qtree["right"]) {
-
-      match_right = filterQuery(problem, qtree["right"]);
-
+  if ('right' in qtree) {
+    if ('op' in qtree.right) {
+      matchRight = filterQuery(problem, qtree.right);
     } else {
+      const rText = qtree.right.text;
 
-      const rText = qtree["right"]["text"];
-
-      if ("category" in qtree["right"]) {
-
-        match_right = searchCategory(rText["text"], problem,
-                                     qtree["right"]["category"]["text"]);
-
+      if ('category' in qtree.right) {
+        matchRight = searchCategory(rText.text, problem,
+                                    qtree.right.category.text);
       } else {
-
-        match_right = searchCategory(rText, problem);
+        matchRight = searchCategory(rText, problem);
       }
     }
   }
 
-  if ("op" in qtree) {
-
-    switch (qtree["op"]) {
-      case "OR":
-
-        match = match_left || match_right;
+  if ('op' in qtree) {
+    switch (qtree.op) {
+      case 'OR':
+        match = matchLeft || matchRight;
         break;
 
-      case "AND":
+      case 'AND':
+        match = matchLeft && matchRight;
+        break;
 
-        match = match_left && match_right;
+      default:
         break;
     }
-
-  } else if ("text" in qtree){
-
-    if ("category" in qtree) {
-
-      match = searchCategory(qtree["text"]["text"], problem, qtree["category"]["text"]);
-
+  } else if ('text' in qtree) {
+    if ('category' in qtree) {
+      match = searchCategory(qtree.text.text, problem, qtree.category.text);
     } else {
-
-      match = searchCategory(qtree["text"], problem, "all");
-
+      match = searchCategory(qtree.text, problem, 'all');
     }
   }
 
   return match;
+}
 
-};
-
-function searchCategory(text, data, category="all") {
-
-  let match = false;
-  if (category === "all") {
-    category = ["question", "answer", "author", "id", "k"]
-  } else {
-    category = [category];
-  }
-
-  for (let ctg of category) {
-    const m = ctg in data ? searchString(data[ctg], text) : false;
-    match = match || m;
-
-    if (match) {
-      break;
-    }
-  }
-
-  return match;
-};
-
-function searchString(base, query) {
-  return base.indexOf(query) > -1;
-};
 
 export default filterQuery;
