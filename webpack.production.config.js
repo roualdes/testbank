@@ -4,7 +4,6 @@ const path = require('path');
 const OUTPUT_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
   entry: {
     'app': [
       'react-hot-loader/patch',

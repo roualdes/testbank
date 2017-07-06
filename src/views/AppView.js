@@ -22,7 +22,7 @@ import { Checkbox,
          Table
 } from 'semantic-ui-react';
 import filterQuery from './filterQuery';
-import {ParserRules, ParserStart} from './nearley-parser.js';
+import {ParserRules, ParserStart} from './nearleyParser.js';
 import nearley from 'nearley';
 import Immutable from 'immutable';
 import Dropzone from 'react-dropzone';
@@ -48,7 +48,16 @@ function Head(props) {
     const text = event.target.value;
     let parser = new nearley.Parser(ParserRules, ParserStart)
                             .feed(text);
-    props.onFilterProblems(parser.results);
+    if (event.key === 'Enter') {
+      props.onFilterProblems(parser.results);
+    }
+  };
+
+  const DisplayAllProblems = (event) => {
+    const text = event.target.value;
+    if (text === "") {
+      props.onFilterProblems([]);
+    }
   };
   return (
     <Menu fluid inverted borderless>
@@ -61,7 +70,9 @@ function Head(props) {
       <Menu.Item position="right" style={{"width": "70vw"}}>
         <Input inverted focus icon='search'
                size="large" placeholder='search problems...'
-               onChange={FilterProblems} />
+               onKeyPress={FilterProblems}
+               onChange={DisplayAllProblems}
+        />
       </Menu.Item>
     </Menu>
   );
