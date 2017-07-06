@@ -28,6 +28,7 @@ import yml from 'js-yaml';
 import fs from 'fs';
 import filterQuery from './filterQuery';
 import { ParserRules, ParserStart } from './nearleyParser';
+import Rnw from '../templates/Rnw';
 
 const { dialog } = require('electron').remote;
 
@@ -97,7 +98,8 @@ function Actions(props) {
 
     if (problems.length > 0) {
       dialog.showSaveDialog((fileName) => {
-        fs.writeFile(fileName, problems, (err) => {
+        /* todo: export via other templates */
+        fs.writeFile(fileName, Rnw(problems), (err) => {
           if (err && 'message' in err) {
             dialog.showErrorBox('Error:', err.message);
           } else {
@@ -111,6 +113,7 @@ function Actions(props) {
     }
   };
 
+  /* todo: shortcuts to operate when focused on an element */
   Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'],
                  () => ExportSelectedProblems());
   Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'],
