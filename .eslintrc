@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+    ],
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended",
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "class-methods-use-this": [
+            "error",
+            {"exceptMethods": ["reduce", "getInitialState"]}
+        ],
+        "consistent-return": [
+            "error",
+            {"treatUndefinedAsUnspecified": true }
+        ],
+        // todo: don't cheat these issues
+        "import/no-extraneous-dependencies": 0,
+        "import/no-webpack-loader-syntax": 0,
+        "import/no-unresolved": 0
+    }
+}

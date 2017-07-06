@@ -6,12 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-import ActionType from './ActionTypes.jsx';
-import Dispatcher from './Dispatcher.jsx';
-import Immutable from 'immutable';
 import { ReduceStore } from 'flux/utils';
+import ActionType from './ActionTypes';
+import Dispatcher from './Dispatcher';
+
 
 class UploadStore extends ReduceStore {
   constructor() {

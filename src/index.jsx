@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-import AppContainer from './containers/AppContainer.jsx'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AppContainer from './containers/AppContainer';
+
 
 ReactDOM.render(<AppContainer />, document.getElementById('root'));
 
 if (module.hot) {
-  module.hot.accept('./containers/AppContainer.jsx', () => {
+  module.hot.accept('./containers/AppContainer.js', () => {
     ReactDOM.render(<AppContainer />, document.getElementById('root'));
   });
 }

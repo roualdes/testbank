@@ -18,15 +18,25 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: "pre",
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          fix: true,
+        }
+      },
       { test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
-      { test: /\.yaml$/,
-        include: path.resolve(process.cwd(), './data'),
-        loader: 'yaml-loader',
+        loaders: [
+          'babel-loader',
+        ],
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   target: 'electron-renderer',
   devServer: {

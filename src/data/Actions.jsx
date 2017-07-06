@@ -6,10 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-import ActionTypes from './ActionTypes.jsx';
-import Dispatcher from './Dispatcher.jsx';
+import ActionTypes from './ActionTypes';
+import Dispatcher from './Dispatcher';
 
 const Actions = {
   filterProblems(parseResults) {
@@ -33,6 +32,6 @@ const Actions = {
     });
   },
 
-}
+};
 
 export default Actions;

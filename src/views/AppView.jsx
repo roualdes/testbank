@@ -6,9 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
-import React from 'react';
 
 import { Checkbox,
          Container,
@@ -19,17 +16,19 @@ import { Checkbox,
          Menu,
          Message,
          Popup,
-         Table
+         Table,
 } from 'semantic-ui-react';
-import filterQuery from './filterQuery';
-import {ParserRules, ParserStart} from './nearleyParser';
-import nearley from 'nearley';
+import React from 'react';
 import Immutable from 'immutable';
+import nearley from 'nearley';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import yml from 'js-yaml';
 import fs from 'fs';
+import filterQuery from './filterQuery';
+import { ParserRules, ParserStart } from './nearleyParser';
 
-const {dialog} = require('electron').remote
+const { dialog } = require('electron').remote;
 
 
 function AppView(props) {
@@ -37,16 +36,16 @@ function AppView(props) {
     <Container fluid>
       <Head {...props} />
       <Body {...props} />
-      <Foot {...props} />
+      <Foot />
     </Container>
   );
-};
+}
 
 
 function Head(props) {
   const FilterProblems = (event) => {
     const text = event.target.value;
-    let parser = new nearley.Parser(ParserRules, ParserStart)
+    const parser = new nearley.Parser(ParserRules, ParserStart)
                             .feed(text);
     if (event.key === 'Enter') {
       props.onFilterProblems(parser.results);
@@ -55,7 +54,7 @@ function Head(props) {
 
   const DisplayAllProblems = (event) => {
     const text = event.target.value;
-    if (text === "") {
+    if (text === '') {
       props.onFilterProblems([]);
     }
   };
@@ -67,15 +66,24 @@ function Head(props) {
         </Header>
       </Menu.Item >
       <Actions {...props} />
-      <Menu.Item position="right" style={{"width": "70vw"}}>
-        <Input inverted focus icon='search'
-               size="large" placeholder='search problems...'
-               onKeyPress={FilterProblems}
-               onChange={DisplayAllProblems}
+      <Menu.Item position="right" style={{ width: '70vw' }}>
+        <Input
+          inverted
+          focus
+          icon="search"
+          size="large"
+          placeholder="search problems..."
+          onKeyPress={FilterProblems}
+          onChange={DisplayAllProblems}
         />
       </Menu.Item>
     </Menu>
   );
+}
+
+
+Head.propTypes = {
+  onFilterProblems: PropTypes.func.isRequired,
 };
 
 
@@ -86,10 +94,15 @@ function Actions(props) {
                       .values()];
 
     if (problems.length > 0) {
-      dialog.showSaveDialog(function (fileName) {
-        fs.writeFile(fileName, problems, function(err) {
-          if(err) {
-            return console.log(err);
+      dialog.showSaveDialog((fileName) => {
+        fs.writeFile(fileName, problems, (err) => {
+          if (err && 'message' in err) {
+            dialog.showErrorBox('Error:', err.message);
+          } else {
+            dialog.showMessageBox({
+              message: 'File successfully saved.',
+              buttons: ['OK'],
+            });
           }
         });
       });
@@ -106,11 +119,15 @@ function Actions(props) {
       </Dropdown>
     </Menu.Item>
   );
+}
+
+
+Actions.propTypes = {
+  problemList: PropTypes.instanceOf(Immutable.Map),
 };
 
 
 function Body(props) {
-
   const problems = [...props.problemList.values()];
 
   let queryTree;
@@ -126,8 +143,15 @@ function Body(props) {
       {!props.uploaded && <Upload {...props} />}
 
       {/* TODO would a sortable table be useful? */}
-      <Table basic="very" compact fixed definition
-             singleLine striped unstackable>
+      <Table
+        basic="very"
+        compact
+        fixed
+        definition
+        singleLine
+        striped
+        unstackable
+      >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell width={2}>export</Table.HeaderCell>
@@ -141,21 +165,28 @@ function Body(props) {
             .filter(problem => filterQuery(problem, queryTree))
             .map(problem => (
               <ProblemItem
-                  key={problem.uid}
-                  problem={problem}
-                  onSelectProblem={props.onSelectProblem}
+                key={problem.uid}
+                problem={problem}
+                onSelectProblem={props.onSelectProblem}
               />
             ))}
         </Table.Body>
       </Table>
     </Container>
   );
+}
+
+
+Body.propTypes = {
+  problemList: PropTypes.instanceOf(Immutable.Map).isRequired,
+  parseTree: PropTypes.instanceOf(Immutable.Map).isRequired,
+  uploaded: PropTypes.bool.isRequired,
+  onSelectProblem: PropTypes.func.isRequired,
 };
 
 
 function Upload(props) {
-
-  const onUpload = (acceptedFiles, rejectedFiles) => props.onUploadProblems(
+  const onUpload = acceptedFiles => props.onUploadProblems(
     yml.safeLoad(fs.readFileSync(acceptedFiles[0].path)));
 
   return (
@@ -165,57 +196,74 @@ function Upload(props) {
       </Message>
     </Dropzone>
   );
+}
+
+
+Upload.propTypes = {
+  onUploadProblems: PropTypes.func.isRequired,
 };
 
 
 function ProblemItem(props) {
-
-  const {problem} = props;
-  const answer = problem.answer == null ? "" : problem.answer;
+  const { problem } = props;
+  const { author, exportable, question } = problem;
+  const answer = problem.answer == null ? '' : problem.answer;
   const onSelectProblem = () => props.onSelectProblem(problem.uid);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <Checkbox checked={problem.exportable}
-                  onChange={onSelectProblem}
+        <Checkbox
+          checked={exportable}
+          onChange={onSelectProblem}
         />
       </Table.Cell>
       <Table.Cell>
-        <WidePopup txt={problem.question} />
+        <WidePopup txt={question} />
       </Table.Cell>
       <Table.Cell>
-        <WidePopup txt={problem.answer} />
+        <WidePopup txt={answer} />
       </Table.Cell>
       <Table.Cell>
-        {problem.author}
+        {author}
       </Table.Cell>
     </Table.Row>
   );
+}
+
+
+ProblemItem.propTypes = {
+  problem: PropTypes.instanceOf(Immutable.Record).isRequired,
+  onSelectProblem: PropTypes.func.isRequired,
 };
 
 
 function WidePopup(props) {
-
   const txt = props.txt;
 
   return (
-    <Popup hideOnScroll wide="very"
-           trigger={<p>{txt}</p>}
-           content={txt} on="click"
+    <Popup
+      hideOnScroll
+      wide="very"
+      trigger={<p>{txt}</p>}
+      content={txt}
+      on="click"
     />
   );
+}
+
+
+WidePopup.propTypes = {
+  txt: PropTypes.string.isRequired,
 };
 
 
-const Foot = (props) => {
-  return (
-    <Container fluid textAlign="center">
-      <Divider clearing />
-        <p>© 2017 Edward A. Roualdes</p>
-    </Container>
+const Foot = () => (
+  <Container fluid textAlign="center">
+    <Divider clearing />
+    <p>© 2017 Edward A. Roualdes</p>
+  </Container>
   );
-};
 
 
 export default AppView;

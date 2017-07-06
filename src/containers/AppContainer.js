@@ -6,14 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-import AppView from '../views/AppView.jsx';
-import Actions from '../data/Actions.jsx';
-import FilterStore from '../data/FilterStore.jsx';
-import ProblemStore from '../data/ProblemStore.jsx';
-import UploadStore from '../data/UploadStore.jsx';
 import { Container } from 'flux/utils';
+import AppView from '../views/AppView';
+import Actions from '../data/Actions';
+import FilterStore from '../data/FilterStore';
+import ProblemStore from '../data/ProblemStore';
+import UploadStore from '../data/UploadStore';
 
 
 function getStores() {

@@ -6,14 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-import ActionType from './ActionTypes.jsx';
-import Dispatcher from './Dispatcher.jsx';
-import Problem from './Problem.jsx';
 import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
 import FAQs from 'json-loader!yaml-loader!./missingdata.yml';
+import ActionType from './ActionTypes';
+import Dispatcher from './Dispatcher';
+import Problem from './Problem';
 
 
 class ProblemListStore extends ReduceStore {
@@ -22,32 +21,34 @@ class ProblemListStore extends ReduceStore {
   }
 
   getInitialState() {
-    let state = Immutable.Map();
-    return state.withMutations(map => {
+    const state = Immutable.Map();
+    return state.withMutations((map) => {
       FAQs.forEach((p, i) => {
-        let uid = "id-" + i;
-        p['uid'] = uid;
-        map.set(uid, new Problem(p))}
-      );
+        const uid = `id-${i}`;
+        const pp = p;
+        pp.uid = uid;
+        map.set(uid, new Problem(pp));
+      });
     });
   }
 
   reduce(state, action) {
     switch (action.type) {
       case ActionType.UPLOAD_PROBLEMS:
-        return state.withMutations(map => {
+        return state.withMutations((map) => {
           action.problems.forEach((p, i) => {
-            let uid = "id-" + i;
-            p['uid'] = uid;
-            map.set(uid, new Problem(p))}
-          )
+            const uid = `id-${i}`;
+            const pp = p;
+            pp.uid = uid;
+            map.set(uid, new Problem(pp));
+          });
         });
 
       case ActionType.SELECT_PROBLEM:
         return state.update(
-          action.uid,
-          p => p.set('exportable', !p.exportable),
-        );
+                    action.uid,
+                    p => p.set('exportable', !p.exportable),
+                );
 
       default:
         return state;

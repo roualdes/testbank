@@ -6,17 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
 import Immutable from 'immutable';
 
+
 const Problem = Immutable.Record({
-  uid: "",
-  question: "",
-  answer: "",
-  author: "",
+  uid: '',
+  question: '',
+  answer: '',
+  author: '',
   keywords: [],
-  id: "",
+  id: '',
   exportable: false,
 });
 
