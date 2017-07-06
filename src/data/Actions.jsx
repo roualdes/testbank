@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -18,6 +18,12 @@ const Actions = {
     });
   },
 
+  invertSelection() {
+    Dispatcher.dispatch({
+      type: ActionTypes.INVERT_SELECTION,
+    });
+  },
+
   uploadProblems(problems) {
     Dispatcher.dispatch({
       type: ActionTypes.UPLOAD_PROBLEMS,
@@ -29,6 +35,12 @@ const Actions = {
     Dispatcher.dispatch({
       type: ActionTypes.SELECT_PROBLEM,
       uid,
+    });
+  },
+
+  toggleAllProblems() {
+    Dispatcher.dispatch({
+      type: ActionTypes.TOGGLE_ALL_PROBLEMS,
     });
   },
 

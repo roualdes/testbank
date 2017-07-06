@@ -3,10 +3,8 @@ node_modules/
 questions/
 dist/bundle.js
 dist/bundle.js.map
-notes.org
+dev/
 yarn.lock
-play.js
-bool.*
 
 ### OS Files ###
 .DS_Store

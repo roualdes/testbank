@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -31,8 +31,10 @@ function getState() {
     uploaded: UploadStore.getState(),
 
     onFilterProblems: Actions.filterProblems,
+    onInvertSelection: Actions.invertSelection,
     onUploadProblems: Actions.uploadProblems,
     onSelectProblem: Actions.selectProblem,
+    onToggleAllProblems: Actions.toggleAllProblems,
   };
 }
 

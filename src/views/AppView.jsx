@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -20,6 +20,7 @@ import { Checkbox,
 } from 'semantic-ui-react';
 import React from 'react';
 import Immutable from 'immutable';
+import Mousetrap from 'mousetrap';
 import nearley from 'nearley';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
@@ -68,6 +69,7 @@ function Head(props) {
       <Actions {...props} />
       <Menu.Item position="right" style={{ width: '70vw' }}>
         <Input
+          id="searchBar"
           inverted
           focus
           icon="search"
@@ -108,12 +110,28 @@ function Actions(props) {
       });
     }
   };
+
+  Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'],
+                 () => ExportSelectedProblems());
+  Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'],
+                 () => props.onToggleAllProblems());
+  Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'],
+                 () => props.onInvertSelection());
+  Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'],
+                 () => document.getElementById('searchBar').focus());
+
   return (
     <Menu.Item>
       <Dropdown icon="content">
         <Dropdown.Menu>
           <Dropdown.Item onClick={ExportSelectedProblems}>
-            export
+            Export Problems
+          </Dropdown.Item>
+          <Dropdown.Item onClick={props.onToggleAllProblems}>
+            Toggle All Problems
+          </Dropdown.Item>
+          <Dropdown.Item onClick={props.onInvertSelection}>
+            Invert Selected Problems
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -123,7 +141,9 @@ function Actions(props) {
 
 
 Actions.propTypes = {
-  problemList: PropTypes.instanceOf(Immutable.Map),
+  problemList: PropTypes.instanceOf(Immutable.Map).isRequired,
+  onToggleAllProblems: PropTypes.func.isRequired,
+  onInvertSelection: PropTypes.func.isRequired,
 };
 
 
@@ -142,7 +162,7 @@ function Body(props) {
 
       {!props.uploaded && <Upload {...props} />}
 
-      {/* TODO would a sortable table be useful? */}
+      {/* todo: would a sortable table be useful? */}
       <Table
         basic="very"
         compact
@@ -151,6 +171,7 @@ function Body(props) {
         singleLine
         striped
         unstackable
+        selectable
       >
         <Table.Header>
           <Table.Row>

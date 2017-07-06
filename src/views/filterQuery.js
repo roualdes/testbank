@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -23,7 +23,8 @@ function searchCategory(text, data, category = 'all') {
 
 
 function filterQuery(problem, qtree) {
-  /* TODO allow case insensitive searching */
+  // todo: optionally allow case insensitive searching
+  // todo: optionally allow fuzzy searches, just on 'text'
 
   let match = true;
 

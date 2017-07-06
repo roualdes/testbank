@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -9,8 +9,10 @@
 
 const ActionTypes = {
   FILTER_PROBLEMS: 'FILTER_PROBLEMS',
+  INVERT_SELECTION: 'INVERT_SELECTION',
   UPLOAD_PROBLEMS: 'UPLOAD_PROBLEMS',
   SELECT_PROBLEM: 'SELECT_PROBLEM',
+  TOGGLE_ALL_PROBLEMS: 'TOGGLE_ALL_PROBLEMS',
 };
 
 export default ActionTypes;

@@ -18,10 +18,11 @@
   },
   "dependencies": {
     "electron": "^1.6.11",
-    "flux": "3.1.2",
+    "flux": "^3.1.2",
     "immutable": "^3.8.1",
     "js-yaml": "^3.8.4",
     "json-loader": "^0.5.4",
+    "mousetrap": "^1.6.1",
     "nearley": "^2.10.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

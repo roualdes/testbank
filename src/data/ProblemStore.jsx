@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2017-present, Edward A. Roualdes.
  * All rights reserved.
  *
@@ -48,7 +48,15 @@ class ProblemListStore extends ReduceStore {
         return state.update(
                     action.uid,
                     p => p.set('exportable', !p.exportable),
-                );
+        );
+
+      case ActionType.INVERT_SELECTION:
+        return state.map(p => p.set('exportable', !p.exportable));
+
+      case ActionType.TOGGLE_ALL_PROBLEMS: {
+        const allExportable = state.every(p => p.exportable);
+        return state.map(p => p.set('exportable', !allExportable));
+      }
 
       default:
         return state;
