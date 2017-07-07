@@ -10,14 +10,12 @@
 import { Container } from 'flux/utils';
 import AppView from '../views/AppView';
 import Actions from '../data/Actions';
-import FilterStore from '../data/FilterStore';
 import ProblemStore from '../data/ProblemStore';
 import UploadStore from '../data/UploadStore';
 
 
 function getStores() {
   return [
-    FilterStore,
     ProblemStore,
     UploadStore,
   ];
@@ -27,7 +25,6 @@ function getStores() {
 function getState() {
   return {
     problemList: ProblemStore.getState(),
-    parseTree: FilterStore.getState(),
     uploaded: UploadStore.getState(),
 
     onFilterProblems: Actions.filterProblems,

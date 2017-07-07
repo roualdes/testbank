@@ -11,10 +11,10 @@ import ActionTypes from './ActionTypes';
 import Dispatcher from './Dispatcher';
 
 const Actions = {
-  filterProblems(parseResults) {
+  filterProblems(query) {
     Dispatcher.dispatch({
       type: ActionTypes.FILTER_PROBLEMS,
-      parseResults,
+      query,
     });
   },
 

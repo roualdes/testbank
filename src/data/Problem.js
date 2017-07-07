@@ -11,13 +11,15 @@ import Immutable from 'immutable';
 
 
 const Problem = Immutable.Record({
-  uid: '',
   question: '',
   answer: '',
   author: '',
   keywords: [],
   id: '',
+  /* additional fields */
   exportable: false,
+  display: true,
+  uid: '',
 });
 
 export default Problem;

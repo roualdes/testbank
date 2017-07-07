@@ -9,6 +9,8 @@
 
 import Format from './Format';
 
+// todo: handle multiple choice questions
+// todo: handle multiple part questions
 
 function Rnw(probs) {
   return Format`\documentclass[12pt]{article}
@@ -24,8 +26,9 @@ opts_knit$set(progress=FALSE)
 Due: {\color{red} TBA }
 
 \begin{enumerate}
-  ${probs.map(prob => Format`
-  \item ${prob.question}
+  ${probs.map(({ question, answer }) => Format`
+  \item ${question}
+  \item ${answer}
   `)}
 \end{enumerate}
 
