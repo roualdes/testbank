@@ -19,7 +19,7 @@ function getStores() {
 
 function getState() {
   return {
-                  problems: ProblemsStore.getState(),
+    problems: ProblemsStore.getState(),
     templates: TemplateStore.getState(),
     uploaded: UploadStore.getState(),
 
@@ -28,7 +28,7 @@ function getState() {
     onUploadProblems: Actions.uploadProblems,
     onSelectProblem: Actions.selectProblem,
     onSetTemplate: Actions.setTemplate,
-    onToggleAllProblems: Actions.toggleAllProblems,
+    onToggleAllProblems: Actions.toggleAllProblems
   };
 }
 

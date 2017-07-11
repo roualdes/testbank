@@ -15,7 +15,7 @@ function searchCategory(text, data, category = 'all') {
   }
 
   const match = ctgry.some(
-    ctg => ctg in data ? data[ctg].indexOf(text) > -1 : false
+    ctg => (ctg in data ? data[ctg].indexOf(text) > -1 : false)
   );
 
   return match;

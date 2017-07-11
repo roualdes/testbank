@@ -60,23 +60,25 @@ class ProblemsStore extends ReduceStore {
 
       case ActionType.SELECT_PROBLEM:
         return state.update(action.uid, p =>
-          p.set('exportable', p.display ? !p.exportable : p.exportable));
+          p.set('exportable', p.display ? !p.exportable : p.exportable)
+        );
 
       case ActionType.INVERT_SELECTION:
         return state.map(p =>
-          p.set('exportable', p.display ? !p.exportable : p.exportable));
+          p.set('exportable', p.display ? !p.exportable : p.exportable)
+        );
 
       case ActionType.TOGGLE_ALL_PROBLEMS: {
         const allExportable = state
           .filter(p => p.display)
           .every(p => p.exportable);
         return state.map(p =>
-          p.set('exportable', p.display ? !allExportable : allExportable));
+          p.set('exportable', p.display ? !allExportable : allExportable)
+        );
       }
 
       default:
         return state;
-
     }
   }
 }

@@ -25,10 +25,12 @@ opts_knit$set(progress=FALSE)
 Due: {\color{red} TBA }
 
 \begin{enumerate}
-  ${probs.map(({ question, answer }) => Format`
+  ${probs.map(
+    ({ question, answer }) => Format`
   \item ${question}
   \item ${answer}
-  `)}
+  `
+  )}
 \end{enumerate}
 
 \end{document}

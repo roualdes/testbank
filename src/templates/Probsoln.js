@@ -46,7 +46,8 @@ fage <- na.omit(ncbirths$fage)
 q3.fage <- quantile(fage,.75)
 @
 
-${probs.map(({ question, id, answer }) => Format`\begin{defproblem}{${id}}[fragile]
+${probs.map(
+    ({ question, id, answer }) => Format`\begin{defproblem}{${id}}[fragile]
   ${question}
   \begin{onlysolution}[fragile]%
     \begin{solution}
@@ -56,7 +57,8 @@ ${probs.map(({ question, id, answer }) => Format`\begin{defproblem}{${id}}[fragi
   \end{onlysolution}
 \end{defproblem}
 
-`)}
+`
+  )}
 `;
 }
 

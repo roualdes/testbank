@@ -27,9 +27,7 @@ function Head(props) {
   return (
     <Menu fluid inverted borderless>
       <Menu.Item>
-        <Header inverted>
-          TestBank/
-        </Header>
+        <Header inverted>TestBank/</Header>
       </Menu.Item>
       <Actions {...props} />
       <Menu.Item position="right" style={{ width: '70vw' }}>
@@ -87,13 +85,17 @@ function Actions(props) {
 
   /* todo: shortcuts to operate when focused on an element */
   Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'], () =>
-    ExportSelectedProblems());
+    ExportSelectedProblems()
+  );
   Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'], () =>
-    props.onToggleAllProblems());
+    props.onToggleAllProblems()
+  );
   Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'], () =>
-    props.onInvertSelection());
+    props.onInvertSelection()
+  );
   Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'], () =>
-    document.getElementById('searchBar').focus());
+    document.getElementById('searchBar').focus()
+  );
 
   return (
     <Menu.Item>
@@ -116,13 +118,13 @@ function Actions(props) {
             onClick={props.onInvertSelection}
           />
           <Menu.Header>Templates</Menu.Header>
-          {templates.map(template => (
+          {templates.map(template =>
             <TemplateItem
               key={template.name}
               template={template}
               onSetTemplate={props.onSetTemplate}
             />
-          ))}
+          )}
         </Dropdown.Menu>
       </Dropdown>
     </Menu.Item>

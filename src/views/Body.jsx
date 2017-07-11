@@ -19,7 +19,6 @@ function Body(props) {
 
   return (
     <Container fluid>
-
       {!props.uploaded && <Upload {...props} />}
 
       {/* todo: would a sortable table be useful? */}
@@ -44,13 +43,13 @@ function Body(props) {
         <Table.Body>
           {problems
             .filter(problem => problem.display)
-            .map(problem => (
+            .map(problem =>
               <ProblemItem
                 key={problem.uid}
                 problem={problem}
                 onSelectProblem={props.onSelectProblem}
               />
-            ))}
+            )}
         </Table.Body>
       </Table>
     </Container>
@@ -72,7 +71,8 @@ function Upload(props) {
   return (
     <Dropzone className="Card" onDrop={onUpload} multiple={false}>
       <Message info>
-        Load your own database by clicking or dropping an appropriately formatted .yaml file.
+        Load your own database by clicking or dropping an appropriately
+        formatted .yaml file.
       </Message>
     </Dropzone>
   );
@@ -117,7 +117,11 @@ function WidePopup(props) {
     <Popup
       hideOnScroll
       wide="very"
-      trigger={<p>{txt}</p>}
+      trigger={
+        <p>
+          {txt}
+        </p>
+      }
       content={txt}
       on="click"
     />

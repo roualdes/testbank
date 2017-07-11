@@ -9,11 +9,10 @@
 import { Container, Divider } from 'semantic-ui-react';
 import React from 'react';
 
-const Foot = () => (
+const Foot = () =>
   <Container fluid textAlign="center">
     <Divider clearing />
     <p>© 2017 Edward A. Roualdes</p>
-  </Container>
-);
+  </Container>;
 
 export default Foot;
