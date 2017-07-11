@@ -14,7 +14,7 @@
     "build": "webpack --progress -p --config webpack.production.config.js",
     "package": "electron-packager --overwrite ./ --out=./builds",
     "test": "snyk test",
-    "format": "prettier --single-quote \"src/**/*.{js,jsx}\"",
+    "format": "prettier --single-quote",
     "lint": "eslint \"src/**/*.{js,jsx}\""
   },
   "pre-commit": ["format", "lint"],

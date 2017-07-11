@@ -28,7 +28,7 @@ function getState() {
     onUploadProblems: Actions.uploadProblems,
     onSelectProblem: Actions.selectProblem,
     onSetTemplate: Actions.setTemplate,
-    onToggleAllProblems: Actions.toggleAllProblems
+    onToggleAllProblems: Actions.toggleAllProblems,
   };
 }
 
