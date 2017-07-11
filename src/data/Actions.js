@@ -38,6 +38,13 @@ const Actions = {
     });
   },
 
+  setTemplate(name) {
+    Dispatcher.dispatch({
+      type: ActionTypes.SET_TEMPLATE,
+      name,
+    });
+  },
+
   toggleAllProblems() {
     Dispatcher.dispatch({
       type: ActionTypes.TOGGLE_ALL_PROBLEMS,

@@ -10,13 +10,15 @@
 import { Container } from 'flux/utils';
 import AppView from '../views/AppView';
 import Actions from '../data/Actions';
-import ProblemStore from '../data/ProblemStore';
+import ProblemsStore from '../data/ProblemsStore';
+import TemplateStore from '../data/TemplateStore';
 import UploadStore from '../data/UploadStore';
 
 
 function getStores() {
   return [
-    ProblemStore,
+    ProblemsStore,
+    TemplateStore,
     UploadStore,
   ];
 }
@@ -24,13 +26,15 @@ function getStores() {
 
 function getState() {
   return {
-    problemList: ProblemStore.getState(),
+    problems: ProblemsStore.getState(),
+    templates: TemplateStore.getState(),
     uploaded: UploadStore.getState(),
 
     onFilterProblems: Actions.filterProblems,
     onInvertSelection: Actions.invertSelection,
     onUploadProblems: Actions.uploadProblems,
     onSelectProblem: Actions.selectProblem,
+    onSetTemplate: Actions.setTemplate,
     onToggleAllProblems: Actions.toggleAllProblems,
   };
 }

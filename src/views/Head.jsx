@@ -9,6 +9,7 @@
 import {
   Dropdown,
   Header,
+  Icon,
   Input,
   Menu,
 } from 'semantic-ui-react';
@@ -17,7 +18,7 @@ import Immutable from 'immutable';
 import React from 'react';
 import Mousetrap from 'mousetrap';
 import PropTypes from 'prop-types';
-import Probsoln from '../templates/Probsoln';
+import templateFns from '../templates';
 
 const { dialog } = require('electron').remote;
 
@@ -60,19 +61,25 @@ Head.propTypes = {
 
 
 function Actions(props) {
+  const templates = [...props.templates.values()];
+
   const ExportSelectedProblems = () => {
-    const problems = [...props.problemList
+    const problems = [...props.problems
                       .filter(problem => problem.exportable)
                       .values()];
+    const activeTemplate = [...props.templates
+                                .filter(template => template.get('active'))
+                                .keys()];
 
     if (problems.length > 0) {
       dialog.showSaveDialog((fileName) => {
         if (fileName === undefined) {
-          dialog.showErrorBox('Error:', 'no file specified.');
+          dialog.showErrorBox('Error:', 'No file specified.');
           return;
         }
-        /* todo: export via other templates */
-        fs.writeFile(fileName, Probsoln(problems), (err) => {
+        /* todo: use custom templates */
+        const templateFn = templateFns[activeTemplate[0]];
+        fs.writeFile(fileName, templateFn(problems), (err) => {
           if (err && 'message' in err) {
             dialog.showErrorBox('Error:', err.message);
           } else {
@@ -100,15 +107,31 @@ function Actions(props) {
     <Menu.Item>
       <Dropdown icon="content">
         <Dropdown.Menu>
-          <Dropdown.Item onClick={ExportSelectedProblems}>
-            Export Problems
-          </Dropdown.Item>
-          <Dropdown.Item onClick={props.onToggleAllProblems}>
-            Toggle All Problems
-          </Dropdown.Item>
-          <Dropdown.Item onClick={props.onInvertSelection}>
-            Invert Selected Problems
-          </Dropdown.Item>
+          <Dropdown.Item
+            text="Export Problems"
+            description="Cmd+E"
+            onClick={ExportSelectedProblems}
+          />
+          <Menu.Header>Selection</Menu.Header>
+          <Dropdown.Item
+            text="Toggle All Problems"
+            description="Cmd+T"
+            onClick={props.onToggleAllProblems}
+          />
+          <Dropdown.Item
+            text="Invert Selected Problems"
+            description="Cmd+I"
+            onClick={props.onInvertSelection}
+          />
+          <Menu.Header>Templates</Menu.Header>
+          {templates
+            .map(template => (
+              <TemplateItem
+                key={template.name}
+                template={template}
+                onSetTemplate={props.onSetTemplate}
+              />
+            ))}
         </Dropdown.Menu>
       </Dropdown>
     </Menu.Item>
@@ -117,9 +140,31 @@ function Actions(props) {
 
 
 Actions.propTypes = {
-  problemList: PropTypes.instanceOf(Immutable.Map).isRequired,
+  problems: PropTypes.instanceOf(Immutable.Map).isRequired,
+  templates: PropTypes.instanceOf(Immutable.Map).isRequired,
+  onSetTemplate: PropTypes.func.isRequired,
   onToggleAllProblems: PropTypes.func.isRequired,
   onInvertSelection: PropTypes.func.isRequired,
+};
+
+function TemplateItem(props) {
+  const { template } = props;
+  const onSetTemplate = () => props.onSetTemplate(template.name);
+  return (
+    <Menu.Item
+      name={template.name}
+      active={template.active}
+      onClick={onSetTemplate}
+    >
+      {template.active && <Icon name="checkmark" />}
+      {template.name}
+    </Menu.Item>
+  );
+}
+
+TemplateItem.propTypes = {
+  template: PropTypes.instanceOf(Immutable.Record).isRequired,
+  onSetTemplate: PropTypes.func.isRequired,
 };
 
 export default Head;

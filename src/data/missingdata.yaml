@@ -1,13 +1,13 @@
 -
   question: Can I load my own database?
   answer: |
-    Yes, of course.  Drag and drop an appropriately formatted .yml file onto the pink display above, or click on the display to browse for a file.
+    Yes, of course.  Drag and drop an appropriately formatted .yaml file onto the pink display above, or click on the display to browse for a file.
   tags: [introduction to TestBank]
   id: faq01
   author: edward
 -
   question: True or False.  Is the following function the correct density function for the $\Gamma$-distribution,  \[ f(x| \alpha, \beta) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} \exp{(-\beta x)}? \]
-  answer: True, so long as $ x \in (0, \infty) $.
+  answer: True, so long as \( x \in (0, \infty) \).
   id: faq02
   author: unknown
 -

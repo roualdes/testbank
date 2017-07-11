@@ -22,7 +22,7 @@ import Immutable from 'immutable';
 
 
 function Body(props) {
-  const problems = [...props.problemList.values()];
+  const problems = [...props.problems.values()];
 
   return (
     <Container fluid>
@@ -66,7 +66,7 @@ function Body(props) {
 
 
 Body.propTypes = {
-  problemList: PropTypes.instanceOf(Immutable.Map).isRequired,
+  problems: PropTypes.instanceOf(Immutable.Map).isRequired,
   uploaded: PropTypes.bool.isRequired,
   onSelectProblem: PropTypes.func.isRequired,
 };
