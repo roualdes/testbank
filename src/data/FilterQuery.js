@@ -14,13 +14,12 @@ function searchCategory(text, data, category = 'all') {
     ctgry = [category];
   }
 
-  const match = ctgry.some(ctg => (ctg in data ?
-                                   data[ctg].indexOf(text) > -1 :
-                                   false));
+  const match = ctgry.some(
+    ctg => ctg in data ? data[ctg].indexOf(text) > -1 : false
+  );
 
   return match;
 }
-
 
 function filterQuery(problem, qtree) {
   // todo: optionally allow case insensitive searching
@@ -39,14 +38,16 @@ function filterQuery(problem, qtree) {
       const lText = qtree.left.text;
 
       if ('category' in qtree.left) {
-        matchLeft = searchCategory(lText.text, problem,
-                                   qtree.left.category.text);
+        matchLeft = searchCategory(
+          lText.text,
+          problem,
+          qtree.left.category.text
+        );
       } else {
         matchLeft = searchCategory(lText, problem);
       }
     }
   }
-
 
   if ('right' in qtree) {
     if ('op' in qtree.right) {
@@ -55,8 +56,11 @@ function filterQuery(problem, qtree) {
       const rText = qtree.right.text;
 
       if ('category' in qtree.right) {
-        matchRight = searchCategory(rText.text, problem,
-                                    qtree.right.category.text);
+        matchRight = searchCategory(
+          rText.text,
+          problem,
+          qtree.right.category.text
+        );
       } else {
         matchRight = searchCategory(rText, problem);
       }
@@ -86,6 +90,5 @@ function filterQuery(problem, qtree) {
 
   return match;
 }
-
 
 export default filterQuery;

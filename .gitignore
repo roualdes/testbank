@@ -5,6 +5,8 @@ dist/bundle.js
 dist/bundle.js.map
 dev/
 yarn.lock
+yarn-error.log
+package-lock.json
 
 ### OS Files ###
 .DS_Store

@@ -6,10 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import { Container, Divider } from 'semantic-ui-react';
 import React from 'react';
-
 
 const Foot = () => (
   <Container fluid textAlign="center">
@@ -17,6 +15,5 @@ const Foot = () => (
     <p>© 2017 Edward A. Roualdes</p>
   </Container>
 );
-
 
 export default Foot;

@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import Immutable from 'immutable';
-
 
 const Problem = Immutable.Record({
   question: '',
@@ -19,7 +17,7 @@ const Problem = Immutable.Record({
   /* additional fields */
   exportable: false,
   display: true,
-  uid: '',
+  uid: ''
 });
 
 export default Problem;

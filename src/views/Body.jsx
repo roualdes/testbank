@@ -6,20 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
-import { Checkbox,
-         Container,
-         Message,
-         Popup,
-         Table,
-} from 'semantic-ui-react';
+import { Checkbox, Container, Message, Popup, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import React from 'react';
 import Immutable from 'immutable';
-
 
 function Body(props) {
   const problems = [...props.problems.values()];
@@ -64,17 +57,17 @@ function Body(props) {
   );
 }
 
-
 Body.propTypes = {
   problems: PropTypes.instanceOf(Immutable.Map).isRequired,
   uploaded: PropTypes.bool.isRequired,
-  onSelectProblem: PropTypes.func.isRequired,
+  onSelectProblem: PropTypes.func.isRequired
 };
 
-
 function Upload(props) {
-  const onUpload = acceptedFiles => props.onUploadProblems(
-    yaml.safeLoad(fs.readFileSync(acceptedFiles[0].path)));
+  const onUpload = acceptedFiles =>
+    props.onUploadProblems(
+      yaml.safeLoad(fs.readFileSync(acceptedFiles[0].path))
+    );
 
   return (
     <Dropzone className="Card" onDrop={onUpload} multiple={false}>
@@ -85,11 +78,9 @@ function Upload(props) {
   );
 }
 
-
 Upload.propTypes = {
-  onUploadProblems: PropTypes.func.isRequired,
+  onUploadProblems: PropTypes.func.isRequired
 };
-
 
 function ProblemItem(props) {
   const { problem } = props;
@@ -100,10 +91,7 @@ function ProblemItem(props) {
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <Checkbox
-          checked={exportable}
-          onChange={onSelectProblem}
-        />
+        <Checkbox checked={exportable} onChange={onSelectProblem} />
       </Table.Cell>
       <Table.Cell>
         <WidePopup txt={question} />
@@ -118,12 +106,10 @@ function ProblemItem(props) {
   );
 }
 
-
 ProblemItem.propTypes = {
   problem: PropTypes.instanceOf(Immutable.Record).isRequired,
-  onSelectProblem: PropTypes.func.isRequired,
+  onSelectProblem: PropTypes.func.isRequired
 };
-
 
 function WidePopup(props) {
   const txt = props.txt;
@@ -138,13 +124,8 @@ function WidePopup(props) {
   );
 }
 
-
 WidePopup.propTypes = {
-  txt: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]).isRequired,
+  txt: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
 };
-
 
 export default Body;

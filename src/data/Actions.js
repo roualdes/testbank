@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import ActionTypes from './ActionTypes';
 import Dispatcher from './Dispatcher';
 
@@ -14,43 +13,42 @@ const Actions = {
   filterProblems(query) {
     Dispatcher.dispatch({
       type: ActionTypes.FILTER_PROBLEMS,
-      query,
+      query
     });
   },
 
   invertSelection() {
     Dispatcher.dispatch({
-      type: ActionTypes.INVERT_SELECTION,
+      type: ActionTypes.INVERT_SELECTION
     });
   },
 
   uploadProblems(problems) {
     Dispatcher.dispatch({
       type: ActionTypes.UPLOAD_PROBLEMS,
-      problems,
+      problems
     });
   },
 
   selectProblem(uid) {
     Dispatcher.dispatch({
       type: ActionTypes.SELECT_PROBLEM,
-      uid,
+      uid
     });
   },
 
   setTemplate(name) {
     Dispatcher.dispatch({
       type: ActionTypes.SET_TEMPLATE,
-      name,
+      name
     });
   },
 
   toggleAllProblems() {
     Dispatcher.dispatch({
-      type: ActionTypes.TOGGLE_ALL_PROBLEMS,
+      type: ActionTypes.TOGGLE_ALL_PROBLEMS
     });
-  },
-
+  }
 };
 
 export default Actions;

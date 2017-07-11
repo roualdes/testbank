@@ -6,13 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Dropdown,
-  Header,
-  Icon,
-  Input,
-  Menu,
-} from 'semantic-ui-react';
+import { Dropdown, Header, Icon, Input, Menu } from 'semantic-ui-react';
 import fs from 'fs';
 import Immutable from 'immutable';
 import React from 'react';
@@ -22,9 +16,8 @@ import templateFns from '../templates';
 
 const { dialog } = require('electron').remote;
 
-
 function Head(props) {
-  const FilterProblems = (event) => {
+  const FilterProblems = event => {
     const query = event.target.value;
     if (event.key === 'Enter' || query === '') {
       props.onFilterProblems(query);
@@ -37,7 +30,7 @@ function Head(props) {
         <Header inverted>
           TestBank/
         </Header>
-      </Menu.Item >
+      </Menu.Item>
       <Actions {...props} />
       <Menu.Item position="right" style={{ width: '70vw' }}>
         <Input
@@ -56,36 +49,35 @@ function Head(props) {
 }
 
 Head.propTypes = {
-  onFilterProblems: PropTypes.func.isRequired,
+  onFilterProblems: PropTypes.func.isRequired
 };
-
 
 function Actions(props) {
   const templates = [...props.templates.values()];
 
   const ExportSelectedProblems = () => {
-    const problems = [...props.problems
-                      .filter(problem => problem.exportable)
-                      .values()];
-    const activeTemplate = [...props.templates
-                                .filter(template => template.get('active'))
-                                .keys()];
+    const problems = [
+      ...props.problems.filter(problem => problem.exportable).values()
+    ];
+    const activeTemplate = [
+      ...props.templates.filter(template => template.get('active')).keys()
+    ];
 
     if (problems.length > 0) {
-      dialog.showSaveDialog((fileName) => {
+      dialog.showSaveDialog(fileName => {
         if (fileName === undefined) {
           dialog.showErrorBox('Error:', 'No file specified.');
           return;
         }
         /* todo: use custom templates */
         const templateFn = templateFns[activeTemplate[0]];
-        fs.writeFile(fileName, templateFn(problems), (err) => {
+        fs.writeFile(fileName, templateFn(problems), err => {
           if (err && 'message' in err) {
             dialog.showErrorBox('Error:', err.message);
           } else {
             dialog.showMessageBox({
               message: 'File successfully saved.',
-              buttons: ['OK'],
+              buttons: ['OK']
             });
           }
         });
@@ -94,14 +86,14 @@ function Actions(props) {
   };
 
   /* todo: shortcuts to operate when focused on an element */
-  Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'],
-                 () => ExportSelectedProblems());
-  Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'],
-                 () => props.onToggleAllProblems());
-  Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'],
-                 () => props.onInvertSelection());
-  Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'],
-                 () => document.getElementById('searchBar').focus());
+  Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'], () =>
+    ExportSelectedProblems());
+  Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'], () =>
+    props.onToggleAllProblems());
+  Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'], () =>
+    props.onInvertSelection());
+  Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'], () =>
+    document.getElementById('searchBar').focus());
 
   return (
     <Menu.Item>
@@ -124,27 +116,25 @@ function Actions(props) {
             onClick={props.onInvertSelection}
           />
           <Menu.Header>Templates</Menu.Header>
-          {templates
-            .map(template => (
-              <TemplateItem
-                key={template.name}
-                template={template}
-                onSetTemplate={props.onSetTemplate}
-              />
-            ))}
+          {templates.map(template => (
+            <TemplateItem
+              key={template.name}
+              template={template}
+              onSetTemplate={props.onSetTemplate}
+            />
+          ))}
         </Dropdown.Menu>
       </Dropdown>
     </Menu.Item>
   );
 }
 
-
 Actions.propTypes = {
   problems: PropTypes.instanceOf(Immutable.Map).isRequired,
   templates: PropTypes.instanceOf(Immutable.Map).isRequired,
   onSetTemplate: PropTypes.func.isRequired,
   onToggleAllProblems: PropTypes.func.isRequired,
-  onInvertSelection: PropTypes.func.isRequired,
+  onInvertSelection: PropTypes.func.isRequired
 };
 
 function TemplateItem(props) {
@@ -164,7 +154,7 @@ function TemplateItem(props) {
 
 TemplateItem.propTypes = {
   template: PropTypes.instanceOf(Immutable.Record).isRequired,
-  onSetTemplate: PropTypes.func.isRequired,
+  onSetTemplate: PropTypes.func.isRequired
 };
 
 export default Head;

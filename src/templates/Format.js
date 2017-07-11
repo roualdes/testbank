@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 function format(lits, ...substs) {
   const raw = lits.raw;
   let result = '';

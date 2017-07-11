@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import Format from './Format';
 
 // todo: handle multiple choice questions

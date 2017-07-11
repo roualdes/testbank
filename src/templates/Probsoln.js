@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import Format from './Format';
-
 
 function Probsoln(probs) {
   return Format`% Data types and descriptive exam questions

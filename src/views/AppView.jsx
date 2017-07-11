@@ -6,13 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import { Container } from 'semantic-ui-react';
 import React from 'react';
 import Body from './Body';
 import Foot from './Foot';
 import Head from './Head';
-
 
 function AppView(props) {
   return (
@@ -23,6 +21,5 @@ function AppView(props) {
     </Container>
   );
 }
-
 
 export default AppView;

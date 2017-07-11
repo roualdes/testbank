@@ -6,14 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import Immutable from 'immutable';
-
 
 const Template = Immutable.Record({
   name: '',
-  active: false,
-
+  active: false
 });
 
 export default Template;

@@ -6,13 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
 import ActionType from './ActionTypes';
 import Dispatcher from './Dispatcher';
 import Template from './Template';
-
 
 class TemplateStore extends ReduceStore {
   constructor() {
@@ -28,8 +26,8 @@ class TemplateStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-    case ActionType.SET_TEMPLATE:
-      return state.map(template => template.set('active', !template.active));
+      case ActionType.SET_TEMPLATE:
+        return state.map(template => template.set('active', !template.active));
 
       default:
         return state;
