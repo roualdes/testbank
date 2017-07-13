@@ -56,12 +56,6 @@ function Body(props) {
   );
 }
 
-
-
-
-
-
-
 Body.propTypes = {
   problems: PropTypes.instanceOf(Immutable.Map).isRequired,
   uploaded: PropTypes.bool.isRequired,

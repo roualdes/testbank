@@ -54,7 +54,8 @@
 
 # Roadmap
   - [] Add negation to the queries
-  - [] MathJax -- would prefer [v3.0](https://github.com/mathjax/MathJax/issues/1629)
-  - [] Export questions in different formats: LaTeX, txt, ...
-  - [] Selection tool for different export formats
+  - [] MathJax via webpack [v3.0](https://github.com/mathjax/MathJax/issues/1629)
+  - [x] Export questions in different formats: LaTeX, txt, ...
+  - [x] Selection tool for different export formats
+  - [] Drop dependence on internet connection
   - [] Custom templates for exporting questions
