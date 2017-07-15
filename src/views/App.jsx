@@ -12,7 +12,7 @@ import Body from './Body';
 import Foot from './Foot';
 import Head from './Head';
 
-function AppView(props) {
+function App(props) {
   return (
     <Container fluid>
       <Head {...props} />
@@ -22,4 +22,4 @@ function AppView(props) {
   );
 }
 
-export default AppView;
+export default App;

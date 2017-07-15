@@ -13,8 +13,8 @@ import nearley from 'nearley';
 import { ParserRules, ParserStart } from './NearleyParser';
 import Problem from './Problem';
 import FilterQuery from './FilterQuery';
-import ActionType from './ActionTypes';
-import Dispatcher from './Dispatcher';
+import ActionType from '../actions/ActionTypes';
+import Dispatcher from '../Dispatcher';
 
 class ProblemsStore extends ReduceStore {
   constructor() {

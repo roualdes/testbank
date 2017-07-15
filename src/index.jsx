@@ -7,13 +7,13 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import AppContainer from './containers/AppContainer';
 
-ReactDOM.render(<AppContainer />, document.getElementById('root'));
+render(<AppContainer /> ,  document.getElementById('root'));
 
 if (module.hot) {
   module.hot.accept('./containers/AppContainer.js', () => {
-    ReactDOM.render(<AppContainer />, document.getElementById('root'));
+    render(<AppContainer />, document.getElementById('root'));
   });
 }

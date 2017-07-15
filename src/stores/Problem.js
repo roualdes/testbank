@@ -14,7 +14,7 @@ const Problem = Immutable.Record({
   author: '',
   keywords: [],
   id: '',
-  /* additional fields */
+  // additional fields
   exportable: false,
   display: true,
   uid: ''

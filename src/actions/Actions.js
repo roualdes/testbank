@@ -7,7 +7,7 @@
  */
 
 import ActionTypes from './ActionTypes';
-import Dispatcher from './Dispatcher';
+import Dispatcher from '../Dispatcher';
 
 const Actions = {
   filterProblems(query) {

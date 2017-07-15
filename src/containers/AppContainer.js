@@ -7,11 +7,11 @@
  */
 
 import { Container } from 'flux/utils';
-import AppView from '../views/AppView';
-import Actions from '../data/Actions';
-import ProblemsStore from '../data/ProblemsStore';
-import TemplateStore from '../data/TemplateStore';
-import UploadStore from '../data/UploadStore';
+import App from '../views/App';
+import Actions from '../actions/Actions';
+import ProblemsStore from '../stores/ProblemsStore';
+import TemplateStore from '../stores/TemplateStore';
+import UploadStore from '../stores/UploadStore';
 
 function getStores() {
   return [ProblemsStore, TemplateStore, UploadStore];
@@ -32,4 +32,4 @@ function getState() {
   };
 }
 
-export default Container.createFunctional(AppView, getStores, getState);
+export default Container.createFunctional(App, getStores, getState);

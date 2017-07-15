@@ -8,8 +8,8 @@
 
 import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
-import ActionType from './ActionTypes';
-import Dispatcher from './Dispatcher';
+import ActionType from '../actions/ActionTypes';
+import Dispatcher from '../Dispatcher';
 import Template from './Template';
 
 class TemplateStore extends ReduceStore {

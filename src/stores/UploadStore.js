@@ -7,8 +7,8 @@
  */
 
 import { ReduceStore } from 'flux/utils';
-import ActionType from './ActionTypes';
-import Dispatcher from './Dispatcher';
+import ActionType from '../actions/ActionTypes';
+import Dispatcher from '../Dispatcher';
 
 class UploadStore extends ReduceStore {
   constructor() {
