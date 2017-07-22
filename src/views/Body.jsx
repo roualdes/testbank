@@ -14,7 +14,6 @@ import fs from 'fs';
 import React from 'react';
 import Immutable from 'immutable';
 
-
 function Body(props) {
   const problems = [...props.problems.values()];
 

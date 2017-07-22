@@ -15,6 +15,11 @@ import Problem from './Problem';
 import FilterQuery from './FilterQuery';
 import ActionType from '../actions/ActionTypes';
 import Dispatcher from '../Dispatcher';
+// import UploadStore from './UploadStore';
+
+// todo: break up ProblemStore => queryFilteredIDs, exportableIDs
+// let UploadStoreToken = UploadStore.getDispatchToken();
+// see todo: allow interdependent stores via
 
 class ProblemsStore extends ReduceStore {
   constructor() {
@@ -36,6 +41,8 @@ class ProblemsStore extends ReduceStore {
   reduce(state, action) {
     switch (action.type) {
       case ActionType.UPLOAD_PROBLEMS:
+        // todo: allow interdependent stores via
+        // Dispatch.waitFor([UploadStoreToken]);
         return state.withMutations(map => {
           action.problems.forEach((p, i) => {
             const uid = `id-${i}`;
