@@ -52,6 +52,16 @@ class TemplateStore extends ReduceStore {
           .map(template => template.set('active', false))
           .setIn([action.name, 'active'], true);
 
+      case ActionType.UPLOAD_TEMPLATE:
+        return state.map(template => template.set('active', false)).set(
+          action.name,
+          new Template({
+            name: action.name,
+            string: action.string,
+            active: true
+          })
+        );
+
       default:
         return state;
     }

@@ -13,6 +13,7 @@ import React from 'react';
 import Mousetrap from 'mousetrap';
 import PropTypes from 'prop-types';
 import yaml from 'js-yaml';
+import path from 'path';
 
 const { dialog } = require('electron').remote;
 let doT = require('dot')
@@ -55,6 +56,16 @@ Head.propTypes = {
 
 function Actions(props) {
 
+  function ImportProblems() {
+    dialog.showOpenDialog({ filters: [{ extensions: ['yaml'] }] }, (
+      fileNames
+    ) => {
+      if (fileNames === undefined) return;
+      const fileName = fileNames[0];
+      props.onImportProblems(yaml.safeLoad(fs.readFileSync(fileName, 'utf-8')));
+    });
+  }
+
   const ExportSelectedProblems = () => {
     const problems = [
       ...props.problems.filter(problem => problem.exportable).values()
@@ -92,6 +103,18 @@ function Actions(props) {
     }
   };
 
+  const UploadTemplate = () => {
+    dialog.showOpenDialog({ filters: [{ extensions: ['yaml'] }] }, (
+      fileNames
+    ) => {
+      if (fileNames === undefined) return;
+      const fileName = fileNames[0];
+      const content = fs.readFileSync(fileName, 'utf-8');
+      const rawString = String.raw`${content.toString()}`;
+      props.onUploadTemplate(path.basename(fileName, path.extname(fileName)), rawString);
+    });
+  }
+
   /* todo: shortcuts to operate when focused on an element */
   Mousetrap.bind(['command+shift+e', 'ctrl+shift+e'], () =>
     ExportSelectedProblems()
@@ -99,20 +122,17 @@ function Actions(props) {
   Mousetrap.bind(['command+shift+t', 'ctrl+shift+t'], () =>
     props.onToggleAllProblems()
   );
-  Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'], () =>
-    props.onInvertSelection()
+  Mousetrap.bind(['command+shift+c', 'ctrl+shift+c'], () =>
+    props.onComplementSelection()
   );
   Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'], () =>
     document.getElementById('searchBar').focus()
   );
-  Mousetrap.bind(['command+shift+u', 'ctrl+shift+s'], () =>
-    dialog.showOpenDialog({ filters: [{ extensions: ['yaml'] }] }, (
-      fileNames
-    ) => {
-      if (fileNames === undefined) return;
-      const fileName = fileNames[0];
-      props.onUploadProblems(yaml.safeLoad(fs.readFileSync(fileName, 'utf-8')));
-    })
+  Mousetrap.bind(['command+shift+i', 'ctrl+shift+i'], () =>
+    ImportProblems()
+  );
+  Mousetrap.bind(['command+shift+u', 'ctrl+shift+u'], () =>
+    UploadTemplate()
   );
 
   const templates = [...props.templates.values()];
@@ -126,18 +146,28 @@ function Actions(props) {
             description="Cmd+E"
             onClick={ExportSelectedProblems}
           />
+          <Dropdown.Item
+          text="Import Problems"
+          description="Cmd+I"
+          onClick={ImportProblems}
+          />
           <Menu.Header>Selection</Menu.Header>
           <Dropdown.Item
-            text="Toggle All Problems"
+            text="Toggle All"
             description="Cmd+T"
             onClick={props.onToggleAllProblems}
           />
           <Dropdown.Item
-            text="Invert Selected Problems"
-            description="Cmd+I"
-            onClick={props.onInvertSelection}
+            text="Complement"
+            description="Cmd+C"
+            onClick={props.onComplementSelection}
           />
           <Menu.Header>Templates</Menu.Header>
+          <Dropdown.Item
+          text="Upload Custom"
+          description="Cmd+U"
+          onClick={UploadTemplate}
+          />
           {templates.map(template =>
             <TemplateItem
                 key={template.name}
@@ -157,8 +187,9 @@ Actions.propTypes = {
   templates: PropTypes.instanceOf(Immutable.Map).isRequired,
   onSetTemplate: PropTypes.func.isRequired,
   onToggleAllProblems: PropTypes.func.isRequired,
-  onInvertSelection: PropTypes.func.isRequired
+  onComplementSelection: PropTypes.func.isRequired
 };
+
 
 function TemplateItem(props) {
   const { name, active } = props;

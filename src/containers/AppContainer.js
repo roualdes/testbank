@@ -11,24 +11,25 @@ import App from '../views/App';
 import Actions from '../actions/Actions';
 import ProblemsStore from '../stores/ProblemsStore';
 import TemplateStore from '../stores/TemplateStore';
-import UploadStore from '../stores/UploadStore';
+import ImportStore from '../stores/ImportStore';
 
 function getStores() {
-  return [ProblemsStore, TemplateStore, UploadStore];
+  return [ProblemsStore, TemplateStore, ImportStore];
 }
 
 function getState() {
   return {
     problems: ProblemsStore.getState(),
     templates: TemplateStore.getState(),
-    uploaded: UploadStore.getState(),
+    imported: ImportStore.getState(),
 
     onFilterProblems: Actions.filterProblems,
-    onInvertSelection: Actions.invertSelection,
-    onUploadProblems: Actions.uploadProblems,
+    onComplementSelection: Actions.complementSelection,
+    onImportProblems: Actions.importProblems,
     onSelectProblem: Actions.selectProblem,
     onSetTemplate: Actions.setTemplate,
-    onToggleAllProblems: Actions.toggleAllProblems
+    onToggleAllProblems: Actions.toggleAllProblems,
+    onUploadTemplate: Actions.uploadTemplate
   };
 }
 

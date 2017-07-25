@@ -17,15 +17,15 @@ const Actions = {
     });
   },
 
-  invertSelection() {
+  complementSelection() {
     Dispatcher.dispatch({
-      type: ActionTypes.INVERT_SELECTION
+      type: ActionTypes.COMPLEMENT_SELECTION
     });
   },
 
-  uploadProblems(problems) {
+  importProblems(problems) {
     Dispatcher.dispatch({
-      type: ActionTypes.UPLOAD_PROBLEMS,
+      type: ActionTypes.IMPORT_PROBLEMS,
       problems
     });
   },
@@ -47,6 +47,14 @@ const Actions = {
   toggleAllProblems() {
     Dispatcher.dispatch({
       type: ActionTypes.TOGGLE_ALL_PROBLEMS
+    });
+  },
+
+  uploadTemplate(name, string) {
+    Dispatcher.dispatch({
+      type: ActionTypes.UPLOAD_TEMPLATE,
+      name,
+      string
     });
   }
 };

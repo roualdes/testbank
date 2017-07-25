@@ -19,7 +19,7 @@ function Body(props) {
 
   return (
     <Container fluid>
-      {!props.uploaded && <Upload {...props} />}
+      {!props.imported && <Import {...props} />}
 
       {/* todo: would a sortable table be useful? */}
       <Table
@@ -59,28 +59,28 @@ function Body(props) {
 
 Body.propTypes = {
   problems: PropTypes.instanceOf(Immutable.Map).isRequired,
-  uploaded: PropTypes.bool.isRequired,
+  imported: PropTypes.bool.isRequired,
   onSelectProblem: PropTypes.func.isRequired
 };
 
-function Upload(props) {
-  const onUpload = acceptedFiles =>
-    props.onUploadProblems(
+function Import(props) {
+  const onImport = acceptedFiles =>
+    props.onImportProblems(
       yaml.safeLoad(fs.readFileSync(acceptedFiles[0].path, 'utf-8'))
     );
 
   return (
-    <Dropzone className="Card" onDrop={onUpload} multiple={false}>
+    <Dropzone className="Card" onDrop={onImport} multiple={false}>
       <Message info>
-        Load your own database by clicking or dropping an appropriately
+        Import your own database by clicking or dropping an appropriately
         formatted .yaml file.
       </Message>
     </Dropzone>
   );
 }
 
-Upload.propTypes = {
-  onUploadProblems: PropTypes.func.isRequired
+Import.propTypes = {
+  onImportProblems: PropTypes.func.isRequired
 };
 
 function ProblemItem(props) {

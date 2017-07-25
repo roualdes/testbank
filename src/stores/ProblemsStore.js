@@ -15,7 +15,7 @@ import { ParserRules, ParserStart } from './NearleyParser';
 import FilterQuery from './FilterQuery';
 import ActionType from '../actions/ActionTypes';
 import Dispatcher from '../Dispatcher';
-// import UploadStore from './UploadStore';
+// import ImportStore from './ImportStore';
 
 // todo: break up ProblemStore => queryFilteredIDs, exportableIDs
 // let UploadStoreToken = UploadStore.getDispatchToken();
@@ -40,7 +40,7 @@ class ProblemsStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-      case ActionType.UPLOAD_PROBLEMS: {
+      case ActionType.IMPORT_PROBLEMS: {
         // todo: allow interdependent stores via
         // Dispatch.waitFor([UploadStoreToken]);
         const newState = Immutable.Map();
@@ -72,7 +72,7 @@ class ProblemsStore extends ReduceStore {
           p.set('exportable', p.display ? !p.exportable : p.exportable)
         );
 
-      case ActionType.INVERT_SELECTION:
+      case ActionType.COMPLEMENT_SELECTION:
         return state.map(p =>
           p.set('exportable', p.display ? !p.exportable : p.exportable)
         );

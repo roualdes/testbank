@@ -10,7 +10,7 @@ import { ReduceStore } from 'flux/utils';
 import ActionType from '../actions/ActionTypes';
 import Dispatcher from '../Dispatcher';
 
-class UploadStore extends ReduceStore {
+class ImportStore extends ReduceStore {
   constructor() {
     super(Dispatcher);
   }
@@ -21,7 +21,7 @@ class UploadStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-      case ActionType.UPLOAD_PROBLEMS:
+      case ActionType.IMPORT_PROBLEMS:
         return true;
 
       default:
@@ -30,4 +30,4 @@ class UploadStore extends ReduceStore {
   }
 }
 
-export default new UploadStore();
+export default new ImportStore();
