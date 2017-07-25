@@ -11,6 +11,7 @@ import Immutable from 'immutable';
 import ActionType from '../actions/ActionTypes';
 import Dispatcher from '../Dispatcher';
 import Template from './Template';
+import templateStrings from '../templates';
 
 class TemplateStore extends ReduceStore {
   constructor() {
@@ -19,15 +20,37 @@ class TemplateStore extends ReduceStore {
 
   getInitialState() {
     let state = Immutable.Map();
-    state = state.set('Rnw', new Template({ name: 'Rnw', active: true }));
-    state = state.set('Probsoln', new Template({ name: 'Probsoln' }));
+    state = state.set(
+      'Rnw',
+      new Template({
+        name: 'Rnw',
+        string: templateStrings.Rnw,
+        active: true
+      })
+    );
+    state = state.set(
+      'Lab',
+      new Template({
+        name: 'Lab',
+        string: templateStrings.Lab
+      })
+    );
+    state = state.set(
+      'Probsoln',
+      new Template({
+        name: 'Probsoln',
+        string: templateStrings.Probsoln
+      })
+    );
     return state;
   }
 
   reduce(state, action) {
     switch (action.type) {
       case ActionType.SET_TEMPLATE:
-        return state.map(template => template.set('active', !template.active));
+        return state
+          .map(template => template.set('active', false))
+          .setIn([action.name, 'active'], true);
 
       default:
         return state;

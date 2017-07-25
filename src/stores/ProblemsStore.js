@@ -10,8 +10,8 @@ import { ReduceStore } from 'flux/utils';
 import Immutable from 'immutable';
 import FAQs from 'json-loader!yaml-loader!./missingdata.yaml';
 import nearley from 'nearley';
-import { ParserRules, ParserStart } from './NearleyParser';
 import Problem from './Problem';
+import { ParserRules, ParserStart } from './NearleyParser';
 import FilterQuery from './FilterQuery';
 import ActionType from '../actions/ActionTypes';
 import Dispatcher from '../Dispatcher';
@@ -40,10 +40,11 @@ class ProblemsStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-      case ActionType.UPLOAD_PROBLEMS:
+      case ActionType.UPLOAD_PROBLEMS: {
         // todo: allow interdependent stores via
         // Dispatch.waitFor([UploadStoreToken]);
-        return state.withMutations(map => {
+        const newState = Immutable.Map();
+        return newState.withMutations(map => {
           action.problems.forEach((p, i) => {
             const uid = `id-${i}`;
             const pp = p;
@@ -51,6 +52,7 @@ class ProblemsStore extends ReduceStore {
             map.set(uid, new Problem(pp));
           });
         });
+      }
 
       case ActionType.FILTER_PROBLEMS: {
         let queryTree = [];

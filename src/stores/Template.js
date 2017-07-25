@@ -10,7 +10,8 @@ import Immutable from 'immutable';
 
 const Template = Immutable.Record({
   name: '',
-  active: false
+  active: false,
+  string: ''
 });
 
 export default Template;

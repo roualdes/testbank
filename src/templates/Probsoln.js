@@ -6,10 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Format from './Format';
-
-function Probsoln(probs) {
-  return Format`% Data types and descriptive exam questions
+const Probsoln = String.raw`% Data types and descriptive exam questions
 <<echo=FALSE, warning=FALSE, message=FALSE>>=
 library(lattice)
 library(xtable)
@@ -46,20 +43,18 @@ fage <- na.omit(ncbirths$fage)
 q3.fage <- quantile(fage,.75)
 @
 
-${probs.map(
-    ({ question, id, answer }) => Format`\begin{defproblem}{${id}}[fragile]
-  ${question}
-  \begin{onlysolution}[fragile]%
-    \begin{solution}
-      ${answer}
-    \vspace{-2cm}
-    \end{solution}
-  \end{onlysolution}
-\end{defproblem}
+{{~ it.problems :problem}}
 
-`
-  )}
+\begin{defproblem}{{{= problem.id }}}[fragile]
+{{= problem.question }}
+\begin{onlysolution}[fragile]%
+\begin{solution}
+{{= problem.answer }}
+\vspace{-2cm}
+\end{solution}
+\end{onlysolution}
+\end{defproblem}
+{{~}}
 `;
-}
 
 export default Probsoln;

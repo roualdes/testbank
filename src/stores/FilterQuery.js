@@ -9,7 +9,7 @@
 function searchCategory(text, data, category = 'all') {
   let ctgry;
   if (category === 'all') {
-    ctgry = ['question', 'answer', 'author', 'id', 'k'];
+    ctgry = ['question', 'answer', 'author', 'id', 'tags'];
   } else {
     ctgry = [category];
   }

@@ -12,8 +12,10 @@ const Problem = Immutable.Record({
   question: '',
   answer: '',
   author: '',
-  keywords: [],
+  tags: [],
   id: '',
+  title: '',
+  parts: [],
   // additional fields
   exportable: false,
   display: true,

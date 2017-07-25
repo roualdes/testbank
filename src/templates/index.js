@@ -6,10 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import Lab from './Lab';
 import Probsoln from './Probsoln';
 import Rnw from './Rnw';
 
 export default {
+  Lab,
   Probsoln,
   Rnw
 };

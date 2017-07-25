@@ -12,9 +12,12 @@ import Immutable from 'immutable';
 import React from 'react';
 import Mousetrap from 'mousetrap';
 import PropTypes from 'prop-types';
-import templateFns from '../templates';
+import yaml from 'js-yaml';
 
 const { dialog } = require('electron').remote;
+let doT = require('dot')
+doT.templateSettings.strip = false;
+
 
 function Head(props) {
   const FilterProblems = event => {
@@ -51,15 +54,17 @@ Head.propTypes = {
 };
 
 function Actions(props) {
-  const templates = [...props.templates.values()];
 
   const ExportSelectedProblems = () => {
     const problems = [
       ...props.problems.filter(problem => problem.exportable).values()
     ];
-    const activeTemplate = [
-      ...props.templates.filter(template => template.get('active')).keys()
-    ];
+
+    const activeTemplate = props
+      .templates
+      .filter(template => template.get('active'))
+      .first()
+      .get('string');
 
     if (problems.length > 0) {
       dialog.showSaveDialog(fileName => {
@@ -67,18 +72,22 @@ function Actions(props) {
           dialog.showErrorBox('Error:', 'No file specified.');
           return;
         }
+
         /* todo: use custom templates */
-        const templateFn = templateFns[activeTemplate[0]];
-        fs.writeFile(fileName, templateFn(problems), err => {
-          if (err && 'message' in err) {
-            dialog.showErrorBox('Error:', err.message);
-          } else {
-            dialog.showMessageBox({
-              message: 'File successfully saved.',
-              buttons: ['OK']
-            });
-          }
-        });
+        const templateFn = doT.template(activeTemplate);
+        const data = problems.length > 1 ? {problems: problems} : {problem: problems[0]};
+        fs.writeFile(fileName,
+                     templateFn(data),
+                     err => {
+                       if (err && 'message' in err) {
+                         dialog.showErrorBox('Error:', err.message);
+                       } else {
+                         dialog.showMessageBox({
+                           message: 'File successfully saved.',
+                           buttons: ['OK']
+                         });
+                       }
+                     });
       });
     }
   };
@@ -96,6 +105,17 @@ function Actions(props) {
   Mousetrap.bind(['command+shift+s', 'ctrl+shift+s'], () =>
     document.getElementById('searchBar').focus()
   );
+  Mousetrap.bind(['command+shift+u', 'ctrl+shift+s'], () =>
+    dialog.showOpenDialog({ filters: [{ extensions: ['yaml'] }] }, (
+      fileNames
+    ) => {
+      if (fileNames === undefined) return;
+      const fileName = fileNames[0];
+      props.onUploadProblems(yaml.safeLoad(fs.readFileSync(fileName, 'utf-8')));
+    })
+  );
+
+  const templates = [...props.templates.values()];
 
   return (
     <Menu.Item>
@@ -120,8 +140,9 @@ function Actions(props) {
           <Menu.Header>Templates</Menu.Header>
           {templates.map(template =>
             <TemplateItem
-              key={template.name}
-              template={template}
+                key={template.name}
+                name={template.name}
+                active={template.active}
               onSetTemplate={props.onSetTemplate}
             />
           )}
@@ -140,22 +161,23 @@ Actions.propTypes = {
 };
 
 function TemplateItem(props) {
-  const { template } = props;
-  const onSetTemplate = () => props.onSetTemplate(template.name);
+  const { name, active } = props;
+  const onSetTemplate = () => props.onSetTemplate(name);
   return (
     <Menu.Item
-      name={template.name}
-      active={template.active}
+      name={name}
+      active={active}
       onClick={onSetTemplate}
     >
-      {template.active && <Icon name="checkmark" />}
-      {template.name}
+      {active && <Icon name="checkmark" />}
+      {name}
     </Menu.Item>
   );
 }
 
 TemplateItem.propTypes = {
-  template: PropTypes.instanceOf(Immutable.Record).isRequired,
+  name: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
   onSetTemplate: PropTypes.func.isRequired
 };
 

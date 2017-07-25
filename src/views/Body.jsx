@@ -7,12 +7,12 @@
  */
 
 import { Checkbox, Container, Message, Popup, Table } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import yaml from 'js-yaml';
 import fs from 'fs';
-import React from 'react';
 import Immutable from 'immutable';
+import PropTypes from 'prop-types';
+import React from 'react';
+import yaml from 'js-yaml';
 
 function Body(props) {
   const problems = [...props.problems.values()];
@@ -33,6 +33,7 @@ function Body(props) {
         selectable
       >
         <Table.Header>
+          {/* todo: user selectable columns */}
           <Table.Row>
             <Table.HeaderCell width={2}>export</Table.HeaderCell>
             <Table.HeaderCell width={10}>question</Table.HeaderCell>
@@ -65,7 +66,7 @@ Body.propTypes = {
 function Upload(props) {
   const onUpload = acceptedFiles =>
     props.onUploadProblems(
-      yaml.safeLoad(fs.readFileSync(acceptedFiles[0].path))
+      yaml.safeLoad(fs.readFileSync(acceptedFiles[0].path, 'utf-8'))
     );
 
   return (
