@@ -40,11 +40,11 @@ app.set('view engine', 'pug');
 
 // routes
 var routes = require('./routes/index'),
-    testbank = require('./routes/testbank');
+    database = require('./routes/database');
 
 
 app.use('/', routes);
-app.use('/testbank', testbank);
+app.use('/database', database);
 
 
 // catch 404 and forward to error handler

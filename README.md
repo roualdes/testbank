@@ -7,11 +7,14 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-then at a separate Terminal run
+and then in a separate window run
 
 ```
-$ curl -L -k http://localhost/testbank
+$ curl -L -k http://localhost/fetch
 ```
+
+or navigate to `http://localhost` or `http://localhost/database` in your web browser.
+
 
 ## License
 
