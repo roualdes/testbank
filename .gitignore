@@ -1,7 +1,5 @@
 node_modules/
-yarn.lock
-yarn-error.log
-package-lock.json
+example.py
 
 ### OS Files ###
 .DS_Store
