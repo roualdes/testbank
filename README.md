@@ -1,20 +1,18 @@
 # TestBank
 
-To perform a quick test of the features run
+To perform a quick test of the features, clone this repository and
+`cd` into the directory.  Then run
 
 ```
-$ docker-compose build
-$ docker-compose up
+$ npm install
+$ python3 main.py
 ```
 
 and then in a separate window run
 
 ```
-$ curl -L -k http://localhost/fetch
+$ curl http://localhost:3000
 ```
-
-or navigate to `http://localhost` or `http://localhost/database` in your web browser.
-
 
 ## License
 
