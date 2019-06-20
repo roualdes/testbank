@@ -59,8 +59,8 @@ var demoInfo = {
 }[demoLang];
 var demoSrc = fs.readFileSync(demoInfo.filename, {encoding: 'utf-8'});
 
-console.log('Targeting server:', gatewayUrl);
-console.log('Using example code:', demoInfo.filename);
+// console.log('Targeting server:', gatewayUrl);
+// console.log('Using example code:', demoInfo.filename);
 
 var ajaxSettings = {};
 
@@ -75,8 +75,8 @@ if (process.env.BASE_GATEWAY_PASSWORD) {
     ajaxSettings['password'] = process.env.BASE_GATEWAY_PASSWORD
 }
 
-console.log('AJAX User:', ajaxSettings['user']);
-console.log('AJAX Password:', ajaxSettings['password']);
+// console.log('AJAX User:', ajaxSettings['user']);
+// console.log('AJAX Password:', ajaxSettings['password']);
 
 // query with
 // curl -k -L http://localhost/fetch
@@ -96,7 +96,7 @@ router.get('/fetch', function(req, res, next) {
             // print received messages
             output = msg.content.text;
             if (output != null) {
-                res.send({'output': output});
+                res.send(output);
             }
         };
     }).catch(req => {

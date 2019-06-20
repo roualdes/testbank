@@ -1,10 +1,12 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-# import pyspark
+import json
+import numpy as np
+from scipy.stats import norm
 
-# In some environments, "sc" is pre-defined.
-# if not 'sc' in globals():
-#     sc = pyspark.SparkContext()
-# rdd = sc.parallelize(range(1000))
-# sample = rdd.takeSample(False, 5)
-print('Almost there.')
+seed = 1234
+np.random.seed(seed)
+x = np.round(norm.rvs(loc=1, scale=.1, size=1), 2)
+
+ex = 'Find $P(X > {})$.'.format(x[0])
+
+output = json.dumps({'seed': seed, 'exercise': ex})
+print(output)
