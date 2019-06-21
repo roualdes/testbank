@@ -1,5 +1,7 @@
 node_modules/
-example.py
+*_files/
+config.json
+test.*
 
 ### OS Files ###
 .DS_Store
@@ -9,3 +11,6 @@ example.py
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints

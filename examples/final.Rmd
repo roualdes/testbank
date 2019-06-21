@@ -1,0 +1,54 @@
+---
+title: "Exam"
+author: "Name:"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(curl)
+library(jsonlite)
+library(dplyr)
+library(ggplot2)
+idx <- 0
+exercise <- function(ex) {
+  idx <<- idx + 1
+  cat(cat(idx, ".", sep=""), ex$context, "\n\n")
+  for (e in seq_along(ex$questions)) {
+    cat(cat("\t", letters[e], ".", sep=""), ex$questions[e], "\n\n")
+  }
+}
+```
+
+```{r, exercise03, echo=FALSE, results='asis'}
+req <- curl_fetch_memory("http://localhost:3000/3")
+ex03 <- fromJSON(rawToChar(req$content))
+exercise(ex03)
+```
+
+```{r, echo=FALSE, fig.width=5, fig.height=3}
+tree <- read.csv("https://vincentarelbundock.github.io/Rdatasets/csv/datasets/trees.csv") %>%
+  mutate(g = Girth,
+         h = Height,
+         v = Volume,
+         p = Girth*Height,
+         type=factor(rep(LETTERS[1:2], length.out=31)))
+
+ggplot(tree, aes(Girth, Volume, color=type, shape=type)) +
+    geom_point(size=2) +
+    labs(x="Girth (inches)", y="Volume (cubic feet)", main="Trees data")
+```
+
+
+```{r, exercise04, echo=FALSE, results='asis'}
+req <- curl_fetch_memory("http://localhost:3000/4")
+ex04 <- fromJSON(rawToChar(req$content))
+exercise(ex04)
+```
+
+
+```{r, exercise06, echo=FALSE, results='asis'}
+req <- curl_fetch_memory("http://localhost:3000/6")
+ex06 <- fromJSON(rawToChar(req$content))
+exercise(ex06)
+```
