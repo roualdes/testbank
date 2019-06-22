@@ -38,29 +38,33 @@ Some take aways from the example, `exam.Rmd`.
 6. LaTeX works via MathJax, if you escape enough characters.
 
 
-## Schemas
+## Data Schemas
 
 At least for now, I've settled on the two schemas.  One schema for
-the source code of an exercise and one schema for the output of an exercise.  Both schemas
-are essentially JSON objects, hence I'm thinking a document database.
+the source code of an exercise/solution and one schema for the output of an
+exercise.  The source code scheme is very simple and should fit within
+a single table of a SQL database.
 
 ### Source Code Schema
 
-```
-{
-    language: r|python,  # only two allowed so far
-    exercise: `code to produce an exercise` # I'm not thrilled with
-    this name
-}
-```
+There are three columns, each of which will hold text.
+
+| language | exercise | solution|
+|----------|----------|---------|
+| r/python | code to produce an exercise | code to produce a solution |
+
 
 ### Exercise Schema
+
+Each exercise will be returned from the TestBank server as a JSON
+object with the following structure.
+
 ```
 {
     seed: 1234,
     context: "the context of this exercise",
     questions: ["part A", ..., "part Z"],
-    tags: ["tag A", ..., "tag T"] # planned but not implemented,
+    tags: ["tag 1", ..., "tag T"] # planned but not implemented,
     solutions: ["solution A", ..., "solution Z"] # planned but not implemented
 }
 ```
@@ -68,12 +72,15 @@ are essentially JSON objects, hence I'm thinking a document database.
 
 ## TODO
 
-[] An example with code embedded in the exercise.  This is likely to get ugly.
+[] An example with code embedded in the exercise.  This is likely to
+get ugly.
 
-[] Use a database.  I'm thinking [nedb](https://github.com/louischatriot/nedb), until something more serious is
-necessary.
+[] Use a database.  I'm thinking
+[SQLite](https://www.sqlite.org/index.html), until something more
+serious is necessary.
 
-[] Build a command line app to verify and insert exercises into the database.
+[] Build a command line app to verify and insert exercises into the
+database.
 
 
 ## Dependencies
