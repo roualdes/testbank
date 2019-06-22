@@ -8,9 +8,33 @@ const express = require('express')
 const app = express()
 const port = 3000
 const Session = require('@jupyterlab/services').Session;
+const HashID = require('./hashid.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// borrowed from
+// https://gist.github.com/richardblondet/9a23a155e6a784f1ff2cbd8d84accd72
+// which might have gotten inspiration from
+// https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+// which certainly was inspired by stackoverflow
+String.prototype.formatUnicorn = String.prototype.formatUnicorn || function () {
+    "use strict";
+    var str = this.toString();
+    if (arguments.length) {
+        var t = typeof arguments[0];
+        var key;
+        var args = ("string" === t || "number" === t) ?
+            Array.prototype.slice.call(arguments)
+            : arguments[0];
+
+        for (key in args) {
+            str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
+        }
+    }
+
+    return str;
+};
 
 const ex01 = {
     language: 'python',

@@ -82,6 +82,14 @@ serious is necessary.
 [] Build a command line app to verify and insert exercises into the
 database.
 
+[] Develop policy for inserting exercises into the database.  Goal is
+to minimize complexity of running code in kernel; maximize security,
+stability, and response time.
+
+[] Authorization for requested solutions, which, to me, implies that
+exercises and their solutions are requested separately.  Hmm, what of
+the seed then?
+
 
 ## Dependencies
 
