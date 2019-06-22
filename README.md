@@ -103,6 +103,12 @@ following packages within each language's ecosystem
   - [pandas](https://pandas.pydata.org/)
 - Use R's function `install.packages()` to obtain
   - [IRkernel](https://github.com/IRkernel/IRkernel)
+      - After installation, in R (not RStudio), within a Terminal that
+        has access to the Python envirnoment containing jupyterlab, run
+        ```
+        library(IRkernel)
+        IRkernel::installspec()
+        ```
   - [dplyr](https://dplyr.tidyverse.org/)
   - [tidyverse](https://ggplot2.tidyverse.org/)
   - [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html)
