@@ -47,6 +47,12 @@ exercise(ex04)
 ```
 
 
+```{r, exercise05, echo=FALSE, results='asis'}
+req <- curl_fetch_memory("http://localhost:3000/5")
+ex05 <- fromJSON(rawToChar(req$content))
+exercise(ex05)
+```
+
 ```{r, exercise06, echo=FALSE, results='asis'}
 req <- curl_fetch_memory("http://localhost:3000/6")
 ex06 <- fromJSON(rawToChar(req$content))
