@@ -1,7 +1,7 @@
 # TestBank
 
 To perform a quick test of the features, clone this repository and
-`cd` into the directory.  Then run
+`cd` into the directory. Then run
 
 ```
 $ npm install
@@ -20,8 +20,9 @@ some embedded exercises).
 ## Examples
 
 The directory `examples` contains an exam from my MATH 314 course at
-[Chico State](https://www.csuchico.edu/).  The .Rmd file makes calls to `http://localhost:3000`,
-which must be running in order to compile the file.
+[Chico State](https://www.csuchico.edu/). The .Rmd file makes calls
+to `http://localhost:3000`, which must be running in order to compile
+the file.
 
 Some take aways from the example, `exam.Rmd`.
 
@@ -37,12 +38,11 @@ Some take aways from the example, `exam.Rmd`.
    with this on their end.
 6. LaTeX works via MathJax, if you escape enough characters.
 
-
 ## Data
 
-For now, let's simplify things in store in .json files.  I'll use
+For now, let's simplify things in store in .json files. I'll use
 [lowdb](https://github.com/typicode/lowdb) to interact with the JSON
-files.  There will be one file for exercises and one file for tags.
+files. There will be one file for exercises and one file for tags.
 The last bit will be how each exercise is returned to the end user.
 
 ### Exercise schema
@@ -60,8 +60,7 @@ The last bit will be how each exercise is returned to the end user.
 
 ### Tags
 
-If a user searches the database with a complex query such as `tags:
-tag1 AND (tag2 OR tag3)`, then the following secondary database should
+If a user searches the database with a complex query such as `tags: tag1 AND (tag2 OR tag3)`, then the following secondary database should
 make for more efficient searching.
 
 ```
@@ -79,7 +78,7 @@ should enable direct replacement of AND with `&&` and OR with `||`.
 ### Output schema
 
 Each exercise will be returned from the TestBank server as a JSON
-object with one of the two following structures.  If an exercise
+object with one of the two following structures. If an exercise
 is requested, the user will receive a JSON object with the following schema
 
 ```
@@ -145,15 +144,15 @@ directory](https://github.com/roualdes/testbank/tree/master/examples).
 ## Checking an exercise before entering it into the database
 
 The goal is to make entering exercises into the database as automatic
-as possible, while simultaneously addressing *security* of the TestBank
-sever, *stability* of the kernel, and *response* time.
+as possible, while simultaneously addressing _security_ of the TestBank
+sever, _stability_ of the kernel, and _response_ time.
 
 ### Steps
 
 1. Eyeball code for malicious content.
 2. Check run time for user time approximately less 2 seconds
-`time python3 ex.py` # or
-`time Rscript ex.r`
+   `time python3 ex.py` # or
+   `time Rscript ex.r`
 3. Run testbank CLI
 
 ## TestBank command line interface
@@ -180,6 +179,7 @@ code will run on the TestBank kernel after being entered into the
 TestBank database.
 
 To test a Python exercise, run
+
 ```
 $ node cli.js test examples/ex01.json exercise | python
 ```
@@ -195,7 +195,7 @@ $ node cli.js insert examples/ex03.json
 
 ## TODO
 
-[x] Set up database.  I'm thinking
+[x] Set up database. I'm thinking
 [lowdb](https://github.com/typicode/lowdb), until something more
 serious is necessary.
 
@@ -204,21 +204,21 @@ serious is necessary.
 [] WIP. Build a command line interface to insert exercises into the
 database.
 
-[] Server to use code from database.  Exam example should be brought
+[] Server to use code from database. Exam example should be brought
 back into working order.
 
 [] CLI should have at least some check for inserting duplicate
 exercises.
 
-[] An example with code embedded in the exercise.  This is likely to
+[] An example with code embedded in the exercise. This is likely to
 get ugly.
 
-[] Develop policy for inserting exercises into the database.  Goal is
+[] Develop policy for inserting exercises into the database. Goal is
 to minimize complexity of running code in kernel; maximize security,
 stability, and response time.
 
 [] Authorization for requested solutions, which, to me, implies that
-exercises and their solutions are requested separately.  Hmm, what of
+exercises and their solutions are requested separately. Hmm, what of
 the seed then?
 
 [] Use query parameters and
@@ -233,6 +233,7 @@ Validate query parameters with
 ## Dependencies
 
 To successfully run all of the examples, one needs
+
 - [Node.js](https://nodejs.org/),
 - [Python3](https://www.python.org/),
 - [R](https://www.r-project.org/),
@@ -246,12 +247,12 @@ and the following packages within each language's ecosystem
   - [pandas](https://pandas.pydata.org/)
 - Use R's function `install.packages()` to obtain
   - [IRkernel](https://github.com/IRkernel/IRkernel)
-      - After installation, in R (not RStudio), within a Terminal that
-        has access to the Python envirnoment containing jupyterlab, run
-        ```
-        library(IRkernel)
-        IRkernel::installspec()
-        ```
+    - After installation, in R (not RStudio), within a Terminal that
+      has access to the Python envirnoment containing jupyterlab, run
+      ```
+      library(IRkernel)
+      IRkernel::installspec()
+      ```
   - [dplyr](https://dplyr.tidyverse.org/)
   - [tidyverse](https://ggplot2.tidyverse.org/)
   - [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html)
@@ -259,7 +260,7 @@ and the following packages within each language's ecosystem
   - [littler](http://dirk.eddelbuettel.com/code/littler.html)
 
 This is my best attempt at a complete list, but I'm still iffy about
-versions of everything.  Let me know what I've missed.
+versions of everything. Let me know what I've missed.
 
 ## License
 
