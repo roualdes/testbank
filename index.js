@@ -1,30 +1,28 @@
 // Copyright (c) 2019, Edward A. Roualdes
 // Distributed under the terms of the Modified BSD License.
 
-"use strict";
+const bodyParser = require('body-parser');
+const express = require('express');
 
-const bodyParser = require("body-parser");
-const express = require("express");
 const app = express();
 const port = 3000;
-const Session = require("@jupyterlab/services").Session;
-const HashID = require("./hashid.js");
+const { Session } = require('@jupyterlab/services');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const ex05 = {
-  language: "r",
+  language: 'r',
   exercise: `
 library(jsonlite)
 output <- toJSON(list(seed = NULL, context = "The minority of this class focused on Logistic regression.  What
   are the two main differences between logistic and linear regression?", questions=c()))
 cat(output)
-`
+`,
 };
 
 const ex06 = {
-  language: "r",
+  language: 'r',
   exercise: `
 suppressPackageStartupMessages(library(jsonlite))
 
@@ -75,93 +73,93 @@ questions <- c(sprintf("With a row of the model matrix as \`c(1, 0, 0)\`, interp
 
 output <- toJSON(list(seed = seed, context = context, questions = questions))
 cat(output)
-`
+`,
 };
 
 const ex = {
   5: ex05,
-  6: ex06
+  6: ex06,
 };
 
 // start kernels
-const r_kernel = {
-  kernelName: "ir",
-  path: "r.ipynb"
+const rKernel = {
+  kernelName: 'ir',
+  path: 'r.ipynb',
 };
 
-const python_kernel = {
-  kernelName: "python",
-  path: "python.ipynb"
+const pythonKernel = {
+  kernelName: 'python',
+  path: 'python.ipynb',
 };
 
-var r_session;
-Session.startNew(r_kernel)
-  .then(function(s) {
-    r_session = s;
+let rSession;
+Session.startNew(rKernel)
+  .then((s) => {
+    rSession = s;
   })
-  .catch(function(err) {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
 
-var python_session;
-Session.startNew(python_kernel)
-  .then(function(s) {
-    python_session = s;
+let pythonSession;
+Session.startNew(pythonKernel)
+  .then((s) => {
+    pythonSession = s;
   })
-  .catch(function(err) {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
 
-app.get("/:ID", function(req, res) {
-  var e;
+app.get('/:ID', (req, res) => {
+  let e;
   if (req.params.ID) {
     e = ex[req.params.ID];
   } else {
-    res.render("error", { error: `No exercise matching ID ${req.params.ID}` });
+    res.render('error', { error: `No exercise matching ID ${req.params.ID}` });
   }
 
-  var code;
-  var path;
-  var session;
+  let code;
+  let path;
+  let session;
   switch (e.language) {
-    case "r":
+    case 'r':
       code = e.exercise;
-      path = r_kernel.path;
-      session = r_session;
+      ({ path } = rKernel);
+      session = rSession;
       break;
-    case "python":
+    case 'python':
       code = e.exercise;
-      path = python_kernel.path;
-      session = python_session;
+      ({ path } = pythonKernel);
+      session = pythonSession;
       break;
     default:
-      res.render("error", {
+      res.render('error', {
         error:
-          "No kernel available for exercise matching ID ${req.params.ID}.  Please contact eroualdes@csuchico.edu"
+      `No kernel available for exercise matching ID ${req.params.ID}.  Please contact eroualdes@csuchico.edu`,
       });
   }
 
-  var output;
+  let output;
   Session.findByPath(path)
-    .then(function() {
-      let future = session.kernel.requestExecute({ code: code });
-      future.onIOPub = msg => {
-        let out = msg.content.text;
+    .then(() => {
+      const future = session.kernel.requestExecute({ code });
+      future.onIOPub = (msg) => {
+        const out = msg.content.text;
         if (out != null) {
           output = JSON.parse(out);
         }
       };
-      future.onReply = function(reply) {
-        //console.log('Finished request');
+      future.onReply = () => {
+        // console.log('Finished request');
       };
       return future.done;
     })
-    .then(function() {
+    .then(() => {
       res.json(output);
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     });
 });
