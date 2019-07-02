@@ -8,7 +8,7 @@ const path = require('path');
 
 program
     .version('0.0.1')
-    .description('TestBank command line interface.');
+    .description('TestBank command line interface.')
 
 // read exercise code and exercise meta data
 const get_info = function(json_path) {
