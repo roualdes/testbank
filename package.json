@@ -2,7 +2,9 @@
   "name": "TestBank",
   "author": "Edward A. Roualdes",
   "version": "1.0.0",
+  "description": "A database manager for test questions.",
   "private": true,
+  "license": "BSD",
   "dependencies": {
     "body-parser": "^1.19.0",
     "commander": "^2.20.0",
@@ -11,7 +13,21 @@
     "lowdb": "^1.0.0",
     "mustache": "^3.0.1",
     "node-fetch": "^2.6.0",
-    "prettier": "^1.18.2",
     "ws": "^7.0.0"
+  },
+  "scripts": {
+    "pretty": "prettier --write \"*.js\"",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run pretty",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^3.0.0",
+    "lint-staged": "^9.0.1",
+    "prettier": "^1.18.2"
   }
 }
