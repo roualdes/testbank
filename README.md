@@ -14,8 +14,8 @@ and then in a separate window run
 $ curl http://localhost:3000/ID
 ```
 
-where `ID` can be any integer 1 through 6 (as these integers index
-some embedded exercises).
+where `ID` can be any integer 5 or 6 (as these integers index
+some embedded exercises in index.js).
 
 ## Examples
 
