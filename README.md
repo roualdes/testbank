@@ -195,15 +195,23 @@ $ node cli.js insert examples/ex03.json
 
 ## TODO
 
-[] An example with code embedded in the exercise.  This is likely to
-get ugly.
-
-[x] Use a database.  I'm thinking
+[x] Set up database.  I'm thinking
 [lowdb](https://github.com/typicode/lowdb), until something more
 serious is necessary.
 
+[] Migrate exercises to database.
+
 [] WIP. Build a command line interface to insert exercises into the
 database.
+
+[] Server to use code from database.  Exam example should be brought
+back into working order.
+
+[] CLI should have at least some check for inserting duplicate
+exercises.
+
+[] An example with code embedded in the exercise.  This is likely to
+get ugly.
 
 [] Develop policy for inserting exercises into the database.  Goal is
 to minimize complexity of running code in kernel; maximize security,
@@ -219,9 +227,6 @@ Validate query parameters with
 [Validator](https://www.npmjs.com/package/validator).
 
 [] Figure out versions of dependencies.
-
-[] CLI should have at least some check for inserting duplicate
-exercises.
 
 [] Develop a database searchable landing/home page for TestBank.
 
