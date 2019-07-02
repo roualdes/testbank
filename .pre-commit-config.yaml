@@ -1,0 +1,4 @@
+- repo: https://github.com/prettier/prettier
+  rev: stable
+  hooks:
+    - id: prettier
