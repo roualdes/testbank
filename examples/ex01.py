@@ -1,4 +1,3 @@
-{{ #setup }}
 import json
 import numpy as np
 import pandas as pd
@@ -12,11 +11,10 @@ if seed is None:
     seed = np.random.randint(1, ui32.max)
 
 np.random.seed(seed)
-{{ /setup }}
 
-{{ #exercise }}
 x = np.round(norm.rvs(loc=1, scale=0.1), 2)
 
+{{ #exercise }}
 ex = 'Find $P(X > {})$.'.format(x)
 
 output = json.dumps({'seed': seed,
@@ -27,8 +25,6 @@ print(output)
 {{ /exercise }}
 
 {{ #solution }}
-x = np.round(norm.rvs(loc=1, scale=0.1), 2)
-
 sol = np.round(1 - norm.cdf(x, loc=1, scale=0.1), 2)
 output = json.dumps({'seed': seed,
                      'id': id,

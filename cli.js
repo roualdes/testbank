@@ -6,6 +6,22 @@ const program = require('commander');
 const path = require('path');
 const hash = require('./hashid.js');
 
+// lowdb setup
+const dbAdapter = new FileSync('db.json');
+const db = low(dbAdapter);
+
+db.defaults({
+  exercises: [],
+  last_updated: '',
+})
+  .write();
+
+const tagsAdapter = new FileSync('tags.json');
+const tags = low(tagsAdapter);
+
+tags.defaults({})
+  .write();
+
 program
   .version('0.0.1')
   .description('TestBank command line interface.');
@@ -19,7 +35,7 @@ function getInfo(jsonPath) {
   return { meta, code };
 }
 
-// ////////////////////////  test exercise ////////////////////////////
+// ////////////////////////////// test ////////////////////////////////
 function test(jsonPath, section = '') {
   if (section !== 'exercise' && section !== 'solution') {
     console.log(`section ${
@@ -46,63 +62,15 @@ program
   .description('generate exercise or solution code for testing')
   .action((jsonPath, section) => test(jsonPath, section));
 
-// //////////////////////// insert exercise  //////////////////////////
+// ////////////////////////////  insert  //////////////////////////////
 function insert(jsonPath) {
-  // lowdb setup
-  const dbAdapter = new FileSync('db.json');
-  const db = low(dbAdapter);
-
-  const tagsAdapter = new FileSync('tags.json');
-  const tags = low(tagsAdapter);
-
-  db.defaults({
-    exercises: [],
-    last_updated: '',
-  })
-    .write();
-
   const IDs = db.get('exercises')
     .map('id')
     .value();
+  const ID = hash.gen(IDs);
 
-  tags.defaults({})
-    .write();
-
-  // read exercise
   const { meta, code } = getInfo(jsonPath);
 
-  // insert db entry
-  const setupExists = code.search(/\{\{ #setup \}\}/) >= 0;
-  const exerciseExists = code.search(/\{\{ #exercise \}\}/) >= 0;
-  const solutionExists = code.search(/\{\{ #solution \}\}/) >= 0;
-
-  let setup;
-  if (setupExists) {
-    meta.setup = true;
-    setup = Mustache.render(code, meta);
-  } else {
-    setup = '';
-  }
-
-  // exercise must exist
-  if (!exerciseExists) {
-    console.log('The Mustache tag {{ #exercise }} must exist.');
-    process.exit(1);
-  }
-  meta.exercise = true;
-  meta.setup = false;
-  const ex = Mustache.render(code, meta);
-
-  let sol;
-  if (solutionExists) {
-    meta.solution = true;
-    meta.exercise = false;
-    sol = Mustache.render(code, meta);
-  } else {
-    sol = '';
-  }
-
-  const ID = hash.gen(IDs);
   let language;
   switch (path.extname(meta.code)
     .replace(/\./g, '')
@@ -122,9 +90,7 @@ function insert(jsonPath) {
     .push({
       id: ID,
       language,
-      setup,
-      exercise: ex,
-      solution: sol,
+      exercise: code,
       tags: meta.tags,
     })
     .write();
@@ -153,5 +119,31 @@ program
   .alias('i')
   .description('insert exercise/solution')
   .action(jsonPath => insert(jsonPath));
+
+
+// ////////////////////////////// get  ////////////////////////////////
+function get(ID, filePath = '') {
+  const ex = db.get('exercises')
+    .find({ id: ID })
+    .value();
+  if (ex) {
+    if (filePath) {
+      fs.writeFileSync(filePath, ex.exercise);
+    } else {
+      console.log(ex);
+    }
+  } else {
+    console.log(`Can't find exercise with ID = ${ID}`);
+  }
+
+  process.exit(0);
+}
+
+program
+  .command('get <ID> <filePath>')
+  .alias('g')
+  .description('get exercise/solution by ID')
+  .action((ID, filePath = '') => get(ID, filePath));
+
 
 program.parse(process.argv);

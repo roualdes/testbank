@@ -1,4 +1,3 @@
-{{ #exercise }}
 suppressPackageStartupMessages(library(jsonlite))
 suppressPackageStartupMessages(library(pander))
 suppressPackageStartupMessages(library(dplyr))
@@ -37,6 +36,7 @@ conf <- fit %>%
   pandoc.table.return %>%
   pandoc.indent(1)
 
+{{ #exercise }}
 context <- "The dataset trees consists of 31 observations on two types of trees, $A$ and $B$.  For each tree, height (h, feet), girth (g, diameter in inches), and volume (v, feet$^3$) were measured.\n\n\tEstimated coefficients and confidence intervals appear below."
 
 questions <- c("Identify the response variable(s) and its(their) statistical type(s).",
@@ -56,7 +56,6 @@ questions <- c("Identify the response variable(s) and its(their) statistical typ
                "Using words from our class, which prediction is more reasonable at Girth equal to $\\\\bar{G}$ or at Girth equal to $40$?  Why?",
                "Interpret the confidence interval for the term factor(type)B in context of these data.",
                "Do these data suggest a significant difference between type A and type B trees?  Explain.")
-
 
 output <- toJSON(list(
     id = id,

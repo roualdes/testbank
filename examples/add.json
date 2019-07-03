@@ -1,0 +1,13 @@
+{
+  "ID": "ID and SEED are just for local testing",
+  "SEED": 54321,
+  "code": "add.r",
+  "tags": [
+    "logistic regression",
+    "linear model",
+    "regression",
+    "confidence interval",
+    "interpret",
+    "predict"
+  ]
+}

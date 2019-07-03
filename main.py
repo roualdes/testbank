@@ -9,7 +9,6 @@ from jupyterlab_server.process_app import ProcessApp
 
 HERE = osp.dirname(osp.realpath(__file__))
 
-
 class NodeApp(ProcessApp):
 
     def get_command(self):
