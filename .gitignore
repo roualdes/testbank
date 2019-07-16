@@ -2,6 +2,12 @@ node_modules/
 *_files/
 config.json
 test.*
+add.*
+edit.*
+
+## data
+db.json
+tags.json
 
 ### OS Files ###
 .DS_Store
