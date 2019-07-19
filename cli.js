@@ -51,7 +51,7 @@ function test(jsonPath, section = '') {
   meta.solution = false;
   meta[section] = true;
 
-  code = Mustache.render(code, meta);
+  code = Mustache.render(code, meta, {}, ['#<', '>#']);
   console.log(code);
 }
 

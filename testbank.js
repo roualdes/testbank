@@ -10,6 +10,13 @@ const { Session } = require('@jupyterlab/services');
 const low = require('lowdb');
 const Mustache = require('mustache');
 
+// utility
+function randomInt(min, max) {
+  const mn = Math.ceil(min);
+  const mx = Math.floor(max);
+  return Math.floor(Math.random() * (mx - mn) + mn);
+}
+
 // database
 const dbAdapter = new FileSync('db.json');
 const db = low(dbAdapter);
@@ -83,17 +90,27 @@ router.get('/:ID', (req, res) => {
   }
 
   // prepare Mustache meta data
-  let SEED = req.query.seed;
-  if (SEED == null) { // TODO or SEED != a number
-    SEED = 1234;
+  let SEED = parseInt(req.query.seed, 10);
+  let { solution } = req.query;
+  if (SEED == null || !Number.isInteger(SEED)) {
+    SEED = randomInt(1, 4294967295); // np.iinfo(np.uint32)
+  }
+
+  let exercise = true;
+  if (solution == null) {
+    solution = false;
+  } else {
+    solution = true;
+    exercise = false;
   }
 
   const meta = {
     ID,
     SEED,
-    exercise: true,
+    exercise,
+    solution,
   };
-  code = Mustache.render(code, meta);
+  code = Mustache.render(code, meta, {}, ['#<', '>#']);
 
   // execute code and return
   let output;

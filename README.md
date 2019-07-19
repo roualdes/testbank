@@ -75,6 +75,8 @@ should enable direct replacement of AND with `&&` and OR with `||`.
 
 ### Output schema
 
+TODO provide descriptions of each part of the schemas.
+
 Each exercise will be returned from the TestBank server as a JSON
 object with one of the two following structures. If an exercise
 is requested, the user will receive a JSON object with the following schema
@@ -84,7 +86,9 @@ is requested, the user will receive a JSON object with the following schema
     id: "a unique ID, 4 characters long; [0-9a-zA-Z]{4}",
     seed: 1234,
     context: "the context of this exercise",
-    questions: ["partA", ..., "partZ"]
+    questions: ["partA", ..., "partZ"],
+    random: {X: x, μ: m, σ: s} # Associative Array specific to language
+    # eg R => list(), Python => dict() or {}
 }
 ```
 
@@ -93,9 +97,11 @@ the following schema
 
 ```
 {
-    seed: 1234,
-    id: "a unique ID, 4 characters long; [0-9a-zA-Z]{4}",
-    solutions: ["partA", ..., "partZ"]
+  seed: 1234,
+  id: "a unique ID, 4 characters long; [0-9a-zA-Z]{4}",
+  solution: ["partA", ..., "partZ"],
+  random: {X: x, μ: m, σ: s} # Associative Array specific to language
+  # eg R => list(), Python => dict() or {}
 }
 ```
 
