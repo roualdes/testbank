@@ -1,0 +1,49 @@
+{
+  "exercises": [
+    {
+      "id": "0Y7x",
+      "language": "python",
+      "exercise": "import json\nimport numpy as np\nimport pandas as pd\nfrom scipy.stats import norm\n\nseed = #< SEED >#\nid = '#< ID >#'\n\nif seed is None:\n    ui32 = np.iinfo(np.uint32)\n    seed = np.random.randint(1, ui32.max)\n\nnp.random.seed(seed)\n#< #exercise >#\nX = np.round(norm.rvs(loc=1, scale=0.1), 2)\n\nex = \"Write a Python program, named $\\\\texttt{{normal.py}}$, that accepts one command line argument as an $\\\\texttt{{int}}$ and prints the answer to the following prompt.  Assume $X \\\\sim \\\\text{{Normal}}(1, 0.01)$.  Find $P(X > {0})$.\".format(X)\n\noutput = json.dumps({'seed': seed,\n                     'id': id,\n                     'context': ex,\n                     'questions': [],\n                     'random': {'X': X}})\nprint(output)\n#< /exercise >#\n#< #solution >#\nX = np.round(norm.rvs(loc=1, scale=0.1), 2)\n\nsol = np.round(1 - norm.cdf(X, loc=1, scale=0.1), 2)\noutput = json.dumps({'seed': seed,\n                     'id': id,\n                     'random': {'X': X},\n                     'solution': sol})\nprint(output)\n#< /solution >#\n",
+      "tags": ["probability", "normal", "standard normal", "right tail"]
+    },
+    {
+      "id": "exd3",
+      "language": "python",
+      "exercise": "import json\n\nseed = #< SEED >#\nid = '#< ID >#'\n\n#< #exercise >#\ncntxt = \"The majority of this class focused on Normal linear models.\"\nqsts = [\"What about them is Normal?\",\n        \"What about them is linear?  For full points, you must be very specific about what exactly is linear.\",\n        \"Is it possible for normal linear models to fit curves to data?  Explain.\"]\noutput = json.dumps({\n  'seed': seed,\n  'id': id,\n  'context': cntxt,\n  'random': {},\n  'questions': qsts})\nprint(output)\n#< /exercise >#\n",
+      "tags": ["normal", "linear model"]
+    },
+    {
+      "id": "OqHz",
+      "language": "r",
+      "exercise": "suppressPackageStartupMessages(library(stats))\nsuppressPackageStartupMessages(library(jsonlite))\nsuppressPackageStartupMessages(library(pander))\nsuppressPackageStartupMessages(library(dplyr))\n\ntree <- read.csv(\"https://vincentarelbundock.github.io/Rdatasets/csv/datasets/trees.csv\") %>%\n  mutate(g = Girth,\n         h = Height,\n         v = Volume,\n         p = Girth*Height,\n         type=factor(rep(LETTERS[1:2], length.out=31)))\n\nseed <- #< SEED >#\nid <- \"#< ID >#\"\n\nif (is.null(seed)) {\n    seed <- sample(.Machine$integer.max, 1)\n}\n\nset.seed(seed)\n\nN <- nrow(tree)\ntree <- tree[sample(N, N, replace=TRUE), ]\n\nfit <- tree %>%\n  lm(v ~ g*h + type, data=.)\n\nbeta <- fit %>%\n  .[[1]] %>%\n  round(2)\n\nbeta_table <- beta %>%\n  pandoc.table.return %>%\n  pandoc.indent(1)\n\nconf <- fit %>%\n  confint(level=.92) %>%\n  round(2)\n\nconf_table <- conf %>%\n  pandoc.table.return %>%\n  pandoc.indent(1)\n\n#< #exercise >#\ncontext <- \"The dataset trees consists of 31 observations on two types of trees, $A$ and $B$.  For each tree, height (h, feet), girth (g, diameter in inches), and volume (v, feet$^3$) were measured.\\n\\n\\tEstimated coefficients and confidence intervals appear below.\"\n\nquestions <- c(\"Identify the response variable(s) and its(their) statistical type(s).\",\n               \"Identify the explanatory variable(s) and its(their) statistical type(s).\",\n               \"Provide R code to reproduce the plot above.\",\n               \"Given the output above, write 1 complete English sentence describing the estimated intercept for type A trees.\",\n               \"Does the estimated intercept for type A trees make sense in context of these data.  Explain why or why not.\",\n               \"Given the output above, write 1 complete English sentence describing the estimated intercept for type B trees.\",\n               \"Does the estimated intercept for type B trees make sense in context of these data.  Explain why or why not.\",\n               \"Note that the fit model has an interaction term between two numerical explanatory variables.  This is new.  Why does an interaction term between Height and Girth (diameter) make sense in the context of this predictive model?  Hint: think geometrically.  Explain.\",\n               \"Given the output above, write 1 complete English sentence describing the estimated slope across Height}.  State clearly to which type(s) of trees this slope applies.  Be careful with your derivative.\",\n               \"Given the output above, write 1 complete English sentence describing the estimated slope across Girth.  State clearly to which type(s) of trees this slope applies.  Be careful with your derivative.\",\n               \"Provide R code to calculate the mean of Girth and the mean of Height by levels of the categorical variable type.  If you use any library, be sure to load it.\",\n               \"Write down either R code or mathematical symbols that would make a prediction for the Volume of a type B tree when Height is equal to its mean, call it $\\\\bar{H}$, and when Girth is equal to its mean, call it $\\\\bar{G}$.\",\n               \"Assume your code above predicts the number $28.44$. Interpret this number in context of these data.\",\n               \"Write down either R code or mathematical symbols that would make a prediction for the Volume of a type B tree when Height is equal to its mean, call it $\\\\bar{H}$, and when Girth is equal to $40$.\",\n               \"Using words from our class, which prediction is more reasonable at Girth equal to $\\\\bar{G}$ or at Girth equal to $40$?  Why?\",\n               \"Interpret the confidence interval for the term factor(type)B in context of these data.\",\n               \"Do these data suggest a significant difference between type A and type B trees?  Explain.\")\n\noutput <- toJSON(list(\n  id = id,\n  seed = seed,\n  context = paste0(context, beta_table, conf_table),\n  random = list(beta=beta, conf=conf),\n  questions = questions))\n\ncat(output)\n#< /exercise >#\n",
+      "tags": [
+        "linear model",
+        "regression",
+        "confidence interval",
+        "interpret",
+        "interaction",
+        "extrapoloation"
+      ]
+    },
+    {
+      "id": "pOkn",
+      "language": "r",
+      "exercise": "suppressPackageStartupMessages(library(jsonlite))\n\nseed <- #< SEED >#\nid <- '#< ID >#'\n\noutput <- toJSON(list(\n  id = id,\n  seed = seed,\n  context = \"The minority of this class focused on Logistic regression.  What are the two main differences between logistic and linear regression?\",\n  questions = c(),\n  random = list()))\n\ncat(output)\n",
+      "tags": ["logistic regression", "linear model", "regression"]
+    },
+    {
+      "id": "aqdK",
+      "language": "r",
+      "exercise": "suppressPackageStartupMessages(library(jsonlite))\n\nseed <- #< SEED >#\nid <- '#< ID >#'\n\nadmit <- read.csv(\"https://raw.githubusercontent.com/roualdes/data/master/admissions.csv\")\n\nX <- model.matrix(~ 0 + gre + gpa, data=admit)\n\npred_logistic <- function(mX, betahat) {\n  lin <- apply(mX, 1, function(row) {sum(betahat * row)})\n  1 / (1 + exp(-lin))\n}\n\nll <- function(beta, y, mX) {\n    beta0 <- beta[1]\n    betas <- beta[-1]\n    lin <- apply(mX, 1, function(row) {beta0 + sum(betas * row)})\n    sum( log1p(exp(lin)) - y*lin )\n}\n\nbeta_hat <- optim(rnorm(3), ll, method=\"L-BFGS-B\", y=admit$admit, mX=scale(X))$par\n\nphat <- round(pred_logistic(matrix(c(1, 0, 0), ncol=3), beta_hat), 2)\n\nblogistic <- function(data, idx) {\n    y <- data[idx, 1]\n    X <- data[idx, -1]\n    beta_hat <- optim(rnorm(3), ll, method=\"L-BFGS-B\", y=y, mX=X)$par\n    diff(pred_logistic(matrix(c(1, 0, 0, # intercept, gre, gpa\n                                1, 0, 1),\n                              ncol=3, byrow=TRUE), beta_hat))\n}\n\nb <- boot::boot(cbind(admit$admit, scale(X)),\n                R=999,\n                blogistic,\n                ncpus=3, parallel=\"multicore\")\nseed <- b$seed\nci <- round(boot::boot.ci(b, type=\"perc\")$percent[4:5], 2)\n\n#< #exercise >#\ncontext <- \"The dataset $\\\\texttt{admission}$ contains 400 randomly selected\n  students' $\\\\texttt{gpa}$, $\\\\texttt{gre}$ (graduate school equivalent of\n  SAT) scores, and a Bernoulli random variable named $\\\\texttt{admit}$\n  that takes on the value $1$ if the student was admitted into\n  graduate school and a $0$ otherwise.\\n\\n\\tAssume you fit with logistic regression the response variable $\\\\texttt{admit}$ to the $\\\\textit{normalized}$ numerical explanatory variables $\\\\texttt{gre}$ and $\\\\texttt{gpa}$, in this order.\"\n\nquestions <- c(sprintf(\"With a row of the model matrix as \\`c(1, 0, 0)\\`, interpret, in context of the data, the predicted probability p = %.2f.\", phat),\n               paste(\"With a row of the model matrix as \\`c(1, 0, 0)\\`, interpret, in context of the data, the 95% confidence interval\",  sprintf(\"(%.2f, %.2f).\", ci[1], ci[2])))\n\noutput <- toJSON(list(\n  id = id,\n  seed = seed,\n  context = context,\n  questions = questions,\n  random = list(phat = phat, ci = ci)))\ncat(output)\n#< /exercise >#\n",
+      "tags": [
+        "logistic regression",
+        "linear model",
+        "regression",
+        "confidence interval",
+        "interpret",
+        "predict"
+      ]
+    }
+  ],
+  "last_updated": "Fri Jul 19 2019 20:55:40 GMT-0700 (Pacific Daylight Time)"
+}

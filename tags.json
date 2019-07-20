@@ -1,0 +1,14 @@
+{
+  "probability": ["0Y7x"],
+  "normal": ["0Y7x", "exd3"],
+  "standard normal": ["0Y7x"],
+  "right tail": ["0Y7x"],
+  "linear model": ["exd3", "OqHz", "pOkn", "aqdK"],
+  "regression": ["OqHz", "pOkn", "aqdK"],
+  "confidence interval": ["OqHz", "aqdK"],
+  "interpret": ["OqHz", "aqdK"],
+  "interaction": ["OqHz"],
+  "extrapoloation": ["OqHz"],
+  "logistic regression": ["pOkn", "aqdK"],
+  "predict": ["aqdK"]
+}

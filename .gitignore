@@ -6,10 +6,6 @@ add.*
 edit.*
 edit_r.*
 
-## data
-db.json
-tags.json
-
 ### python ###
 __pycache__/
 *.py[cod]
