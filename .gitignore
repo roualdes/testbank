@@ -9,6 +9,10 @@ edit.*
 db.json
 tags.json
 
+### python ###
+__pycache__/
+*.py[cod]
+
 ### OS Files ###
 .DS_Store
 .DS_Store?

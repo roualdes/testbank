@@ -14,8 +14,7 @@ and then in a separate window run
 $ curl http://localhost:3000/ID
 ```
 
-where `ID` can be any integer 5 or 6 (as these integers index
-some embedded exercises in index.js).
+where `ID` can be any exercise ID found in db.json.
 
 ## Examples
 
@@ -110,16 +109,25 @@ There should be some sort of authorization to request a solution set.
 ## Writing exercises
 
 To write an exercise, you must at least use the following structure,
-inclusive of the [Mustache](https://github.com/janl/mustache.js) tag
+inclusive of the custom [Mustache](https://github.com/janl/mustache.js) tags
 for the exercise's ID:
 
 ```
-id = '{{ ID }}'
+id = '#< ID >#'
 ... code to produce Output schema
 ```
 
-Examples exist in the [examples/
-directory](https://github.com/roualdes/testbank/tree/master/examples).
+These custom Mustache tags have two benefits. First, they help
+prevent my text editor from getting confused while developing TestBank
+exercises, at least within some fairly standard data science
+programming languages, R, Python, Julia. Second, they simplify writing LaTeX
+within Python strings, since Python's string formatting insists on
+double curly braces (otherwise used in Mustache) to get single curly
+braces (used in LaTeX) into a string.
+
+Examples exist in the
+[examples](https://github.com/roualdes/testbank/tree/master/examples)
+directory.
 
 ### Extra Mustache tags
 
@@ -129,16 +137,16 @@ selectively ignore the exercise and/or the solution.
 
 ```
 ... code necessary for both exercise and solution
-id = '{{ ID }}'
-seeed = {{ SEED }}
+id = '#< ID >#'
+seeed = #< SEED >#
 
-{{ #exercise }}
+#< #exercise >#
 ... code to produce exercise Output schema
-{{ /exercise }}
+#< /exercise >#
 
-{{ #solution }}
+#< #solution >#
 ... code to produce solution Output schema
-{{ /solution }}
+#< /solution >#
 ```
 
 If you want to ignore the seed altogether, the JSON file containing
@@ -159,12 +167,13 @@ sever, _stability_ of the kernel, and _response_ time.
 ### Steps
 
 1. Eyeball code for malicious content.
-2. Esnure run time (user time) is approximately less 2 seconds
-   `time python3 ex.py` # or
-   `time lr ex.r` # where lr is an alias for littler
-3. Run command line interface command `insert`. See below for more details.
+2. Esnure run time is approximately less 2 seconds by
+   testing the exercise, see TestBank CLI below. For instance, could
+   run something like
+   `time node cli.js test examples/ex01.json | python`
+3. Run TestBank's CLI command `upsert`, see TestBank CLI below.
 
-## TestBank command line interface
+## TestBank command line interface (CLI)
 
 TestBank's GitHub repository comes with a command line interface,
 `cli.js`, which attempts to help with testing exercises/solutions and
@@ -210,35 +219,12 @@ for more information.
 
 ## TODO
 
-[x] Set up database. I'm thinking
-[lowdb](https://github.com/typicode/lowdb), until something more
-serious is necessary.
-
-[x] Insert some exercises to database.
-
-[] WIP. Build a command line interface to insert exercises into the
-database.
-
-[x] Server to use code from database. Exam example should be brought
-back into working order.
-
-[] Should the CLI check for inserting duplicate exercises?
-
 [] An example with code embedded in the exercise. This is likely to
 get ugly.
-
-[] Develop policy for inserting exercises into the database. Goal is
-to minimize complexity of running code in kernel; maximize security,
-stability, and response time.
 
 [] Authorization for requested solutions, which, to me, implies that
 exercises and their solutions are requested separately. Hmm, what of
 the seed then?
-
-[x] Use query parameters and
-[Mustache](https://github.com/janl/mustache.js) as way to set seed.
-Validate query parameters with
-[Validator](https://www.npmjs.com/package/validator).
 
 [] Figure out versions of dependencies.
 
