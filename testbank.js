@@ -93,7 +93,9 @@ router.get('/:ID', (req, res) => {
   let SEED = parseInt(req.query.seed, 10);
   let { solution } = req.query;
   if (SEED == null || !Number.isInteger(SEED)) {
-    SEED = randomInt(1, 4294967295); // np.iinfo(np.uint32)
+    // R has a smaller max int than python
+    // .Machine$integer.max < np.iinfo(np.uint32)
+    SEED = randomInt(1, 2147483647);
   }
 
   let exercise = true;
@@ -123,7 +125,12 @@ router.get('/:ID', (req, res) => {
           output = JSON.parse(out);
         }
       };
-      future.onReply = () => {
+      future.onReply = (err) => {
+        const errorMessage = err.content.traceback;
+        if (errorMessage != null) {
+          console.log(errorMessage);
+        }
+
         // console.log('Finished request');
       };
       return future.done;

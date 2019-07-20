@@ -1,3 +1,6 @@
+// Copyright (c) 2019, Edward A. Roualdes
+// Distributed under the terms of the Modified BSD License.
+
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const fs = require('fs');

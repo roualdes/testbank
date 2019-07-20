@@ -4,6 +4,7 @@ config.json
 test.*
 add.*
 edit.*
+edit_r.*
 
 ## data
 db.json

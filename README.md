@@ -1,7 +1,7 @@
 # TestBank
 
 To perform a quick test of the features, clone this repository and
-`cd` into the directory. Then run
+`cd` into the directory. Then run TestBank with
 
 ```
 $ npm install
@@ -18,24 +18,12 @@ where `ID` can be any exercise ID found in db.json.
 
 ## Examples
 
-The directory `examples` contains an exam from my MATH 314 course at
-[Chico State](https://www.csuchico.edu/). The .Rmd file makes calls
-to `http://localhost:3000`, which must be running in order to compile
-the file.
-
-Some take aways from the example, `exam.Rmd`.
-
-1. Exercise IDs are arbitrary and do not correspond to the numbering
-   in the exam.
-2. The second question in the exam makes an https request to a third
-   party server to obtain a dataset.
-3. The third question in the exam is produced with Python code,
-   despite this being an RMarkdown document.
-4. The fourth question in the exam calls a parallelized function to
-   produce the output of the question.
-5. I still don't know what to do with plots, so the user must deal
-   with this on their end.
-6. LaTeX works via MathJax, if you escape enough characters.
+The directory `examples` contains two primary examples. First, an
+approximate exam from my MATH 314 course at [Chico
+State](https://www.csuchico.edu/). The second a working example of how
+one could leverage TestBank with
+[check50](https://cs50.readthedocs.io/check50/). Each subfolder has
+its own README.
 
 ## Data
 
@@ -177,7 +165,8 @@ sever, _stability_ of the kernel, and _response_ time.
 
 TestBank's GitHub repository comes with a command line interface,
 `cli.js`, which attempts to help with testing exercises/solutions and
-entering exercises/solutions into the database.
+entering exercises/solutions into the database. The `node` commands
+below must be run from the root directory of this repository.
 
 ### Testing
 
