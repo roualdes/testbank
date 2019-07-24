@@ -196,6 +196,8 @@ sever, _stability_ of the kernel, and _response_ time.
 
 ### Steps
 
+TODO can this be simplified to one script?
+
 Assume the exercise to be entered is stored in the path
 `examples/add.r` with meta data file at `examples/add.json`. All
 calls to `node cli.js` are described in more detail below.
@@ -215,7 +217,8 @@ calls to `node cli.js` are described in more detail below.
    the bash script `./test_schema.sh` can help via
    `lr -e "$(node cli.js test examples/add.json exercise)" | python -m json.tool | bash ./test_schema.sh`
 
-If the tests aboveun TestBank's CLI command `upsert`, see TestBank CLI below.
+If the tests above run, insert the exercise to TestBank's database
+with the `upsert` command from TestBank's CLI.
 
 ## TestBank command line interface (CLI)
 
@@ -263,12 +266,23 @@ directory for more information.
 
 ## TODO
 
-[] An example with code embedded in the exercise. This is likely to
-get ugly.
+[] Add real questions to databse.
 
-[] Authorization for requested solutions, which, to me, implies that
-exercises and their solutions are requested separately. Hmm, what of
-the seed then?
+[] Add HTML, online homework system-esque, example. Maybe
+[bootswatch](https://bootswatch.com/)'s theme
+[flatly](https://bootswatch.com/flatly/)?
+
+[] Get started for FALL 2019 MATH 314 with check50.
+
+[] Enable more complete/robust testing of the database and TestBank backend.
+
+[] Authorization? I'm thinking anybody can see questions and the code
+that generates them. Anybody can request a solution. But it should
+necessitate some form of authorization to see the code the produces
+the solutions. If seeds are used appropriately, then just knowing the
+answer is 0.532 for a specific seed won't help much. And if no
+randomization is appropriate for a question, then no likely no
+solution code is appropriate.
 
 [] Figure out versions of dependencies.
 
@@ -277,8 +291,6 @@ the seed then?
 [] Insert (possible) FAQs as exercises in the database. Should double
 as helping to explain how to use TestBank and show off some of the
 features, like showing/hiding solutions and ignoring the SEED.
-
-[] Enforce rules/schema for entering exercises into the database.
 
 [] GZIP databases.
 
@@ -311,7 +323,12 @@ and the following packages within each language's ecosystem
   - [pander](https://rapporter.github.io/pander/)
   - [littler](http://dirk.eddelbuettel.com/code/littler.html)
 
-This is my best attempt at a complete list, but I'm still iffy about
+### Development Dependencies
+
+- [jq](https://stedolan.github.io/jq/)
+- [bash](https://www.gnu.org/software/bash/)
+
+THIS is my best attempt at a complete list, but I'm still iffy about
 versions of everything. Let me know what I've missed.
 
 ## License
