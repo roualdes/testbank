@@ -1,20 +1,20 @@
 # TestBank
 
 To perform a quick test of the features, clone this repository and
-`cd` into the directory. Then run TestBank with
+`cd` into the directory. Launch TestBank with
 
 ```
 $ npm install
 $ python3 main.py
 ```
 
-and then in a separate window run
+Then, in a separate window, run
 
 ```
 $ curl http://localhost:3000/ID
 ```
 
-where `ID` can be any exercise ID found in db.json.
+where `ID` can be any exercise ID found in `db.json`.
 
 ## Examples
 
@@ -24,6 +24,10 @@ State](https://www.csuchico.edu/). The second a working example of how
 one could leverage TestBank with
 [check50](https://cs50.readthedocs.io/check50/). Each subfolder has
 its own README.
+
+The files `exampels/add.r` and `examples/add.json` are intended to
+demonstrate the file structure necessary for adding a question to
+TestBank's databases.
 
 ## Data
 
@@ -62,15 +66,13 @@ should enable direct replacement of AND with `&&` and OR with `||`.
 
 ### Output schema
 
-TODO provide descriptions of each part of the schemas.
-
 Each exercise will be returned from the TestBank server as a JSON
 object with one of the two following structures. If an exercise
 is requested, the user will receive a JSON object with the following schema
 
 ```
 {
-    id: "a unique ID, 4 characters long; [0-9a-zA-Z]{4}",
+    id: "a unique ID",
     seed: 1234,
     context: "the context of this exercise",
     questions: ["partA", ..., "partZ"],
@@ -78,6 +80,28 @@ is requested, the user will receive a JSON object with the following schema
     # eg R => list(), Python => dict() or {}
 }
 ```
+
+The order of the following elements of an exercise's output schema is not important.
+
+- `id` string. A string of 4 characters, [0-9a-zA-Z]{4}, that uniquely
+  identifies each exercise. TestBank will generate these autmatically
+  upon insertion of an exercise into its database.
+- `seed` int. A seed for the (pseudo) random number generation which is
+  constrained to be in `[1, min(R int, or Numpy np.uint32)] = [1, 2147483647]`. If no seed is specified with each request for an
+  exercise (or its solution), TestBank will randomly chose a seed.
+  While the `seed` key is required, the value does not necessarily have
+  to exist. TODO choose and establish a reasonable default.
+- `context` string. A string the sets up the exercises context. If no
+  follow up questions are involved in an exercise, the `context` can
+  contain the question/prompt. TODO choose and establish a reasonable default.
+- `questions` array of strings. The `questions` array holds parts,
+  say A, B, C, D, and E, of an exercise as strings. While the
+  `questions` key is required, the value is an optional. TODO choose
+  and establish a reasonable default.
+- `random` associative array. The `random` object holds named
+  elements of the randomly generated components of an exercise. While
+  the `random` key is required, the value is an optional. TODO choose
+  and establish a reasonable default.
 
 If a solution is requested, the user will receive a JSON object with
 the following schema
@@ -92,7 +116,25 @@ the following schema
 }
 ```
 
-There should be some sort of authorization to request a solution set.
+The order of the following elements of an exercise's solution schema is
+not important.
+
+- `id` string. A string of 4 characters, [0-9a-zA-Z]{4}, that
+  uniquely identifies each exercise. TestBank will generate these
+  autmatically upon insertion of an exercise into its database.
+- `seed` int. A seed for the (pseudo) random number generation which
+  is constrained to be in `[1, min(R int, or Numpy np.uint32)] = [1, 2147483647]`. If no seed is specified with each request for an
+  exercise (or its solution), TestBank will randomly chose a seed.
+  While the `seed` key is required, the value does not necessarily have
+  to exist. TODO choose and establish a reasonable default.
+- solution array of strings. The `solution` array contains answers to
+  each part of the exercises `questions`.
+- `random` associative array. The `random` object holds named
+  elements of the randomly generated components of an exercise. While
+  the `random` key is required, the value is an optional. TODO choose
+  and establish a reasonable default.
+
+TODO There should be some sort of authorization to request a solution set.
 
 ## Writing exercises
 
@@ -137,14 +179,19 @@ seeed = #< SEED >#
 #< /solution >#
 ```
 
-If you want to ignore the seed altogether, the JSON file containing
-the exercises meta data should contain an appropriate null value for
-the language the exercise is written in. See
-[examples/ex04.r](https://github.com/roualdes/testbank/tree/master/examples)
-as an example.
+It is possible to ignore the seed template entirely. Simply don't put
+the seed template within the exercise's code.
 
-More examples exist in the [examples/
-directory](https://github.com/roualdes/testbank/tree/master/examples).
+The solution template has two goals. First, to enable a request for a
+specific exercise to return only the solution. Second, when a website
+that permits searching through TestBank's database is developed, the
+solution template is intended to allow for hidden solutions. Thus any
+exercise could be searched, found, and read without displaying the
+solution.
+
+More examples exist in the
+[examples](https://github.com/roualdes/testbank/tree/master/examples)
+directory.
 
 ## Checking an exercise before entering it into the database
 
@@ -202,9 +249,8 @@ $ node cli.js insert ex.json
 
 Where `ex.json` is JSON file for an exercise which provides some meta
 information about the exercise to be entered. See examples in the
-[examples/
-directory](https://github.com/roualdes/testbank/tree/master/examples)
-for more information.
+[examples](https://github.com/roualdes/testbank/tree/master/examples)
+directory for more information.
 
 ## TODO
 
@@ -221,7 +267,9 @@ the seed then?
 
 [] Insert (possible) FAQs as exercises in the database. Should double
 as helping to explain how to use TestBank and show off some of the
-features, like showing/hiding solutions and leaving null the SEED.
+features, like showing/hiding solutions and ignoring the SEED.
+
+[] Enforce rules/schema for entering exercises into the database.
 
 [] GZIP databases.
 
@@ -229,9 +277,9 @@ features, like showing/hiding solutions and leaving null the SEED.
 
 To successfully run all of the examples, one needs
 
-- [Node.js](https://nodejs.org/),
-- [Python3](https://www.python.org/),
-- [R](https://www.r-project.org/),
+- [Node.js](https://nodejs.org/)
+- [Python3](https://www.python.org/)
+- [R](https://www.r-project.org/)
 
 and the following packages within each language's ecosystem
 
