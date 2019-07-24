@@ -1,5 +1,5 @@
 {
-  "ID": "ID and SEED are just for local testing",
+  "ID": "fake",
   "SEED": 54321,
   "code": "add.r",
   "tags": ["FAQ", "add an exercise"]

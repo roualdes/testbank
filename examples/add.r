@@ -31,7 +31,7 @@ cat(output)
 sol <- toJSON(list(
   id = id,
   seed = seed,
-  solution = c("Moar wordz."),
+  solutions = c("Moar wordz."),
   random = list(x = x)))
 cat(sol)
 #< /solution >#

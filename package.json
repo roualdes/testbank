@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A database manager for test questions.",
   "private": true,
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "body-parser": "^1.19.0",
     "commander": "^2.20.0",

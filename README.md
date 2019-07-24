@@ -90,27 +90,25 @@ The order of the following elements of an exercise's output schema is not import
   constrained to be in `[1, min(R int, or Numpy np.uint32)] = [1, 2147483647]`. If no seed is specified with each request for an
   exercise (or its solution), TestBank will randomly chose a seed.
   While the `seed` key is required, the value does not necessarily have
-  to exist. TODO choose and establish a reasonable default.
+  to exist.
 - `context` string. A string the sets up the exercises context. If no
   follow up questions are involved in an exercise, the `context` can
-  contain the question/prompt. TODO choose and establish a reasonable default.
+  contain the question/prompt.
 - `questions` array of strings. The `questions` array holds parts,
   say A, B, C, D, and E, of an exercise as strings. While the
-  `questions` key is required, the value is an optional. TODO choose
-  and establish a reasonable default.
+  `questions` key is required, the value is an optional.
 - `random` associative array. The `random` object holds named
   elements of the randomly generated components of an exercise. While
-  the `random` key is required, the value is an optional. TODO choose
-  and establish a reasonable default.
+  the `random` key is required, the value is an optional.
 
 If a solution is requested, the user will receive a JSON object with
 the following schema
 
 ```
 {
+  id: "a unique ID",
   seed: 1234,
-  id: "a unique ID, 4 characters long; [0-9a-zA-Z]{4}",
-  solution: ["partA", ..., "partZ"],
+  solutions: ["partA", ..., "partZ"],
   random: {X: x, μ: m, σ: s} # Associative Array specific to language
   # eg R => list(), Python => dict() or {}
 }
@@ -126,15 +124,12 @@ not important.
   is constrained to be in `[1, min(R int, or Numpy np.uint32)] = [1, 2147483647]`. If no seed is specified with each request for an
   exercise (or its solution), TestBank will randomly chose a seed.
   While the `seed` key is required, the value does not necessarily have
-  to exist. TODO choose and establish a reasonable default.
+  to exist.
 - solution array of strings. The `solution` array contains answers to
   each part of the exercises `questions`.
 - `random` associative array. The `random` object holds named
   elements of the randomly generated components of an exercise. While
-  the `random` key is required, the value is an optional. TODO choose
-  and establish a reasonable default.
-
-TODO There should be some sort of authorization to request a solution set.
+  the `random` key is required, the value is an optional.
 
 ## Writing exercises
 
@@ -201,12 +196,26 @@ sever, _stability_ of the kernel, and _response_ time.
 
 ### Steps
 
-1. Eyeball code for malicious content.
-2. Esnure run time is approximately less 2 seconds by
-   testing the exercise, see TestBank CLI below. For instance, could
-   run something like
-   `time node cli.js test examples/ex01.json | python`
-3. Run TestBank's CLI command `upsert`, see TestBank CLI below.
+Assume the exercise to be entered is stored in the path
+`examples/add.r` with meta data file at `examples/add.json`. All
+calls to `node cli.js` are described in more detail below.
+
+1. Eyeball code in `add.r` for malicious content.
+   Ensure
+2. Mustache templating is working with
+   `node cli.js test examples/add.json exercise` and
+   `node cli.js test examples/add.json solution`.
+3. run time is approximately less 2 seconds by
+   testing the exercise with something like
+   `time lr -e "$(node cli.js test examples/add.json exercise)"`
+4. the exercise produces valid JSON with
+   `lr -e "$(node cli.js test examples/add.json exercise)" | python -m json.tool`
+5. the returned JSON has the appropriate exercise and solution
+   schema. If [jq](https://stedolan.github.io/jq/) is installed, then
+   the bash script `./test_schema.sh` can help via
+   `lr -e "$(node cli.js test examples/add.json exercise)" | python -m json.tool | bash ./test_schema.sh`
+
+If the tests aboveun TestBank's CLI command `upsert`, see TestBank CLI below.
 
 ## TestBank command line interface (CLI)
 
