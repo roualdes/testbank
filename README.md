@@ -231,13 +231,13 @@ below must be run from the root directory of this repository.
 
 To test whether or not an exercise will run (after the Mustache tags
 are entered), consider the file
-[examples/ex03.r](https://github.com/roualdes/testbank/tree/master/examples/ex03.r).
+[examples/add.r](https://github.com/roualdes/testbank/tree/master/examples/add.r).
 At the command line, with
 [littler](http://dirk.eddelbuettel.com/code/littler.html)
 installed/aliased as `lr` run
 
 ```
-$ lr -e "$(node cli.js test examples/ex03.json exercise)"
+$ lr -e "$(node cli.js test examples/add.json exercise)"
 ```
 
 If the above command runs just fine, then there's a hope that your
