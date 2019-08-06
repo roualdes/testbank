@@ -266,7 +266,7 @@ directory for more information.
 
 ## TODO
 
-[] Add real questions to databse.
+[] Add real questions to database.
 
 [] Add HTML, online homework system-esque, example. Maybe
 [bootswatch](https://bootswatch.com/)'s theme
@@ -294,22 +294,28 @@ features, like showing/hiding solutions and ignoring the SEED.
 
 [] GZIP databases.
 
-## Dependencies
+[] Restart Jupyter kernel's when/if they crash.
 
-To successfully run all of the examples, one needs
+## Development
+
+To work on TestBank, the following dependencies are necessary. There
+is an [Ansible](https://www.ansible.com/) playbook named `ansible.yml`
+that can set up an Ubuntu 18 machine, if you prefer.
 
 - [Node.js](https://nodejs.org/)
+  - all of the Node.js packages within the file `package.json`, which
+    can be installed with `npm install` from within this directory.
 - [Python3](https://www.python.org/)
 - [R](https://www.r-project.org/)
 
-and the following packages within each language's ecosystem
+The following packages within each language's ecosystem
 
-- Use [pip](https://pip.pypa.io/en/stable/) to obtain
+- For Python use [pip](https://pip.pypa.io/en/stable/) to obtain
   - [jupyterlab](https://jupyterlab.readthedocs.io/en/stable/)
   - [numpy](https://www.numpy.org/)
   - [scipy](https://www.scipy.org/)
   - [pandas](https://pandas.pydata.org/)
-- Use R's function `install.packages()` to obtain
+- For R use the function `install.packages()` to obtain
   - [IRkernel](https://github.com/IRkernel/IRkernel)
     - After installation, in R (not RStudio), within a Terminal that
       has access to the Python envirnoment containing jupyterlab, run
@@ -323,12 +329,12 @@ and the following packages within each language's ecosystem
   - [pander](https://rapporter.github.io/pander/)
   - [littler](http://dirk.eddelbuettel.com/code/littler.html)
 
-### Development Dependencies
+And for tests one needs,
 
-- [jq](https://stedolan.github.io/jq/)
 - [bash](https://www.gnu.org/software/bash/)
+- [jq](https://stedolan.github.io/jq/)
 
-THIS is my best attempt at a complete list, but I'm still iffy about
+This is my best attempt at a complete list, but I'm still iffy about
 versions of everything. Let me know what I've missed.
 
 ## License
