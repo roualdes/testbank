@@ -9,22 +9,53 @@ command -v jq >/dev/null 2>&1 || { echo >&2 "TestBank's test_*_schema.sh \
         scripts require jq, but it's not installed.  Aborting."; exit 1; }
 
 STDIN=$(cat);
-echo "$STDIN" | jq 'has("id") and
-                   (.id |
-                        (length == 4 or
-                                (length == 1 and (.[] | length == 4)))) and
-                   has("seed") and
-                   (.seed |
-                          (.[] | (. >= 1 and . <= 2147483647) or
-                          (. >= 1 and . <= 2147483647))) and
-                   (has("questions") or has("solutions")) and
-                   if has("questions") then
-                      (.context | length > 0) and
-                      (.questions | type == "array")
-                   elif has("solutions") then
-                      (.solutions | type == "array")
-                   else
-                      false
-                   end and
-                   has("random") and
-                   (.random | type == "object")';
+
+HAS_ID=$(echo "$STDIN" | jq 'has("id")');
+if [[ "$HAS_ID" != "true" ]]; then
+  printf "Exercise needs key 'id'.\n"
+fi
+
+HAS_SEED=$(echo "$STDIN" | jq 'has("seed")');
+if [[ "$HAS_SEED" != "true" ]]; then
+  printf "Exercise needs key 'seed'.\n"
+fi
+
+HAS_QUESTIONS=$(echo "$STDIN" | jq 'has("questions")');
+HAS_SOLUTINOS=$(echo "$STDIN" | jq 'has("solutions")');
+
+if [[ "$HAS_QUESTIONS" != "true" ]] || [[ "$HAS_SOLUTIONS" != "true" ]]; then
+  if [[ "$HAS_QUESTIONS" == "true" ]]; then
+
+    CONTEXT_CORRECT=$(echo "$STDIN" | jq '(.context | length > 0)');
+    if [[ "$CONTEXT_CORRECT" != "true" ]]; then
+      printf "Exercise's context is incorrectly specified.\n";
+    fi
+
+    QUESTIONS_CORRECT=$(echo "$STDIN" | jq '(.questions | type == "array")');
+    if [[ "$QUESTIONS_CORRECT" != "true" ]]; then
+      printf "Exercise's questions are incorrectly specified.\n";
+    fi
+
+  fi
+
+  if [[ "$HAS_SOLUTIONS" == "true" ]]; then
+
+    SOLUTIONS_CORRECT=$(echo "$STDIN" | jq '(.solutions | type == "array")');
+    if [[ "$SOLUTIONS_CORRECT" != "true" ]]; then
+      printf "Exercise's solutions are incorrectly specified.\n";
+    fi
+
+  fi
+else
+  printf "Exercise needs exactly one of the following keys: questions OR solutions.\n";
+fi
+
+HAS_RANDOM=$(echo "$STDIN" | jq 'has("random")');
+if [[ "$HAS_RANDOM" != "true" ]]; then
+
+  RANDOM_CORRECT=$(echo "$STDIN" | jq '(.random | type == "object")');
+  if [[ "$RANDOM_CORRECT" != "true" ]]; then
+    printf "Exercise has appropriate key 'random', but is incorrectly specified.\n";
+  fi
+
+fi
