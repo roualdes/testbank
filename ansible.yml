@@ -1,0 +1,124 @@
+## Copyright (c) 2019, Edward A. Roualdes
+## Distributed under the terms of the Modified BSD License.
+
+## $ ansible-playbook ansible.yml -k -K
+
+---
+- hosts: testbank
+  remote_user: edward
+  gather_facts: false
+  vars:
+    apt_packages: ['curl', 'git', 'build-essential', 'ufw',
+    'apt-transport-https', 'nginx', 'jq', 'libssl-dev', 'libxml2-dev',
+    'r-cran-littler', 'certbot', 'software-properties-common']
+    python_packages: ['jupyterlab', 'numpy', 'scipy', 'pandas']
+    r_base_packages: ['r-base', 'r-base-dev', 'libopenblas-base',
+    'libcurl4-openssl-dev']
+  tasks:
+    - name: Add CRAN GPG
+      become: yes
+      become_user: root
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+        state: present
+
+    - name: Add CRAN apt repository
+      become: yes
+      become_user: root
+      apt_repository:
+        repo: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+        update_cache: yes
+
+    - name: Add certbot apt repository
+      become: yes
+      become_user: root
+      apt_repository:
+        repo: ppa:certbot/certbot
+        update_cache: yes
+
+    - name: Update apt
+      become: yes
+      become_user: root
+      apt:
+        update_cache: yes
+
+    - name: Install required system packages
+      become: yes
+      become_user: root
+      apt:
+        name: "{{ apt_packages }}"
+        state: latest
+
+    - name: Upgrade all system packages
+      become: yes
+      become_user: root
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Remove useless packages from the cache
+      become: yes
+      become_user: root
+      apt:
+        autoclean: yes
+
+    - name: Remove dependencies that are no longer required
+      become: yes
+      become_user: root
+      apt:
+        autoremove: yes
+
+    - name: install node
+      become: yes
+      become_user: root
+      shell: |
+        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
+
+    - name: Install Pip
+      become: yes
+      become_user: root
+      package:
+        name: python3-pip
+        state: present
+
+    - name: Install Python packages
+      become: yes
+      become_user: root
+      pip:
+        name: "{{ python_packages }}"
+        state: latest
+        executable: pip3
+
+    - name: Install R core
+      become: yes
+      become_user: root
+      package:
+        name: "{{ r_base_packages }}"
+        state: present
+
+    - name: Install R packages
+      become: yes
+      become_user: root
+      command: >
+        Rscript --slave --no-save --no-restore-history -e "if (!('{{item }}' %in% installed.packages()[,'Package'])) {install.packages(pkgs='{{ item }}', repos='http://cran.rstudio.com/', INSTALL_opts='--no-lock'); print('Added'); } else { print('Already installed'); }"
+      register: r_result
+      failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
+      changed_when: "'Added' in r_result.stdout"
+      with_items:
+        - dplyr
+        - tidyverse
+        - jsonlite
+        - pander
+        - IRkernel
+
+    - name: Install IRkernel spec
+      become: yes
+      become_user: root
+      command: "r -e 'library(IRkernel); IRkernel::installspec()'"
+
+
+  # - name: start nginx
+  #   service:
+  #       name: nginx
+  #       state: started

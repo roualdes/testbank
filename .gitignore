@@ -4,6 +4,7 @@ config.json
 test.*
 edit.*
 edit_r.*
+notes.org
 
 ### python ###
 __pycache__/
