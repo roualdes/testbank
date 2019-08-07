@@ -6,7 +6,7 @@ from scipy.stats import norm
 
 seed = int(sys.argv[1])
 params = {'seed': seed}
-r = requests.get('http://localhost:3000/0Y7x', params=params)
+r = requests.get('https://testbank.roualdes.us/0Y7x', params=params)
 ex = r.json()
 X = ex['random']['X']
 

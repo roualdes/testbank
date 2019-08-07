@@ -12,21 +12,21 @@ library(jsonlite)
 library(dplyr)
 library(ggplot2)
 idx <- 0
-exercise <- function(ex) {
-  idx <<- idx + 1
-  cat(cat(idx, ".", sep=""), ex$context, "\n\n")
-  for (e in seq_along(ex$questions)) {
-    cat(cat("\t", letters[e], ".", sep=""), ex$questions[e], "\n\n")
-  }
+exercise <- function(id) {
+    req <- curl_fetch_memory(paste0("https://testbank.roualdes.us/", id))
+    ex <- fromJSON(rawToChar(req$content))
+    idx <<- idx + 1
+    cat(cat(idx, ".", sep=""), ex$context, "\n\n")
+    for (e in seq_along(ex$questions)) {
+        cat(cat("\t", letters[e], ".", sep=""), ex$questions[e], "\n\n")
+    }
 }
 exs <- c("exd3", "OqHz", "pOkn", "aqdK")
 
 ```
 
 ```{r, exercise01, echo=FALSE, results='asis'}
-req <- curl_fetch_memory(paste0("http://localhost:3000/", exs[1]))
-ex01 <- fromJSON(rawToChar(req$content))
-exercise(ex01)
+exercise(exs[1])
 ```
 
 ```{r, echo=FALSE, fig.width=5, fig.height=3}
@@ -44,20 +44,14 @@ ggplot(tree, aes(Girth, Volume, color=type, shape=type)) +
 
 
 ```{r, exercise02, echo=FALSE, results='asis'}
-req <- curl_fetch_memory(paste0("http://localhost:3000/", exs[2]))
-ex02 <- fromJSON(rawToChar(req$content))
-exercise(ex02)
+exercise(exs[2])
 ```
 
 
 ```{r, exercise03, echo=FALSE, results='asis'}
-req <- curl_fetch_memory(paste0("http://localhost:3000/", exs[3]))
-ex03 <- fromJSON(rawToChar(req$content))
-exercise(ex03)
+exercise(exs[3])
 ```
 
 ```{r, exercise04, echo=FALSE, results='asis'}
-req <- curl_fetch_memory(paste0("http://localhost:3000/", exs[4]))
-ex04 <- fromJSON(rawToChar(req$content))
-exercise(ex04)
+exercise(exs[4])
 ```
