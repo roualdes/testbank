@@ -1,0 +1,6 @@
+{
+  "ID": "ID and SEED are just for local testing",
+  "SEED": 1234,
+  "code": "solution_schema_seed.py",
+  "tags": ["schema"]
+}
