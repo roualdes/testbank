@@ -13,14 +13,10 @@ command -v node >/dev/null 2>&1 || { echo >&2 "TestBank's
 command -v jq >/dev/null 2>&1 || { echo >&2 "TestBank's test_exercise.sh \
         scripts require jq, but it's not installed.  Aborting."; exit 1; }
 
-# TODO solution to  make 'command -v lr' work on mac OS, since
-# lr is set up as an alias.  If you know, please file a pull request.
-
-# command -v lr >/dev/null 2>&1 || { echo >&2 "TestBank's
-#         test_exercise.sh \ scripts require littler (lr), but it's not
-#         installed.  Be sure to install all necessary R packages as
-#         well.  Aborting."; exit 1; }
-
+command -v lr >/dev/null 2>&1 || { echo >&2 "TestBank's
+        test_exercise.sh \ scripts require littler (lr), but it's not
+        installed.  Be sure to install all necessary R packages as
+        well.  Aborting."; exit 1; }
 
 command -v lr >/dev/null 2>&1 || alias | grep 'lr' >/dev/null 2>&1 ||
 
@@ -43,6 +39,8 @@ file=$(cat "$jsonpath" | jq -r '.code')
 fileDir=$(dirname "$jsonpath")
 filepath="$fileDir/$file"
 
+extension="${file##*.}"
+
 exs=(exercise solution)
 for ex in ${exs[@]}; do
   failed=0
@@ -57,13 +55,20 @@ for ex in ${exs[@]}; do
       cat "$jsonpath";
     fi
 
-    failed=1
-    continue
+    failed=1;
+    continue;
   fi
 
   # something to figure out which program needs to run
   if [ "$failed" -eq 0 ]; then
-    code=$(echo "$mustache" | python3);
+    if [ "$extension" == "py" ]; then
+      code=$(echo "$mustache" | python3);
+    elif [ "$extension" == "r" ] || [ "$extension" == "R" ]; then
+      code=`lr -e "$(echo "$mustache")"`
+    else
+      echo "exercise.sh does not know the programming langauge specified in $jsonpath.";
+      continue;
+    fi
     status=$?
     if [ $status -ne 0 ]; then
       echo "Code or Mustache templates incorrectly specified.";
@@ -72,8 +77,8 @@ for ex in ${exs[@]}; do
         echo "$mustache";       # print input to this paragraph
       fi
 
-      failed=1
-      continue
+      failed=1;
+      continue;
     fi
   fi
 
@@ -86,8 +91,8 @@ for ex in ${exs[@]}; do
       echo "$code";
     fi
 
-    failed=1
-    continue
+    failed=1;
+    continue;
   fi
 
   schema=$(echo "$json" | bash "$testDir"/schema.sh);
@@ -98,13 +103,13 @@ for ex in ${exs[@]}; do
       echo "$json";
     fi
 
-    failed=1
-    continue
+    failed=1;
+    continue;
   fi
 
   if [ "$failed" -ne 0 ]; then
-    printf "FAIL.\n"
+    printf "FAIL.\n";
   else
-    printf "pass.\n"
+    printf "pass.\n";
   fi
 done

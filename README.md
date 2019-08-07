@@ -232,8 +232,8 @@ To ensure that the output is a correctly formatted JSON object, run
 $ node cli.js test examples/ex01.json solution | python3 | python3 -m json.tool
 ```
 
-To ensure that the outputt, and correctly formatted, JSON object is an
-appropriate schme run
+To ensure that the output, and correctly formatted, JSON object
+appropriately follows the Output schema run
 
 ```
 $ node cli.js test examples/ex01.json solution | python3 | python3 -m
@@ -325,10 +325,12 @@ The following packages within each language's ecosystem
   - [tidyverse](https://ggplot2.tidyverse.org/)
   - [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html)
   - [pander](https://rapporter.github.io/pander/)
-  - [littler](http://dirk.eddelbuettel.com/code/littler.html)
 
 And for tests one needs,
 
+- [littler](http://dirk.eddelbuettel.com/code/littler.html)
+  - This can not be installed as an alias, since some scripts
+    necessitate `lr` being on the path.
 - [bash](https://www.gnu.org/software/bash/)
 - [jq](https://stedolan.github.io/jq/)
 
