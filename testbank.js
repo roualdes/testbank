@@ -61,10 +61,10 @@ router.get('/:ID', (req, res) => {
       .find({ id: ID })
       .value();
     if (!e) {
-      res.render('error', { error: `No exercise matching ID ${ID}` });
+      res.json({ error: `No exercise matching ID ${ID}` });
     }
   } else {
-    res.render('error', { error: 'No request parameter.' });
+    res.json({ error: 'No request parameter.' });
   }
 
   // match exercise <=> kernel
@@ -83,7 +83,7 @@ router.get('/:ID', (req, res) => {
       session = pythonSession;
       break;
     default:
-      res.render('error', {
+      res.json({
         error:
       `No kernel available for exercise matching ID ${req.params.ID}.  Please contact eroualdes@csuchico.edu`,
       });

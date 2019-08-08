@@ -5,6 +5,9 @@ test.*
 edit.*
 edit_r.*
 notes.org
+update_db.yml
+update_db.sh
+update_app.yml
 
 ### python ###
 __pycache__/
