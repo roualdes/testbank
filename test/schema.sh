@@ -21,9 +21,9 @@ if [[ "$HAS_SEED" != "true" ]]; then
 fi
 
 HAS_QUESTIONS=$(echo "$STDIN" | jq 'has("questions")');
-HAS_SOLUTINOS=$(echo "$STDIN" | jq 'has("solutions")');
+HAS_SOLUTIONS=$(echo "$STDIN" | jq 'has("solutions")');
 
-if [[ "$HAS_QUESTIONS" != "true" ]] || [[ "$HAS_SOLUTIONS" != "true" ]]; then
+if [[ "$HAS_QUESTIONS" == "true" ]] || [[ "$HAS_SOLUTIONS" == "true" ]]; then
   if [[ "$HAS_QUESTIONS" == "true" ]]; then
 
     CONTEXT_CORRECT=$(echo "$STDIN" | jq '(.context | length > 0)');
