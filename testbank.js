@@ -118,7 +118,7 @@ router.get('/:ID', (req, res) => {
       .isEmpty()
       .value();
     if (notAuthorized) {
-      res.json({ error: 'unauthorized' });
+      res.json({ solutions: 'unauthorized' });
       return;
     }
   }
