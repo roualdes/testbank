@@ -116,9 +116,3 @@
       become: yes
       become_user: root
       command: "r -e 'library(IRkernel); IRkernel::installspec()'"
-
-
-  # - name: start nginx
-  #   service:
-  #       name: nginx
-  #       state: started

@@ -21,6 +21,9 @@ function randomInt(min, max) {
 const dbAdapter = new FileSync('db.json');
 const db = low(dbAdapter);
 
+const authAdapter = new FileSync('auth.json');
+const authDB = low(authAdapter);
+
 // kernels
 const rKernel = {
   kernelName: 'ir',
@@ -62,9 +65,11 @@ router.get('/:ID', (req, res) => {
       .value();
     if (!e) {
       res.json({ error: `No exercise matching ID ${ID}` });
+      return;
     }
   } else {
     res.json({ error: 'No request parameter.' });
+    return;
   }
 
   // match exercise <=> kernel
@@ -92,6 +97,7 @@ router.get('/:ID', (req, res) => {
   // prepare Mustache meta data
   let SEED = parseInt(req.query.seed, 10);
   let { solution } = req.query;
+  const { auth } = req.query;
   if (SEED == null || !Number.isInteger(SEED)) {
     // R has a smaller max int than python
     // .Machine$integer.max < np.iinfo(np.uint32)
@@ -104,6 +110,17 @@ router.get('/:ID', (req, res) => {
   } else {
     solution = true;
     exercise = false;
+  }
+
+  if (solution && SEED % 2 === 0) {
+    const notAuthorized = authDB.get('auth')
+      .filter({ key: auth })
+      .isEmpty()
+      .value();
+    if (notAuthorized) {
+      res.json({ error: 'unauthorized' });
+      return;
+    }
   }
 
   const meta = {
