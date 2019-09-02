@@ -39,8 +39,7 @@ if [[ "$HAS_QUESTIONS" == "true" ]] || [[ "$HAS_SOLUTIONS" == "true" ]]; then
   fi
 
   if [[ "$HAS_SOLUTIONS" == "true" ]]; then
-
-    SOLUTIONS_CORRECT=$(echo "$STDIN" | jq '(.solutions | type == "array")');
+    SOLUTIONS_CORRECT=$(echo "$STDIN" | jq '(.solutions | type == "array" or type == "string" or type == "number")');
     if [[ "$SOLUTIONS_CORRECT" != "true" ]]; then
       echo "'solutions' are incorrectly specified\n";
     fi
