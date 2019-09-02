@@ -105,7 +105,7 @@ the following schema
 {
   id: "a unique ID",
   seed: 1234,
-  solutions: ["partA", ..., "partZ"],
+  solutions: 0.314 || "0.314" || ["partA", ..., "partZ"],
   random: {X: x, μ: m, σ: s} # Associative Array specific to language
   # eg R => list(), Python => dict() or {}
 }
@@ -113,8 +113,11 @@ the following schema
 
 Again, the order is not important. `solutions` is the only new key.
 
-- `solutions` array of strings. The `solutions` array contains answers to
-  each part of the exercise's `questions`.
+- `solutions` number, string, or array of strings. If questions is an
+  array, then `solutions` should be an array containing answers to
+  each part of the exercise's `questions`. If questions is an empty
+  array, then `solutions` can be a number or a string, appropriately
+  matching the prompt of `context`.
 
 ## Writing exercises
 
@@ -265,7 +268,8 @@ directory for more information.
 
 ## TODO
 
-[] Get started for FALL 2019 MATH 314 with check50.
+[] Add to README something about requesting solutions based on
+evenness of seed.
 
 [] Enable more complete/robust testing of the database and TestBank
 backend.
