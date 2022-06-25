@@ -12,7 +12,7 @@
     "@jupyterlab/services": "^3.2.1",
     "lowdb": "^1.0.0",
     "mustache": "^3.0.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "ws": "^7.0.0"
   },
   "lint-staged": {
