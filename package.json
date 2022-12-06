@@ -6,9 +6,9 @@
   "private": true,
   "license": "BSD-3-Clause",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.2",
     "commander": "^2.20.0",
-    "express": "~4.17.1",
+    "express": "~4.17.3",
     "@jupyterlab/services": "^3.2.1",
     "lowdb": "^1.0.0",
     "mustache": "^3.0.1",
