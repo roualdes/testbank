@@ -35,6 +35,7 @@ const pythonKernel = {
   path: 'python.ipynb',
 };
 
+// sessions
 let rSession;
 Session.startNew(rKernel)
   .then((s) => {
@@ -54,6 +55,11 @@ Session.startNew(pythonKernel)
     console.error(err);
     process.exit(1);
   });
+
+// routes
+router.get('/', (req, res) => {
+  res.json(db);
+});
 
 router.get('/:ID', (req, res) => {
   // find exercise
